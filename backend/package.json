@@ -1,0 +1,1 @@
+{"name":"monocromat-backend","version":"0.1.0","private":true,"type":"commonjs","scripts":{"test":"node --test test/*.test.js"},"dependencies":{"express":"^4.21.2","pg":"^8.13.1"},"engines":{"node":">=20"},"devDependencies":{"supertest":"^7.3.2"}}

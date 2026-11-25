@@ -1,0 +1,2 @@
+const test=require('node:test');const assert=require('node:assert/strict');const {hashPassword,verifyPassword}=require('../lib/password');
+test('contraseña válida se verifica y no coincide otra',async()=>{let h=await hashPassword('frase-segura-1234');assert.equal(await verifyPassword('frase-segura-1234',h),true);assert.equal(await verifyPassword('incorrecta',h),false)});test('rechaza contraseñas débiles o hash inválido',async()=>{await assert.rejects(hashPassword('corta'));assert.equal(await verifyPassword('frase-segura-1234','invalido'),false)});
