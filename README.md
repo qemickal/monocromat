@@ -20,8 +20,28 @@ Esto es lo que se agregó:
 | `tools/pwa.test.mjs` | Pruebas del manifest, íconos, service worker, offline y servidor. |
 | `tools/quote-autofill.test.mjs` | Pruebas del autocompletado de clientes. |
 | `tools/local-flow.test.mjs` | Pruebas de folios, fechas, estados, vínculo e historial. |
+| `tools/polish.test.mjs` | Pruebas de la pulida 2026-11-25 (ver abajo). |
 
 También se optimizó `logo.png` (1.6 MB → 255 KB) y se añadió en la app el botón **Instalar app**, el aviso **Sin conexión**, la actualización automática del service worker y los atajos del manifest (`/?view=quote&new=1`, etc.).
+
+## Pulida 2026-11-25 — «Hoy en el taller» (rama `polish/hoy-en-el-taller`)
+
+El panorama ya no es una rejilla de tarjetas: es una cola de trabajo en una sola columna, ordenada por urgencia:
+
+1. **Hoy — entregas**: las entregas de hoy y las vencidas primero, con cliente, proyecto y forma de entrega.
+2. **En producción ahora**: pipeline Confirmado → Producción → Calidad → Entrega con su conteo, y los trabajos trabados (4 días o más en la misma etapa) marcados con los días que llevan ahí.
+3. **Dinero que falta**: pedidos con saldo pendiente, ordenados por monto, con «Registrar abono» en la misma fila.
+4. **Cotizaciones esperando**: cotizaciones enviadas con sus días sin respuesta y «Recordar por WhatsApp».
+5. Un botón grande **+ Nueva cotización** al final.
+
+El resto de la pulida:
+
+- **Respaldo**: en el panorama, **Exportar respaldo** descarga un JSON con clientes, cotizaciones, pedidos y contadores de folios; **Importar respaldo** lo restaura (pide confirmación y valida que el archivo sea un respaldo de Mono Cromat antes de tocar nada).
+- **Cotización usable**: nueva sección **00 / Especificación del trabajo** — servicio (de la lista real del estudio), cantidad, formato/medidas, papel, fecha de entrega, anticipo, vigencia y acabados estrella como casillas (texturas en frío, hot stamping, laminados térmicos). Las opciones ya no son texto libre con un solo total: son partidas **cantidad × precio unitario = total**, con subtotal, IVA 16 % y anticipo. La validación es en línea (cliente, proyecto, técnica, cantidad y precio > 0) y hay **autoguardado del borrador** («Borrador guardado HH:MM»). Guardar y crear pedido están separados: crear pedido abre un panel de confirmación con el resumen antes de crear nada. La producción hereda la especificación en vez de reescribirla a mano.
+- **Enviar por WhatsApp**: el botón abre WhatsApp con el mensaje de la cotización ya escrito (al número del estudio, 55 4929 1166, o al teléfono del cliente si está en el directorio). El QR falso ya no existe.
+- **Sin diálogos del navegador**: ningún `alert()` ni `confirm()` en la app; los avisos usan el toast de la PWA y las eliminaciones piden confirmación en el mismo toast.
+- **Marca**: papel `#FAF7F4` y Blanco Hielo `#F5F8FA` (fondo del manifest y lavado de página); `CACHE_VERSION` subió a `v5`. La versión de caché vive solo en `sw.js`: es la única fuente.
+- **Ícono M (candidato, NO final)**: `icons/m-192.png`, `icons/m-512.png`, `icons/m-maskable-512.png` y `icons/m-apple-touch-icon.png` son un trazo raster de la M sólida de Mick (blanca sobre negro, plana, sin textura), trazada a partir de su propia imagen y reproducida en royal #2E48A1 sobre papel #FAF7F4 y en blanco sobre oxford #081C30. El manifest **sigue apuntando a los íconos del mono**; el cambio a la M es una decisión pendiente de Mick. Para activarlo: cambiar los íconos del manifest a `icons/m-*.png`, el favicon, y subir `CACHE_VERSION`. La versión vectorial final (formas cerradas, para bordado/sello/suajado) sigue pendiente.
 
 ### Ícono de la app
 
@@ -34,7 +54,7 @@ El ícono es la mascota del mono (2048×2048 original). Se generan estos tamaño
 | `icons/apple-touch-icon.png` (180×180) | Pantalla de inicio en iOS. |
 | `icons/favicon-32.png` y `favicon.ico` | Pestaña del navegador, con recorte más cerrado para que la cara se lea a 32 px. |
 
-Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos.
+Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos. La M candidata (`icons/m-*.png`) aún no está activa: ver «Pulida 2026-11-25» arriba.
 
 ## Autocompletado de clientes
 
@@ -81,7 +101,7 @@ En iPhone / iPad (Safari): **Compartir → Añadir a pantalla de inicio**. La ap
 ## Pruebas
 
 ```bash
-node --test tools/pwa.test.mjs tools/quote-autofill.test.mjs tools/local-flow.test.mjs
+node --test tools/pwa.test.mjs tools/quote-autofill.test.mjs tools/local-flow.test.mjs tools/polish.test.mjs
 ```
 
 Las pruebas revisan:
@@ -94,7 +114,8 @@ Las pruebas revisan:
 - normalización de nombres, coincidencia exacta, prefijo único y prefijo ambiguo;
 - que el pedido herede los datos del cliente y el correo manual nunca se sobrescriba;
 - folios consecutivos por tipo, formato de fechas y normalización de datos viejos;
-- que la interfaz conserve folio, fecha, estado, vínculo, borrado e historial.
+- que la interfaz conserve folio, fecha, estado, vínculo, borrado e historial;
+- el dashboard «Hoy en el taller», el respaldo JSON, la especificación y las partidas de la cotización, el envío por WhatsApp, la marca (papel y Blanco Hielo), los íconos M y que no quede ningún `alert()`/`confirm()`.
 
 ## Publicar en Vercel
 
@@ -112,7 +133,7 @@ O desde el panel: **Add New → Project → monocromat → Deploy**. Framework: 
 
 Cuando cambies `index.html` u otro archivo del shell:
 
-1. Sube `CACHE_VERSION` en `sw.js` (`v4` → `v5`).
+1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v5`; el siguiente cambio sería `v5` → `v6`).
 2. Publica de nuevo.
 
 La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva del estudio»** con el botón **Actualizar**; al aceptarlo se activa el service worker nuevo y se recarga.
@@ -122,5 +143,5 @@ La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva d
 ## Notas y pendientes
 
 - El service worker solo se activa en HTTPS o en `localhost`.
-- Los datos viven en `localStorage`: si se borran los datos del sitio, se pierden. El `backend/` y `database/` aún no están conectados a la app (siguen siendo un borrador).
+- Los datos viven en `localStorage`: si se borran los datos del sitio, se pierden. Usa **Exportar respaldo** en el panorama para guardar una copia (y **Importar respaldo** para restaurarla). El `backend/` y `database/` aún no están conectados a la app (siguen siendo un borrador).
 - Para que la instalación sea válida, el manifest y los íconos deben servirse desde la raíz del dominio (`/manifest.webmanifest`, `/icons/...`), como hace este repositorio.

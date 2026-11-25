@@ -5,9 +5,10 @@
    - Recursos estáticos: stale-while-revalidate.
    - Fuentes de Google: stale-while-revalidate en caché aparte.
    - /api/*: nunca se cachea (datos siempre frescos).
-   Al publicar cambios en index.html hay que subir CACHE_VERSION. */
+   Al publicar cambios en index.html hay que subir CACHE_VERSION.
+   CACHE_VERSION vive solo aquí: es la única fuente de la versión de caché. */
 
-const CACHE_VERSION = 'v4';
+const CACHE_VERSION = 'v5';
 const SHELL_CACHE = `mono-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mono-runtime-${CACHE_VERSION}`;
 const RUNTIME_LIMIT = 80;
@@ -22,7 +23,11 @@ const SHELL = [
   '/icons/icon-512.png',
   '/icons/maskable-512.png',
   '/icons/apple-touch-icon.png',
-  '/icons/favicon-32.png'
+  '/icons/favicon-32.png',
+  '/icons/m-192.png',
+  '/icons/m-512.png',
+  '/icons/m-maskable-512.png',
+  '/icons/m-apple-touch-icon.png'
 ];
 
 const FONT_HOSTS = new Set(['fonts.googleapis.com', 'fonts.gstatic.com']);
