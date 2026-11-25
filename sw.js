@@ -7,7 +7,7 @@
    - /api/*: nunca se cachea (datos siempre frescos).
    Al publicar cambios en index.html hay que subir CACHE_VERSION. */
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const SHELL_CACHE = `mono-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mono-runtime-${CACHE_VERSION}`;
 const RUNTIME_LIMIT = 80;

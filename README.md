@@ -18,6 +18,7 @@ Esto es lo que se agregó:
 | `.vercelignore` | Evita publicar `backend/`, `database/` y `tools/`. |
 | `tools/serve.mjs` | Servidor estático local (sin dependencias). |
 | `tools/pwa.test.mjs` | Pruebas del manifest, íconos, service worker, offline y servidor. |
+| `tools/quote-autofill.test.mjs` | Pruebas del autocompletado de clientes. |
 
 También se optimizó `logo.png` (1.6 MB → 255 KB) y se añadió en la app el botón **Instalar app**, el aviso **Sin conexión**, la actualización automática del service worker y los atajos del manifest (`/?view=quote&new=1`, etc.).
 
@@ -33,6 +34,19 @@ El ícono es la mascota del mono (2048×2048 original). Se generan estos tamaño
 | `icons/favicon-32.png` y `favicon.ico` | Pestaña del navegador, con recorte más cerrado para que la cara se lea a 32 px. |
 
 Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos.
+
+## Autocompletado de clientes
+
+En la cotización, el campo **CLIENTE** sugiere los contactos guardados en **Clientes**:
+
+- Al escribir aparecen sugerencias con nombre, empresa y correo (datalist nativo).
+- Si el nombre coincide con un cliente del directorio, el **correo se llena solo**.
+- Al salir del campo se completa con un prefijo único (`Marian` → `Mariana López`); si hay varios clientes con ese prefijo, avisa y no elige a ciegas.
+- El aviso debajo del nombre muestra empresa y teléfono del contacto; si no existe, indica «Cliente nuevo».
+- **Nunca sobrescribe un correo escrito a mano**: solo rellena el campo vacío o el que puso el propio autocompletado.
+- Al crear el pedido, este hereda el cliente, empresa, correo y teléfono, y los muestra en la ficha del pedido.
+
+La comparación ignora mayúsculas y acentos (`JOSE ALVAREZ` encuentra a `José Álvarez`).
 
 ## Probarlo en local
 
@@ -55,16 +69,18 @@ En iPhone / iPad (Safari): **Compartir → Añadir a pantalla de inicio**. La ap
 ## Pruebas
 
 ```bash
-node --test tools/pwa.test.mjs
+node --test tools/pwa.test.mjs tools/quote-autofill.test.mjs
 ```
 
-Las 9 pruebas revisan:
+Las pruebas revisan:
 
 - manifest completo y con íconos 192/512/maskable;
 - íconos existentes y del tamaño declarado;
 - metadatos en el `<head>` (no dentro del CSS), manifest, íconos y registro del service worker;
 - precache del shell, respaldo offline, exclusión de `/api/*` y caché de fuentes;
-- cabeceras MIME y de caché del servidor, además de rutas y ataques de traversal.
+- cabeceras MIME y de caché del servidor, además de rutas y ataques de traversal;
+- normalización de nombres, coincidencia exacta, prefijo único y prefijo ambiguo;
+- que el pedido herede los datos del cliente y el correo manual nunca se sobrescriba.
 
 ## Publicar en Vercel
 
@@ -82,7 +98,7 @@ O desde el panel: **Add New → Project → monocromat → Deploy**. Framework: 
 
 Cuando cambies `index.html` u otro archivo del shell:
 
-1. Sube `CACHE_VERSION` en `sw.js` (`v1` → `v2`).
+1. Sube `CACHE_VERSION` en `sw.js` (`v3` → `v4`).
 2. Publica de nuevo.
 
 La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva del estudio»** con el botón **Actualizar**; al aceptarlo se activa el service worker nuevo y se recarga.
