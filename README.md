@@ -12,7 +12,7 @@ Esto es lo que se agregó:
 | --- | --- |
 | `manifest.webmanifest` | Nombre, colores, `start_url`, modo `standalone`, íconos y atajos. |
 | `sw.js` | Service worker: precachea la app, responde sin conexión, no cachea `/api/*`. |
-| `icons/` | Íconos 192, 512, maskable y Apple Touch Icon. |
+| `icons/` | Íconos 192, 512, maskable y Apple Touch Icon (mascota del mono). |
 | `favicon.ico`, `icons/favicon-32.png` | Ícono de la pestaña. |
 | `vercel.json` | Cabeceras correctas (`manifest`, `sw.js` sin caché, seguridad). |
 | `.vercelignore` | Evita publicar `backend/`, `database/` y `tools/`. |
@@ -20,6 +20,19 @@ Esto es lo que se agregó:
 | `tools/pwa.test.mjs` | Pruebas del manifest, íconos, service worker, offline y servidor. |
 
 También se optimizó `logo.png` (1.6 MB → 255 KB) y se añadió en la app el botón **Instalar app**, el aviso **Sin conexión**, la actualización automática del service worker y los atajos del manifest (`/?view=quote&new=1`, etc.).
+
+### Ícono de la app
+
+El ícono es la mascota del mono (2048×2048 original). Se generan estos tamaños:
+
+| Archivo | Uso |
+| --- | --- |
+| `icons/icon-192.png` y `icons/icon-512.png` | Ícono estándar (Android, escritorio, manifest). |
+| `icons/maskable-512.png` | Zona segura para recortes circulares de Android (mascota al 70 % del lienzo). |
+| `icons/apple-touch-icon.png` (180×180) | Pantalla de inicio en iOS. |
+| `icons/favicon-32.png` y `favicon.ico` | Pestaña del navegador, con recorte más cerrado para que la cara se lea a 32 px. |
+
+Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos.
 
 ## Probarlo en local
 

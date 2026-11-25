@@ -13,6 +13,9 @@ const html = readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const head = html.slice(0, html.indexOf('</head>'));
 const manifest = JSON.parse(readFileSync(path.join(ROOT, 'manifest.webmanifest'), 'utf8'));
 const swSource = readFileSync(path.join(ROOT, 'sw.js'), 'utf8');
+const swVersion = swSource.match(/const CACHE_VERSION = '([^']+)'/)[1];
+const SHELL_CACHE = `mono-shell-${swVersion}`;
+const RUNTIME_CACHE = `mono-runtime-${swVersion}`;
 
 const fileExists = async (relative) => {
   try {
@@ -213,7 +216,7 @@ test('service worker: instala el shell y responde sin conexión con el index cac
   assert.ok(harness.state.skipped, 'debe activarse con skipWaiting');
 
   // El index real se precarga cuando hay red:
-  const onlineInstall = harness.caches.get('mono-shell-v1');
+  const onlineInstall = harness.caches.get(SHELL_CACHE);
   assert.ok(onlineInstall.entries.has('http://localhost/index.html'));
   assert.ok(onlineInstall.entries.has('http://localhost/manifest.webmanifest'));
   assert.ok(onlineInstall.entries.has('http://localhost/icons/icon-512.png'));
@@ -236,7 +239,7 @@ test('service worker: instala el shell y responde sin conexión con el index cac
   });
   assert.equal(onlineNavigation.respondedWith.status, 200);
   assert.match(await onlineNavigation.respondedWith.text(), /respuesta de http:\/\/localhost\/\?view=quote/);
-  const updatedIndex = await harness.caches.get('mono-shell-v1').match('http://localhost/index.html');
+  const updatedIndex = await harness.caches.get(SHELL_CACHE).match('http://localhost/index.html');
   assert.match(await updatedIndex.text(), /respuesta de http:\/\/localhost\/\?view=quote/);
 });
 
@@ -253,7 +256,7 @@ test('service worker: no intercepta /api y cachea fuentes de Google', async () =
     request: { method: 'GET', url: 'https://fonts.googleapis.com/css2?family=Inter', mode: 'cors', headers: new Headers() }
   });
   assert.ok(font.respondedWith, 'las fuentes deben servirse desde caché/red');
-  const fontCache = harness.caches.get('mono-runtime-v1');
+  const fontCache = harness.caches.get(RUNTIME_CACHE);
   assert.ok([...fontCache.entries.keys()].some((key) => key.includes('fonts.googleapis.com')));
 
   const post = await harness.dispatch('fetch', {
