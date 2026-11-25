@@ -1,0 +1,59 @@
+{
+  "id": "/",
+  "name": "Mono Cromat & Co. — Estudio",
+  "short_name": "Mono Cromat",
+  "description": "Espacio de trabajo del estudio: clientes, cotizaciones, pedidos, producción y entregas.",
+  "lang": "es-MX",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#f5f6f2",
+  "theme_color": "#081c30",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nueva cotización",
+      "short_name": "Cotizar",
+      "description": "Abrir una cotización en blanco",
+      "url": "/?view=quote&new=1",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Clientes",
+      "short_name": "Clientes",
+      "description": "Clientes y prospectos del estudio",
+      "url": "/?view=clientes",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Calendario de entregas",
+      "short_name": "Calendario",
+      "description": "Entregas programadas",
+      "url": "/?view=calendario",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    }
+  ]
+}
