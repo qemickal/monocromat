@@ -4,7 +4,7 @@ Aplicación de una sola página para el estudio: clientes, cotizaciones, pedidos
 
 ## Por qué no se instalaba
 
-La app era un `index.html` suelto: no tenía manifest, ni service worker, ni íconos. Sin esos archivos el navegador no puede ofrecer «Instalar app», no abre en modo independiente y no funciona sin conexión. Además, el proyecto de Vercel `monocromat` está vinculado al repositorio pero **no tiene ningún deployment**, así que la URL pública no existía.
+La app era un `index.html` suelto: no tenía manifest, ni service worker, ni íconos. Sin esos archivos el navegador no puede ofrecer «Instalar app», no abre en modo independiente y no funciona sin conexión. Además, cuando se activó la PWA el proyecto de Vercel `monocromat` no tenía ningún deployment, así que la URL pública no existía; hoy publica desde `main`.
 
 Esto es lo que se agregó:
 
@@ -12,14 +12,53 @@ Esto es lo que se agregó:
 | --- | --- |
 | `manifest.webmanifest` | Nombre, colores, `start_url`, modo `standalone`, íconos y atajos. |
 | `sw.js` | Service worker: precachea la app, responde sin conexión, no cachea `/api/*`. |
-| `icons/` | Íconos 192, 512, maskable y Apple Touch Icon. |
+| `icons/` | Íconos 192, 512, maskable y Apple Touch Icon (mascota del mono). |
 | `favicon.ico`, `icons/favicon-32.png` | Ícono de la pestaña. |
 | `vercel.json` | Cabeceras correctas (`manifest`, `sw.js` sin caché, seguridad). |
 | `.vercelignore` | Evita publicar `backend/`, `database/` y `tools/`. |
 | `tools/serve.mjs` | Servidor estático local (sin dependencias). |
 | `tools/pwa.test.mjs` | Pruebas del manifest, íconos, service worker, offline y servidor. |
+| `tools/quote-autofill.test.mjs` | Pruebas del autocompletado de clientes. |
+| `tools/local-flow.test.mjs` | Pruebas de folios, fechas, estados, vínculo e historial. |
 
 También se optimizó `logo.png` (1.6 MB → 255 KB) y se añadió en la app el botón **Instalar app**, el aviso **Sin conexión**, la actualización automática del service worker y los atajos del manifest (`/?view=quote&new=1`, etc.).
+
+### Ícono de la app
+
+El ícono es la mascota del mono (2048×2048 original). Se generan estos tamaños:
+
+| Archivo | Uso |
+| --- | --- |
+| `icons/icon-192.png` y `icons/icon-512.png` | Ícono estándar (Android, escritorio, manifest). |
+| `icons/maskable-512.png` | Zona segura para recortes circulares de Android (mascota al 70 % del lienzo). |
+| `icons/apple-touch-icon.png` (180×180) | Pantalla de inicio en iOS. |
+| `icons/favicon-32.png` y `favicon.ico` | Pestaña del navegador, con recorte más cerrado para que la cara se lea a 32 px. |
+
+Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos.
+
+## Autocompletado de clientes
+
+En la cotización, el campo **CLIENTE** sugiere los contactos guardados en **Clientes**:
+
+- Al escribir aparecen sugerencias con nombre, empresa y correo (datalist nativo).
+- Si el nombre coincide con un cliente del directorio, el **correo se llena solo**.
+- Al salir del campo se completa con un prefijo único (`Marian` → `Mariana López`); si hay varios clientes con ese prefijo, avisa y no elige a ciegas.
+- El aviso debajo del nombre muestra empresa y teléfono del contacto; si no existe, indica «Cliente nuevo».
+- **Nunca sobrescribe un correo escrito a mano**: solo rellena el campo vacío o el que puso el propio autocompletado.
+- Al crear el pedido, este hereda el cliente, empresa, correo y teléfono, y los muestra en la ficha del pedido.
+
+La comparación ignora mayúsculas y acentos (`JOSE ALVAREZ` encuentra a `José Álvarez`).
+
+## Flujo local: folios, estados e historial
+
+- Al guardar una cotización se le asigna un folio consecutivo (`MCCO-C-0001`) y la fecha del día. El pedido recibe su propio folio (`MCCO-P-0001`).
+- El estado de la cotización puede ser **Borrador**, **Enviada**, **Aceptada** o **Rechazada**; si ya está guardada, el cambio se aplica al instante.
+- Crear un pedido guarda la cotización, la marca como **Aceptada** y la vincula con `quoteId`. Si esa cotización ya tiene pedido, la app ofrece abrirlo en vez de duplicarlo.
+- Una cotización vinculada no se puede borrar hasta eliminar su pedido. Al borrar el pedido, la cotización vuelve a **Enviada**.
+- En **Clientes**, al editar un contacto aparece su historial de cotizaciones y pedidos. Borrar el contacto conserva esos documentos.
+- Los datos anteriores se normalizan al abrir la app: abonos con `amount` pasan a centavos, pedidos sin `total` muestran «Sin definir» en vez de romper la vista y cotizaciones con menos de tres opciones se completan.
+- Las condiciones de la cotización conservan sus saltos de línea al imprimir.
+- El botón **Imprimir / guardar PDF** guarda primero la cotización, para que el folio y la fecha reales salgan en el documento.
 
 ## Probarlo en local
 
@@ -42,20 +81,24 @@ En iPhone / iPad (Safari): **Compartir → Añadir a pantalla de inicio**. La ap
 ## Pruebas
 
 ```bash
-node --test tools/pwa.test.mjs
+node --test tools/pwa.test.mjs tools/quote-autofill.test.mjs tools/local-flow.test.mjs
 ```
 
-Las 9 pruebas revisan:
+Las pruebas revisan:
 
 - manifest completo y con íconos 192/512/maskable;
 - íconos existentes y del tamaño declarado;
 - metadatos en el `<head>` (no dentro del CSS), manifest, íconos y registro del service worker;
 - precache del shell, respaldo offline, exclusión de `/api/*` y caché de fuentes;
-- cabeceras MIME y de caché del servidor, además de rutas y ataques de traversal.
+- cabeceras MIME y de caché del servidor, además de rutas y ataques de traversal;
+- normalización de nombres, coincidencia exacta, prefijo único y prefijo ambiguo;
+- que el pedido herede los datos del cliente y el correo manual nunca se sobrescriba;
+- folios consecutivos por tipo, formato de fechas y normalización de datos viejos;
+- que la interfaz conserve folio, fecha, estado, vínculo, borrado e historial.
 
 ## Publicar en Vercel
 
-El proyecto `monocromat` ya existe en Vercel pero nunca se desplegó. Como el sitio es estático, no hace falta build:
+El proyecto `monocromat` publica el sitio estático desde `main`. Como no hay build, cada cambio de `index.html` o `sw.js` se publica al integrar el cambio:
 
 ```bash
 npx vercel --prod
@@ -69,7 +112,7 @@ O desde el panel: **Add New → Project → monocromat → Deploy**. Framework: 
 
 Cuando cambies `index.html` u otro archivo del shell:
 
-1. Sube `CACHE_VERSION` en `sw.js` (`v1` → `v2`).
+1. Sube `CACHE_VERSION` en `sw.js` (`v4` → `v5`).
 2. Publica de nuevo.
 
 La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva del estudio»** con el botón **Actualizar**; al aceptarlo se activa el service worker nuevo y se recarga.
