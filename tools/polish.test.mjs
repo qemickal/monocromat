@@ -1,10 +1,10 @@
-/* Pruebas de la pulida 2026-11-25: dashboard "Hoy en el taller", respaldo,
+/* Pruebas del rediseño 2026-11-27: dashboard "Hoy en el taller", respaldo,
    cotización con especificación y partidas, envío por WhatsApp, marca y versión.
    Ejecutar con: node --test tools/polish.test.mjs */
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, promises as fs } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { ROOT } from './serve.mjs';
@@ -38,19 +38,40 @@ function loadHelpers() {
     extractFunction(html, 'orderStage'),
     extractFunction(html, 'orderPaid'),
     extractFunction(html, 'orderBalance'),
+    extractFunction(html, 'roundMoney'),
+    extractFunction(html, 'quoteLineTotal'),
+    extractFunction(html, 'calculateQuoteTotals'),
+    extractFunction(html, 'normalizeLineItems'),
     extractFunction(html, 'parseBackup'),
     extractFunction(html, 'normalizeQuote'),
     extractFunction(html, 'normalizeOrder'),
-    'globalThis.api={daysSince,orderStage,orderPaid,orderBalance,parseBackup,normalizeQuote,normalizeOrder};'
+    'globalThis.api={daysSince,orderStage,orderPaid,orderBalance,roundMoney,quoteLineTotal,calculateQuoteTotals,normalizeLineItems,parseBackup,normalizeQuote,normalizeOrder};'
   ].join('\n');
   const context = vm.createContext({});
   vm.runInContext(code, context, { filename: 'polish-core.js' });
   return context.api;
 }
 
-function pngSize(buffer) {
-  assert.equal(buffer.subarray(1, 4).toString('ascii'), 'PNG', 'no es un PNG');
-  return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+
+function runQuoteErrors(fields, lineValues) {
+  const rows = lineValues.map((item) => ({
+    querySelector(selector) {
+      if (selector === '.q-item-description') return { value: item.description };
+      if (selector === '.q-item-quantity') return { value: item.quantity };
+      if (selector === '.q-item-unit-price') return { value: item.unitPrice };
+      return null;
+    }
+  }));
+  const document = {
+    querySelectorAll(selector) {
+      if (selector === '.info .edit') return fields.map((value) => ({ value }));
+      if (selector === '#quote-items .quote-item-row') return rows;
+      return [];
+    }
+  };
+  const context = vm.createContext({ document });
+  vm.runInContext(`${extractFunction(html, 'quoteFormErrors')}\nglobalThis.validate=quoteFormErrors;`, context, { filename: 'quote-validation.js' });
+  return JSON.parse(JSON.stringify(context.validate()));
 }
 
 test('marca: papel #FAF7F4 y Blanco Hielo #F5F8FA, sin el gris anterior', () => {
@@ -60,25 +81,33 @@ test('marca: papel #FAF7F4 y Blanco Hielo #F5F8FA, sin el gris anterior', () => 
   assert.equal(manifest.background_color, '#F5F8FA');
 });
 
-test('versión: CACHE_VERSION v5 y los íconos M precacheados', () => {
-  assert.match(swSource, /const CACHE_VERSION = 'v5'/);
-  for (const icon of ['/icons/m-192.png', '/icons/m-512.png', '/icons/m-maskable-512.png', '/icons/m-apple-touch-icon.png']) {
+test('versión: CACHE_VERSION v9 y el precache incluye solo recursos existentes', () => {
+  assert.match(swSource, /const CACHE_VERSION = 'v9'/);
+  for (const icon of ['/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png', '/icons/apple-touch-icon.png']) {
     assert.ok(swSource.includes(`'${icon}'`), `falta ${icon} en el precache`);
   }
+  assert.doesNotMatch(swSource, /\/icons\/m-(?:192|512|maskable-512|apple-touch-icon)\.png/);
 });
 
-test('ícono M: existe, es cuadrado y del tamaño declarado (trazo de la M de Mick, no el mono)', async () => {
-  for (const [file, size] of [['icons/m-192.png', 192], ['icons/m-512.png', 512], ['icons/m-maskable-512.png', 512], ['icons/m-apple-touch-icon.png', 180]]) {
-    const buffer = readFileSync(path.join(ROOT, file));
-    assert.deepEqual(pngSize(buffer), { width: size, height: size }, `${file} no mide ${size}x${size}`);
-  }
-  // El ícono del mono sigue en el repo: la M es candidata, no un reemplazo silencioso.
-  assert.ok(await fs.access(path.join(ROOT, 'icons/icon-512.png')).then(() => true).catch(() => false));
+test('paleta: el acento lima se reemplazó por mint teal', () => {
+  assert.doesNotMatch(html, /#d9f27b|#e2f187|#d3e878|#d7e98e/i);
+  assert.match(html, /\.hero-link\{[^}]*background:var\(--teal\)/);
+  assert.match(html, /\.balance-panel\{[^}]*#4cd8c0/);
 });
 
-test('dashboard: "Hoy en el taller" es una cola de trabajo, no una rejilla de tarjetas', () => {
+test('marca: el monograma nuevo está activo en navegación, manifest y precache', () => {
+  assert.match(html, /src="assets\/brand\/monogram-navy\.png"/);
+  assert.ok(manifest.icons.some((icon) => icon.src === 'icons/icon-512.png'));
+  assert.ok(swSource.includes("'/assets/brand/monogram-navy.png'"));
+  assert.doesNotMatch(readFileSync(path.join(ROOT, 'README.md'), 'utf8'), /Ícono M \(pendiente\)/);
+});
+
+test('dashboard: "Hoy en el taller" es un mosaico asimétrico, no una columna ni una rejilla genérica', () => {
   assert.match(html, /Hoy en el taller/);
   assert.match(html, /id="hoy-list"/);
+  assert.match(html, /class="studio-hero"/);
+  assert.match(html, /class="flow-map"/);
+  assert.match(html, /class="balance-panel home-module"/);
   assert.match(html, /Hoy — entregas/);
   assert.match(html, /En producción ahora/);
   assert.match(html, /Dinero que falta/);
@@ -87,6 +116,54 @@ test('dashboard: "Hoy en el taller" es una cola de trabajo, no una rejilla de ta
   assert.match(html, /Recordar por WhatsApp/);
   assert.doesNotMatch(html, /id="home-projects"/);
   assert.doesNotMatch(html, /PROYECTOS RECIENTES/);
+  assert.match(html, /data-home-action="payment"/);
+  assert.match(html, /data-home-action="reminder"/);
+});
+
+
+test('navegación: iconos SVG sin etiquetas visibles, con nombres accesibles', () => {
+  const nav = html.match(/<nav class="nav"[\s\S]*?<\/nav>/)?.[0] || '';
+  assert.equal((nav.match(/<button\b/g) || []).length, 6);
+  assert.equal((nav.match(/<svg class="nav-icon"/g) || []).length, 6);
+  assert.match(nav, /aria-label="Hoy en el taller"/);
+  assert.match(nav, /aria-label="Producción"/);
+  assert.doesNotMatch(nav, /nav-text|<span>/);
+});
+
+test('formularios: campos principales tienen etiquetas y precios explicados', () => {
+  for (const [label, id] of [['CLIENTE *', 'quote-client'], ['PROYECTO *', 'quote-project'], ['TÉCNICA / PROCESO (OPCIONAL)', 'quote-technique'], ['NOMBRE *', 'c-name'], ['FECHA DE ENTREGA *', 'd-date']]) {
+    const start = html.indexOf(`<label class="field-label" for="${id}"`);
+    const end = start < 0 ? -1 : html.indexOf('</label>', start);
+    assert.ok(start >= 0 && end > start && html.slice(start, end).includes(label), `falta etiqueta para ${id}`);
+  }
+  assert.match(html, /form-intro/);
+  assert.match(html, /\.edit\{[^}]*border:1px solid/);
+});
+
+test('dashboard: renderiza el mosaico con saldos completos y acciones reales', () => {
+  const box = { innerHTML: '', querySelectorAll: () => [] };
+  const dateNode = { textContent: '' };
+  const orders = [
+    { id: 'o1', project: 'Campaña otoño', client: 'Ana', folio: 'MCCO-P-0001', createdAt: '2026-11-20', total: 2000, payments: [{ cents: 50000 }], delivery: { date: '2026-11-27', method: 'Recogida' } },
+    { id: 'o2', project: 'Muestra editorial', client: 'Taller', folio: 'MCCO-P-0002', createdAt: '2026-11-19', total: 800, payments: [], production: { description: 'Impresión' } }
+  ];
+  const quotes = [{ id: 'q1', status: 'enviada', createdAt: '2026-11-20', folio: 'MCCO-C-0001', fields: ['Ana', '', 'Diseño editorial'] }];
+  const context = vm.createContext({
+    document: { getElementById: (id) => id === 'hoy-list' ? box : id === 'home-date' ? dateNode : null },
+    orders, quotes, clients: [{ id: 'c1', name: 'Ana' }],
+    todayISO: () => '2026-11-27', formatDate: (date) => date,
+    daysSince: () => 7, orderStage: (order) => order.delivery?.date ? 'Entrega' : order.production ? 'Producción' : 'Confirmado',
+    orderBalance: (order) => Math.max(0, order.total - (order.payments || []).reduce((sum, payment) => sum + payment.cents / 100, 0)),
+    money: (amount) => `MXN ${amount.toFixed(2)}`, safe: (value) => String(value ?? '').replace(/[&<>"']/g, '')
+  });
+  vm.runInContext(`${extractFunction(html, 'renderHome')}\nrenderHome();`, context);
+  assert.match(box.innerHTML, /class="studio-hero"/);
+  assert.match(box.innerHTML, /Campaña otoño/);
+  assert.match(box.innerHTML, /MXN 2300\.00/);
+  assert.match(box.innerHTML, /data-home-action="payment" data-target="o1"/);
+  assert.match(box.innerHTML, /ENTREGA HOY/);
+  assert.match(box.innerHTML, /Recordar por WhatsApp/);
+  assert.match(dateNode.textContent, /noviembre de 2026/);
 });
 
 test('dashboard: la etapa y el saldo se derivan de los datos, no de texto fijo', () => {
@@ -116,33 +193,51 @@ test('respaldo: exportar e importar JSON están en el panorama y validan el arch
   assert.throws(() => parseBackup(null), /Respaldo no válido/);
 });
 
-test('cotización: especificación real del taller y acabados estrella', () => {
-  for (const id of ['q-service', 'q-qty', 'q-format', 'q-paper', 'q-delivery', 'q-deposit', 'q-validity']) {
+test('cotización: productos y servicios se capturan en renglones libres, no en un catálogo', () => {
+  for (const id of ['quote-items', 'q-format', 'q-paper', 'q-delivery', 'q-deposit', 'q-validity']) {
     assert.ok(html.includes(`id="${id}"`), `falta el campo ${id}`);
   }
-  for (const service of ['Offset', 'Serigrafía', 'Encuadernación artesanal', 'Textil DTF']) {
-    assert.ok(html.includes(`<option>${service}</option>`), `falta el servicio ${service}`);
-  }
-  for (const finish of ['Texturas en frío', 'Hot stamping', 'Laminados térmicos']) {
-    assert.ok(html.includes(`value="${finish}"`), `falta el acabado ${finish}`);
-  }
+  assert.match(html, /PRODUCTO \/ DESCRIPCIÓN/);
+  assert.match(html, /PRECIO UNITARIO/);
+  assert.match(html, /class="add-quote-item"/);
+  assert.match(html, /function addQuoteItem\(/);
+  assert.match(html, /function removeQuoteItem\(/);
+  assert.doesNotMatch(html, /id="q-service"|id="q-qty"|function addOption\(/);
   assert.match(html, /id="quote-errors"/);
   assert.match(html, /id="draft-status"/);
   assert.match(html, /Borrador guardado/);
+  for (const finish of ['Texturas en frío', 'Hot stamping', 'Laminados térmicos']) {
+    assert.ok(html.includes(`value="${finish}"`), `falta el acabado ${finish}`);
+  }
 });
 
-test('cotización: las opciones son partidas cantidad × precio unitario', () => {
-  assert.match(html, /class="opt-qty"/);
-  assert.match(html, /class="opt-unit"/);
-  assert.match(html, /class="opt-price opt-total"/);
-  assert.match(html, /qty\*unit/);
-  assert.match(html, /Máximo 3 opciones visibles/);
-  const { normalizeQuote } = loadHelpers();
-  const quote = normalizeQuote({ id: 'q1', fields: ['Ana'], options: [{ name: 'Única', description: '', price: '100', selected: true, hidden: false }], conditions: '' }, '2024-01-01');
-  assert.equal(quote.options.length, 3);
-  assert.equal(quote.options[0].qty, 1);
-  assert.equal(quote.options[0].unit, '');
-  assert.equal(JSON.stringify(quote.spec), JSON.stringify({ service: '', quantity: '', format: '', paper: '', finishes: [], deliveryDate: '', deposit: '', validity: '' }));
+test('validación de cotización: permite técnica vacía y exige partidas completas', () => {
+  assert.deepEqual(runQuoteErrors(['Ana Ruiz', '', 'Volantes', ''], [{ description: 'Volantes A5', quantity: '250', unitPrice: '3.50' }]), []);
+  assert.ok(runQuoteErrors(['Ana Ruiz', '', 'Volantes', ''], []).some((error) => error.includes('Agrega al menos un producto')));
+  const errors = runQuoteErrors(['Ana Ruiz', '', 'Volantes', ''], [{ description: '', quantity: '0', unitPrice: '' }]);
+  assert.ok(errors.some((error) => error.includes('descripción')));
+  assert.ok(errors.some((error) => error.includes('cantidad')));
+  assert.ok(errors.some((error) => error.includes('precio unitario')));
+  assert.ok(runQuoteErrors(['Ana Ruiz', 'correo-inválido', 'Volantes', ''], [{ description: 'Volantes', quantity: '1', unitPrice: '10' }]).some((error) => error.includes('correo')));
+});
+
+test('cotización: renglones libres calculan cantidad × precio, subtotal, IVA y total', () => {
+  assert.match(html, /q-item-description/);
+  assert.match(html, /q-item-quantity/);
+  assert.match(html, /q-item-unit-price/);
+  assert.match(html, /function calculateQuoteTotals\(/);
+  assert.match(html, /function quoteLineTotal\(/);
+  assert.match(html, /items=readQuoteItems\(\)/);
+  assert.match(html, /items:quote\.items\.map\(item=>\(\{\.\.\.item\}\)\)/);
+  assert.match(html, /id="order-items"/);
+  assert.match(html, /function renderOrderItems\(/);
+  const { normalizeQuote, calculateQuoteTotals } = loadHelpers();
+  const quote = normalizeQuote({ id: 'q-items', fields: ['Ana', '', 'Campaña', ''], items: [{ description: 'Tarjetas', quantity: 500, unitPrice: 2.5 }, { description: 'Diseño', quantity: 1, unitPrice: 300 }], iva: true }, '2024-01-01');
+  assert.equal(quote.options.length, 0);
+  assert.equal(quote.subtotal, 1550);
+  assert.equal(quote.tax, 248);
+  assert.equal(quote.total, 1798);
+  assert.deepEqual(JSON.parse(JSON.stringify(calculateQuoteTotals(quote.items, false))), { subtotal: 1550, tax: 0, total: 1550 });
 });
 
 test('cotización: crear pedido pasa por confirmación con resumen, no por un solo clic', () => {

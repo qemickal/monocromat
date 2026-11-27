@@ -42,9 +42,13 @@ function loadCore() {
     extractFunction(html, 'formatDate'),
     extractFunction(html, 'folioNumber'),
     extractFunction(html, 'nextFolioNumber'),
+    extractFunction(html, 'roundMoney'),
+    extractFunction(html, 'quoteLineTotal'),
+    extractFunction(html, 'calculateQuoteTotals'),
+    extractFunction(html, 'normalizeLineItems'),
     extractFunction(html, 'normalizeQuote'),
     extractFunction(html, 'normalizeOrder'),
-    'globalThis.api={QUOTE_STATUS,FOLIO_PREFIX,formatDate,folioNumber,nextFolioNumber,normalizeQuote,normalizeOrder};'
+    'globalThis.api={QUOTE_STATUS,FOLIO_PREFIX,formatDate,folioNumber,nextFolioNumber,roundMoney,quoteLineTotal,calculateQuoteTotals,normalizeLineItems,normalizeQuote,normalizeOrder};'
   ].join('\n');
   const context = vm.createContext({});
   vm.runInContext(code, context, { filename: 'local-flow-core.js' });
@@ -127,6 +131,77 @@ test('normalización: opciones ocultas o sin selección quedan utilizables', () 
   assert.equal(quote.options.filter((option) => option.selected).length, 1);
   assert.equal(quote.options[0].hidden, false);
   assert.equal(quote.options[0].selected, true);
+});
+
+test('migración: la cotización de opciones conserva la alternativa seleccionada como una partida', () => {
+  const { normalizeQuote } = loadCore();
+  const quote = normalizeQuote({
+    id: 'legacy-q',
+    fields: ['Ana', '', 'Impresos', 'Offset'],
+    spec: { service: 'Offset', quantity: '500', format: 'Media carta', paper: 'Couché 300 g', finishes: ['Hot stamping'] },
+    options: [
+      { name: 'Base', description: 'Una cara', price: '1200', qty: '1', selected: false, hidden: false },
+      { name: 'Premium', description: 'Impresión frente y vuelta', price: '2500', qty: '1', selected: true, hidden: false }
+    ],
+    iva: false
+  }, '2024-01-01');
+  assert.equal(quote.items.length, 1);
+  assert.equal(quote.items[0].quantity, 500);
+  assert.equal(quote.items[0].unitPrice, 5);
+  assert.match(quote.items[0].description, /Offset · Premium · Impresión frente y vuelta · Media carta · Couché 300 g · Hot stamping/);
+  assert.equal(quote.total, 2500);
+});
+
+test('migración: pedido antiguo conserva el total con IVA y muestra una partida compatible', () => {
+  const { normalizeOrder } = loadCore();
+  const order = normalizeOrder({
+    id: 'legacy-o', client: 'Ana', project: 'Impresos', total: 1160, iva: true,
+    spec: { service: 'Offset', quantity: '100', format: 'Carta' },
+    optionName: 'Premium', optionDescription: 'Impresión frente y vuelta', payments: [{ amount: 100 }]
+  }, '2024-01-01');
+  assert.equal(order.items.length, 1);
+  assert.equal(order.items[0].quantity, 100);
+  assert.equal(order.items[0].unitPrice, 10);
+  assert.equal(order.subtotal, 1000);
+  assert.equal(order.tax, 160);
+  assert.equal(order.total, 1160);
+  assert.equal(order.payments[0].cents, 10000);
+});
+
+test('migración vinculada: el pedido anterior hereda las partidas y el IVA de su cotización', () => {
+  const code = [
+    extractConst(html, 'QUOTE_STATUS'),
+    extractConst(html, 'FOLIO_PREFIX'),
+    extractFunction(html, 'newId'),
+    extractFunction(html, 'todayISO'),
+    extractFunction(html, 'roundMoney'),
+    extractFunction(html, 'quoteLineTotal'),
+    extractFunction(html, 'calculateQuoteTotals'),
+    extractFunction(html, 'normalizeLineItems'),
+    extractFunction(html, 'normalizeQuote'),
+    extractFunction(html, 'normalizeOrder'),
+    'let clients=[]; let quotes=[{id:"q1",fields:["Ana","","Tarjetas","Offset"],spec:{service:"Offset",quantity:"100"},options:[{name:"Digital",description:"Tarjetas",price:"1000",qty:"100",unit:"10",selected:true,hidden:false}],iva:true}];',
+    'let orders=[{id:"o1",quoteId:"q1",client:"Ana",project:"Tarjetas",total:1160,spec:{service:"Offset",quantity:"100"},optionName:"Digital",optionDescription:"Tarjetas",payments:[]}];',
+    'function dateFromLegacyId(){return ""} function assignMissingFolios(){} function saveClients(){} function persistQuotes(){} function persistOrders(){}',
+    extractFunction(html, 'normalizeAll'),
+    'normalizeAll(); globalThis.api={quote:quotes[0],order:orders[0]};'
+  ].join('\n');
+  const context = vm.createContext({});
+  vm.runInContext(code, context, { filename: 'linked-migration.js' });
+  const { quote, order } = context.api;
+  assert.deepEqual(JSON.parse(JSON.stringify(order.items)), JSON.parse(JSON.stringify(quote.items)));
+  assert.equal(order.iva, true);
+  assert.equal(order.subtotal, 1000);
+  assert.equal(order.tax, 160);
+  assert.equal(order.total, 1160);
+  assert.equal(order._legacyItemMigration, undefined);
+});
+
+test('totales: redondeo por renglón y tasa de IVA del 16 por ciento', () => {
+  const { calculateQuoteTotals, quoteLineTotal } = loadCore();
+  const items = [{ description: 'Servicio A', quantity: 3, unitPrice: 10.25 }, { description: 'Servicio B', quantity: 2, unitPrice: 0.1 }];
+  assert.equal(quoteLineTotal(items[0]), 30.75);
+  assert.deepEqual(JSON.parse(JSON.stringify(calculateQuoteTotals(items, true))), { subtotal: 30.95, tax: 4.95, total: 35.9 });
 });
 
 test('interfaz: folios, estados, vínculo, borrado e historial están conectados', () => {

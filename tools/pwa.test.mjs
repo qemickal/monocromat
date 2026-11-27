@@ -115,7 +115,7 @@ test('index.html: todos los recursos locales referenciados existen', async () =>
 
 test('service worker: precachea el shell, evita /api y respeta el ciclo de vida', async () => {
   const shell = parseSwShell(swSource);
-  for (const required of ['/', '/index.html', '/manifest.webmanifest', '/logo.png', '/icons/icon-192.png', '/icons/icon-512.png']) {
+  for (const required of ['/', '/index.html', '/manifest.webmanifest', '/logo.png', '/assets/brand/monogram-navy.png', '/icons/icon-192.png', '/icons/icon-512.png']) {
     assert.ok(shell.includes(required), `falta ${required} en el precache`);
   }
   for (const url of shell) {

@@ -16,7 +16,6 @@ body{background:radial-gradient(circle at 76% 4%,#d6f1ed 0,transparent 26%),radi
 #home .home-quick{background:#d9f4edcc;border-color:#ffffffb5}#home .home-heading .btn{background:#2e48a1}#home .home-quick button{border-color:#bbddd6}
 
 .month-nav{display:flex;align-items:center;justify-content:space-between;margin:25px 0 18px}.month-nav strong{font:500 15px Lexend;text-transform:capitalize}.month-nav button{border:1px solid #dce7e5;background:#f7faf9;border-radius:6px;width:34px;height:34px;color:#2e48a1}.month-week,.month-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}.month-week span{text-align:center;font:10px 'Fira Mono';color:#91a4a8;padding-bottom:10px}.month-grid{border-top:1px solid #e1e9e8;border-left:1px solid #e1e9e8}.day-cell{min-height:68px;border-right:1px solid #e1e9e8;border-bottom:1px solid #e1e9e8;padding:8px;font:11px 'Fira Mono';color:#617b81;background:#ffffff80}.day-cell.empty{background:#f7faf880}.day-cell.today{color:#2e48a1;font-weight:bold;background:#ecf4ff}.day-cell button{display:block;border:0;border-radius:3px;background:#d7f2ec;color:#215f5b;font:10px Inter;padding:4px;margin-top:5px;text-align:left;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media(max-width:600px){.day-cell{min-height:48px;padding:4px}.day-cell button{font-size:0;height:7px;width:7px;border-radius:50%;padding:0;background:#2e48a1}.month-nav{margin-top:20px}}
-<style>
 :root{--hielo:#F5F8FA;--bright:#1A86D0}
 .hoy-list{max-width:780px}
 .hoy-section{margin:28px 0}
@@ -46,7 +45,7 @@ body{background:radial-gradient(circle at 76% 4%,#d6f1ed 0,transparent 26%),radi
 .order-confirm{background:#e5ecfb;border:1px solid #bcd0f5;border-radius:7px;padding:14px;margin-top:14px;font-size:12px;line-height:1.7}
 .order-confirm .btn{width:100%;margin-top:10px}
 @media(max-width:520px){.hoy-pipe{grid-template-columns:repeat(2,1fr)}.spec-grid{grid-template-columns:1fr}.option{grid-template-columns:20px 1fr 130px}}
-</style></style><meta name="description" content="Espacio de trabajo de Mono Cromat & Co.: clientes, cotizaciones, pedidos, producción y entregas."><meta name="theme-color" content="#081c30"><meta name="color-scheme" content="light"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Mono Cromat"><meta name="application-name" content="Mono Cromat"><style>
+</style><meta name="description" content="Espacio de trabajo de Mono Cromat & Co.: clientes, cotizaciones, pedidos, producción y entregas."><meta name="theme-color" content="#081c30"><meta name="color-scheme" content="light"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="Mono Cromat"><meta name="application-name" content="Mono Cromat"><style>
 /* PWA: instalar, estado de red y avisos */
 .install-btn{display:none;align-items:center;gap:7px;border:1px solid #cfdedd;background:#ffffffcc;color:var(--ink);border-radius:999px;padding:8px 14px;font-size:11px;font-weight:700;white-space:nowrap}
 .install-btn.is-visible{display:inline-flex}
@@ -67,17 +66,458 @@ body{background:radial-gradient(circle at 76% 4%,#d6f1ed 0,transparent 26%),radi
 @media(display-mode:standalone){.top-left{padding-left:env(safe-area-inset-left)}.content{padding-bottom:calc(60px + env(safe-area-inset-bottom))}}
 .client-hint{font:10px 'Fira Mono',monospace;color:#438b95;margin-top:7px;line-height:1.7}
 .client-hint.is-new{color:#9a6a12}
-.doc-status{display:inline-block;margin-top:6px;padding:3px 7px;border-radius:3px;background:#eaf5f3;color:#2b6c62;font:9px 'Fira Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.doc-status[data-status="enviada"]{background:#e5ecfb;color:#2e48a1}.doc-status[data-status="aceptada"]{background:#dcefeb;color:#176b58}.doc-status[data-status="rechazada"]{background:#f7e6e4;color:#9b3b30}.pill{display:inline-block;padding:3px 6px;border-radius:3px;background:#eef2f2;color:#5d737b;font:9px 'Fira Mono',monospace;letter-spacing:.06em;text-transform:uppercase}.pill[data-status="enviada"]{background:#e5ecfb;color:#2e48a1}.pill[data-status="aceptada"]{background:#dcefeb;color:#176b58}.pill[data-status="rechazada"]{background:#f7e6e4;color:#9b3b30}.quote-row{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #d9e1e4;padding:12px 0}.quote-row>div:first-child{min-width:0}.order-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;color:#9db7c3;font:10px 'Fira Mono',monospace;letter-spacing:.08em}.order-link,.feature .order-link{background:none;border:0;color:#6bd9ca;font:700 11px Inter,sans-serif;padding:0;margin-top:8px;cursor:pointer;text-align:left}.danger{color:#9b3b30!important}.client-history{margin-top:24px;border-top:1px solid var(--line);padding-top:18px}.history-row{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid #e6ecec;padding:11px 0;color:var(--ink)}.history-row strong{font-size:12px}.history-row small{display:block;color:#809097;margin-top:4px}[hidden]{display:none!important}</style></head><body><div class="shell"><aside class="side"><div class="brand"><img src="logo.png" alt="Mono Cromat & Co."><small>ESTUDIO CREATIVO / OS</small></div><div class="side-label">ESPACIO DE TRABAJO</div><nav class="nav"><button class="active" data-view="home" title="Hoy en el taller" aria-label="Hoy en el taller"><span>◈</span><span class="nav-text">Hoy en el taller</span></button><button data-view="clientes" title="Clientes" aria-label="Clientes"><span>◎</span><span class="nav-text">Clientes</span></button><button data-view="quote" title="Cotizaciones" aria-label="Cotizaciones"><span>▤</span><span class="nav-text">Cotizaciones</span></button><button data-view="pedidos" title="Pedidos" aria-label="Pedidos"><span>▧</span><span class="nav-text">Pedidos</span></button><button data-view="produccion" title="Producción" aria-label="Producción"><span>⌘</span><span class="nav-text">Producción</span></button><button data-view="calendario" title="Calendario" aria-label="Calendario"><span>▦</span><span class="nav-text">Calendario</span></button></nav><div class="side-bottom"><span class="dot"></span>ESTUDIO EN MARCHA<br><span style="font:10px 'Fira Mono';color:#6f8b98">MONO CROMAT & CO. ©</span></div></aside><main class="main"><header class="top"><div class="top-left">MONO CROMAT & CO. &nbsp; / &nbsp; ESPACIO DE TRABAJO</div><div class="top-right"><span id="net-status" class="net-pill" role="status" aria-live="polite">● Sin conexión</span><button id="install-app" class="install-btn" type="button" aria-label="Instalar Mono Cromat">⤓ <span class="label">Instalar app</span></button><span>Espacio de trabajo</span><div class="avatar">MC</div></div></header><div class="content"><div id="home"><div class="home-heading"><div><div class="eyebrow">ESTUDIO / HOY EN EL TALLER</div><h1>Hoy en el taller<span style="color:#2e48a1">.</span></h1><p>Qué se entrega, qué está atorado y qué falta por cobrar.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="text-btn" onclick="exportBackup()">Respaldo ↓</button><label class="text-btn" for="backup-file" style="cursor:pointer">Importar respaldo ↑</label><input type="file" id="backup-file" accept="application/json,.json" hidden onchange="importBackupFile(this)"><button class="btn" onclick="show('quote')">+ Nueva cotización</button></div></div><div id="hoy-list" class="hoy-list"></div><div class="home-foot"><span>MONO CROMAT & CO.</span><span>HECHO PARA CREAR &nbsp; ✳</span></div></div><div id="quote" class="hidden"><div class="quote-head"><div><button class="back" onclick="show('home')">← Volver al panorama</button><h1>Una idea, en papel<span style="color:#2e48a1">.</span></h1></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="text-btn" onclick="newQuote()">+ Nueva cotización</button><button class="text-btn" onclick="saveQuote()">Guardar cotización ↓</button><button class="btn" onclick="createOrder()">Crear pedido ↗</button></div></div><div class="quote-layout"><article class="document"><div class="doc-top"><div class="doc-brand"><img src="logo.png" alt="Mono Cromat & Co."><div>«Lift Your Vision»</div></div><div class="doc-title"><div class="mono">PROPUESTA CREATIVA / 01</div><h2>COTIZACIÓN</h2><div class="mono"><span id="doc-folio">MCCO-C-…</span> &nbsp; · &nbsp; <span id="doc-date">—</span></div><div id="doc-status" class="doc-status" data-status="borrador">Borrador</div></div></div><div class="info"><div><div class="field-label">CLIENTE</div><input class="edit" id="quote-client" list="client-options" autocomplete="off" placeholder="Nombre del cliente" aria-label="Cliente" aria-describedby="quote-client-hint"><datalist id="client-options"></datalist><div id="quote-client-hint" class="client-hint" role="status" aria-live="polite" hidden></div><div class="field-label" style="margin-top:15px">CORREO</div><input class="edit" id="quote-email" placeholder="correo@dominio.com" aria-label="Correo"></div><div><div class="field-label">PROYECTO</div><input class="edit" placeholder="Nombre del proyecto" aria-label="Proyecto"><div class="field-label" style="margin-top:15px">TÉCNICA</div><input class="edit" placeholder="Técnica o proceso" aria-label="Técnica"></div></div><div class="doc-section">00 / ESPECIFICACIÓN DEL TRABAJO</div><div class="spec-grid"><div><div class="field-label">SERVICIO</div><select id="q-service" class="edit" aria-label="Servicio"><option value="">Elige un servicio…</option><option>Offset</option><option>Impresión láser</option><option>Gran formato</option><option>Acabados especiales</option><option>Encuadernación artesanal</option><option>Textil DTF</option><option>UV</option><option>Serigrafía</option><option>Ambientes</option><option>Promocionales</option><option>Servicios digitales</option></select></div><div><div class="field-label">CANTIDAD</div><input id="q-qty" type="number" min="1" step="1" class="edit" placeholder="Ej. 100" aria-label="Cantidad"></div><div><div class="field-label">FORMATO / MEDIDAS</div><input id="q-format" class="edit" placeholder="Ej. 21 × 28 cm" aria-label="Formato o medidas"></div><div><div class="field-label">PAPEL</div><input id="q-paper" class="edit" placeholder="Ej. couché 300 g" aria-label="Papel"></div><div><div class="field-label">FECHA DE ENTREGA</div><input id="q-delivery" type="date" class="edit" aria-label="Fecha de entrega"></div><div><div class="field-label">ANTICIPO (MXN)</div><input id="q-deposit" type="number" min="0" step="0.01" class="edit" placeholder="0.00" aria-label="Anticipo"></div><div><div class="field-label">VIGENCIA (DÍAS)</div><input id="q-validity" type="number" min="0" step="1" class="edit" placeholder="Ej. 15" aria-label="Vigencia en días"></div></div><div class="field-label">ACABADOS ESTRELLA</div><label class="finish-check"><input type="checkbox" class="q-finish" value="Texturas en frío"> Texturas en frío</label><label class="finish-check"><input type="checkbox" class="q-finish" value="Hot stamping"> Hot stamping</label><label class="finish-check"><input type="checkbox" class="q-finish" value="Laminados térmicos"> Laminados térmicos</label><div id="quote-errors" class="field-error" hidden></div><div id="draft-status" class="draft-status">Borrador no guardado</div><div class="doc-section">01 / OPCIONES DE PROYECTO</div><div class="hint" style="margin-bottom:10px">Cada opción es una partida: cantidad × precio unitario = total. Máximo 3 opciones visibles.</div><div class="option"><input type="radio" name="opt" checked onchange="calc()" aria-label="Seleccionar opción 1"><div><strong contenteditable="true" aria-label="Nombre opción 1">OPCIÓN 1</strong><small contenteditable="true" aria-label="Descripción opción 1">Describe esta opción</small></div><div class="option-price"><input class="opt-qty" type="number" min="1" step="1" value="1" oninput="calc()" aria-label="Cantidad opción 1"><span>×</span><input class="opt-unit" type="number" min="0" step="0.01" placeholder="0.00" oninput="calc()" aria-label="Precio unitario opción 1"><input class="opt-price opt-total" type="number" placeholder="0.00" step="0.01" oninput="calc()" aria-label="Precio opción 1"></div></div><div class="option"><input type="radio" name="opt" onchange="calc()" aria-label="Seleccionar opción 2"><div><strong contenteditable="true" aria-label="Nombre opción 2">OPCIÓN 2</strong><small contenteditable="true" aria-label="Descripción opción 2">Describe esta opción</small></div><div class="option-price"><input class="opt-qty" type="number" min="1" step="1" value="1" oninput="calc()" aria-label="Cantidad opción 2"><span>×</span><input class="opt-unit" type="number" min="0" step="0.01" placeholder="0.00" oninput="calc()" aria-label="Precio unitario opción 2"><input class="opt-price opt-total" type="number" placeholder="0.00" step="0.01" oninput="calc()" aria-label="Precio opción 2"></div></div><div class="option"><input type="radio" name="opt" onchange="calc()" aria-label="Seleccionar opción 3"><div><strong contenteditable="true" aria-label="Nombre opción 3">OPCIÓN 3</strong><small contenteditable="true" aria-label="Descripción opción 3">Describe esta opción</small></div><div class="option-price"><input class="opt-qty" type="number" min="1" step="1" value="1" oninput="calc()" aria-label="Cantidad opción 3"><span>×</span><input class="opt-unit" type="number" min="0" step="0.01" placeholder="0.00" oninput="calc()" aria-label="Precio unitario opción 3"><input class="opt-price opt-total" type="number" placeholder="0.00" step="0.01" oninput="calc()" aria-label="Precio opción 3"></div></div><div style="display:flex;gap:15px;margin:12px 0"><button type="button" class="text-btn" onclick="addOption()">+ Agregar opción</button><button type="button" class="text-btn" onclick="removeOption()">− Quitar última opción</button></div><div class="total"><span>TOTAL OPCIÓN SELECCIONADA <br><small id="taxnote">SIN IVA · MXN</small></span><strong id="doc-total"></strong></div><div class="doc-section">02 / INCLUYE Y CONDICIONES</div><div class="conditions" contenteditable="true" aria-label="Incluye y condiciones">Escribe aquí qué incluye y las condiciones de la cotización.</div><div class="doc-footer"><div>MONO CROMAT & CO.<br>WhatsApp 55 4929 1166<br>monocromatyco@gmail.com · CDMX, México</div><div class="wa-box"><button type="button" class="btn" onclick="sendQuoteWhatsApp()">Enviar por WhatsApp ↗</button><div class="mono" style="margin-top:8px">Se abre WhatsApp con el mensaje listo.</div></div></div></article><aside class="settings"><div class="eyebrow">PANEL DE EDICIÓN</div><h3>Ajusta tu propuesta.</h3><div class="toggle-row"><div><strong>Incluir IVA</strong><small>Aplicar 16% al precio base</small></div><input id="iva" type="checkbox" onchange="calc()" aria-label="Incluir IVA"></div><div class="field-label" style="margin-top:18px">ESTADO DE LA COTIZACIÓN</div><select id="quote-status" class="edit" onchange="changeQuoteStatus()" style="margin-bottom:0" aria-label="Estado de la cotización"><option value="borrador">Borrador</option><option value="enviada">Enviada</option><option value="aceptada">Aceptada</option><option value="rechazada">Rechazada</option></select><p id="quote-status-hint" class="hint" style="margin-top:6px">Se guarda con la cotización.</p><div class="summary"><div><span>Opción seleccionada</span><b id="selected"></b></div><div><span>Subtotal</span><b id="subtotal"></b></div><div><span>IVA</span><b id="tax"></b></div><div><span>Total MXN</span><b id="total"></b></div></div><button class="btn" onclick="printQuote()">Imprimir / guardar PDF &nbsp; ↗</button><p class="hint">Selecciona una opción y edita sus nombres, descripciones, precios y condiciones directamente en el documento. Los abonos se registrarán al convertir la cotización en pedido.</p><p class="hint">Las cotizaciones guardadas y el pedido se almacenan solo en este navegador. Envíalas por WhatsApp o imprímelas como PDF.</p><div id="order-confirm" class="order-confirm" hidden><strong>Confirmar pedido</strong><div id="order-confirm-text"></div><button class="btn" type="button" onclick="confirmCreateOrder()">Crear pedido ↗</button><button class="text-btn" type="button" onclick="cancelCreateOrder()">Cancelar</button></div><div class="summary" style="margin-top:20px"><div class="eyebrow">COTIZACIONES GUARDADAS</div><div id="quote-list" style="display:block"></div></div></aside></div></div><div id="pedidos" class="hidden"><div class="quote-head"><div><div class="eyebrow">OPERACIÓN / PEDIDOS</div><h1>Las ideas avanzan<span style="color:#2e48a1">.</span></h1><p class="hint">Un vistazo al proyecto, desde su aprobación hasta la entrega.</p></div><span class="tag">PEDIDO</span></div><div id="orders-list" style="display:grid;gap:8px;margin-bottom:20px"></div><div id="order-empty" class="document"><div class="eyebrow">PEDIDOS</div><h2 style="font:500 24px Lexend">Todavía no hay pedidos.</h2><p class="hint">Crea un pedido desde una cotización para consultar aquí su avance y sus abonos.</p><button class="btn" onclick="show('quote')">Ir a cotizaciones ↗</button></div><div id="order-content" class="hidden"><div class="overview" style="grid-template-columns:1.3fr 1fr"><div class="feature" style="min-height:220px"><div class="eyebrow" id="order-client">PEDIDO</div><h2 id="order-project"></h2><p id="order-detail"></p><div class="order-meta"><span id="order-folio"></span><span>·</span><span id="order-date"></span></div><button type="button" id="order-quote-link" class="order-link" onclick="openLinkedQuote()" hidden></button><div id="order-contact" class="mono" style="margin-top:10px;color:#9db7c3;line-height:1.7" hidden></div><div class="feature-number">01</div></div><div class="next"><div><div class="eyebrow">PRÓXIMO PASO</div><h3 id="order-stage-title">Por definir.</h3><p id="order-stage-hint">Consulta el siguiente paso del pedido.</p></div><div class="next-bottom"><div><span class="mono">ENTREGA ESTIMADA</span><br><strong id="order-delivery-date">Sin fecha asignada</strong></div></div></div></div><div class="section-head"><div><div class="eyebrow">TRAYECTORIA DEL PEDIDO</div><h2>Cada paso cuenta.</h2></div></div><div class="flow"><div class="stage"><div class="stage-top">01 <i class="state"></i></div><h3>Confirmado</h3><p>Cotización aceptada</p></div><div class="stage"><div class="stage-top">02 <i class="state"></i></div><h3>Producción</h3><p>Orden interna para taller</p></div><div class="stage"><div class="stage-top">03 <i class="state"></i></div><h3>Calidad</h3><p>Revisión y empaque</p></div><div class="stage"><div class="stage-top">04 <i class="state"></i></div><h3>Entrega</h3><p>Guía y calendario</p></div></div><div class="section-head"><div><div class="eyebrow">PAGOS / MXN</div><h2>Abonos y saldo.</h2></div><span class="mono">RESUMEN DE PAGOS</span></div><div class="quote-layout"><section class="document"><div style="display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #d9e1e4;padding-bottom:22px;flex-wrap:wrap"><div><div class="field-label">TOTAL DEL PEDIDO</div><strong id="order-total" style="font:500 24px Lexend"></strong></div><div><div class="field-label">ABONADO</div><strong id="paid-total" style="font:500 24px Lexend"></strong></div><div><div class="field-label">SALDO PENDIENTE</div><strong id="balance" style="font:500 24px Lexend;color:#2e48a1"></strong></div></div><div class="doc-section">HISTORIAL DE ABONOS</div><div id="payment-list"></div><p class="hint">Los pedidos y sus abonos se guardan solo en este navegador.</p></section><aside class="settings"><div class="eyebrow">REGISTRAR MOVIMIENTO</div><h3>Agregar abono.</h3><form id="payment-form"><div class="field-label">FECHA *</div><input id="pay-date" type="date" class="edit" required style="margin-bottom:18px"><div class="field-label">MONTO EN MXN *</div><input id="pay-amount" type="number" min="0.01" step="0.01" class="edit" required placeholder="0.00" style="margin-bottom:18px"><div class="field-label">NOTA</div><input id="pay-note" class="edit" placeholder="Ej. transferencia"><button type="submit" class="btn">Registrar abono ↗</button></form><p class="hint">La información se guarda solo en este navegador.</p><button type="button" class="text-btn danger" onclick="deleteOrder()" style="margin-top:18px">Eliminar pedido ×</button></aside></div></div></div><div id="calendario" class="hidden"><div class="quote-head"><div><div class="eyebrow">AGENDA / ENTREGAS</div><h1>El último detalle<span style="color:#2e48a1">.</span></h1><p class="hint">Organiza las fechas y prepara la información de entrega.</p></div></div><div class="quote-layout"><section class="document"><div class="eyebrow">ENTREGAS PROGRAMADAS</div><h2 style="font:500 22px Lexend">En el calendario.</h2><div class="month-nav"><button type="button" onclick="moveMonth(-1)" aria-label="Mes anterior">←</button><strong id="month-title"></strong><button type="button" onclick="moveMonth(1)" aria-label="Mes siguiente">→</button></div><div class="month-week"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div id="month-grid" class="month-grid"></div><div class="doc-section" style="margin-top:27px">ENTREGAS PROGRAMADAS</div><div id="delivery-list"></div></section><aside class="settings"><div class="eyebrow">GUÍA DE ENTREGA</div><h3>Preparar entrega.</h3><p class="hint">La guía se puede guardar cuando el empaque esté autorizado en producción.</p><form id="delivery-form"><div class="field-label">PEDIDO</div><select id="d-order" class="edit" required onchange="fillDelivery()" style="margin-bottom:18px"></select><div class="field-label">FECHA DE ENTREGA *</div><input id="d-date" class="edit" type="date" required style="margin-bottom:18px"><div class="field-label">FORMA DE ENTREGA</div><select id="d-method" class="edit" style="margin-bottom:18px"><option>Recogida en estudio</option><option>Entrega a domicilio</option><option>Paquetería</option></select><div class="field-label">DIRECCIÓN O PUNTO DE ENTREGA</div><textarea id="d-address" class="edit" rows="2" placeholder="Dirección o punto acordado" style="margin-bottom:18px"></textarea><div class="field-label">PERSONA QUE RECIBE</div><input id="d-recipient" class="edit" placeholder="Nombre" style="margin-bottom:18px"><div class="field-label">NOTAS</div><textarea id="d-notes" class="edit" rows="2" placeholder="Indicaciones de entrega"></textarea><button id="d-save" class="btn" type="submit">Guardar guía ↗</button><button type="button" class="text-btn" onclick="printDelivery()" style="margin-top:15px">Imprimir / guardar guía como PDF ↗</button></form><p id="d-status" class="hint"></p><p class="hint">La información se guarda solo en este navegador. El envío de recordatorios aún no está conectado.</p></aside></div></div><div id="produccion" class="hidden"><div class="quote-head"><div><div class="eyebrow">TALLER / PRODUCCIÓN</div><h1>Del diseño a la realidad<span style="color:#2e48a1">.</span></h1><p class="hint">Una orden interna para organizar cada detalle del trabajo.</p></div></div><div id="prod-empty" class="document"><h2 style="font:500 22px Lexend">Aún no hay pedidos.</h2><p class="hint">Crea un pedido desde una cotización para comenzar una orden de producción.</p><button class="btn" onclick="show('quote')">Ir a cotizaciones ↗</button></div><div id="prod-content" class="hidden"><div class="quote-layout"><section class="document"><div class="doc-top"><div><div class="eyebrow">ORDEN INTERNA / TALLER</div><h2 id="prod-project" style="font:500 25px Lexend;margin:10px 0"></h2><span id="prod-client" class="mono"></span></div><select id="prod-order" class="edit" aria-label="Seleccionar pedido" style="width:auto;max-width:220px" onchange="selectProd(this.value)"></select></div><form id="prod-form"><div class="doc-section">01 / DETALLES DE PRODUCCIÓN</div><div class="field-label">QUÉ SE VA A PRODUCIR</div><textarea id="p-description" class="edit" rows="3" placeholder="Descripción, cantidades, medidas y acabados" style="margin-bottom:18px"></textarea><div class="field-label">MATERIALES</div><textarea id="p-materials" class="edit" rows="3" placeholder="Materiales y cantidades previstas" style="margin-bottom:18px"></textarea><div class="info" style="padding-top:0"><div><div class="field-label">COSTO ESTIMADO / MXN</div><input id="p-cost" class="edit" type="number" step="0.01" min="0" placeholder="0.00"></div><div><div class="field-label">TIEMPO ESTIMADO</div><input id="p-time" class="edit" placeholder="Ej. 3 días hábiles"></div></div><div class="field-label" style="margin-top:20px">NOTAS PARA EL TALLER</div><textarea id="p-notes" class="edit" rows="3" placeholder="Instrucciones y observaciones"></textarea><button class="btn" type="submit" style="margin-top:20px">Guardar orden ↗</button><button type="button" class="text-btn" onclick="printProduction()" style="margin:20px 0 0 12px">Imprimir / guardar PDF ↗</button></form></section><aside class="settings"><div class="eyebrow">CONTROL / CALIDAD</div><h3>Revisión y empaque.</h3><p class="hint">Confirma cada punto antes de autorizar el empaque.</p><form id="quality-form"><label class="toggle-row"><span><strong>Especificaciones</strong><small>Medidas, cantidad y materiales</small></span><input id="q-spec" type="checkbox"></label><label class="toggle-row"><span><strong>Acabados</strong><small>Impresión y terminación revisadas</small></span><input id="q-finish" type="checkbox"></label><label class="toggle-row"><span><strong>Producto conforme</strong><small>Sin defectos visibles</small></span><input id="q-conform" type="checkbox"></label><div class="field-label">PERSONA QUE VERIFICA</div><input id="q-reviewer" class="edit" placeholder="Nombre de quien revisa" style="margin-bottom:16px"><div class="field-label">FECHA DE REVISIÓN</div><input id="q-date" class="edit" type="date" style="margin-bottom:16px"><div class="field-label">OBSERVACIONES</div><textarea id="q-notes" class="edit" rows="3" placeholder="Detalles de la revisión"></textarea><label class="toggle-row"><span><strong>Autorizar empaque</strong><small>Completa revisión, nombre y fecha</small></span><input id="q-approved" type="checkbox"></label><button class="btn" type="submit">Guardar verificación ↗</button></form><p id="quality-status" class="hint"></p><p class="hint">Información guardada únicamente en este navegador.</p></aside></div></div></div><div id="clientes" class="hidden"><div class="quote-head"><div><div class="eyebrow">DIRECTORIO / RELACIONES</div><h1>Personas e ideas<span style="color:#2e48a1">.</span></h1><p class="hint">Clientes y prospectos, en un solo lugar.</p></div><button class="btn" onclick="newClient()">+ Nueva persona</button></div><div class="quote-layout"><section class="document"><div class="section-head" style="margin:0 0 20px"><div><div class="eyebrow">DIRECTORIO</div><h2>Contactos</h2></div><span id="client-count" class="mono"></span></div><input class="edit" id="client-search" placeholder="Buscar por nombre, correo o empresa..." oninput="renderClients()"><div id="client-list" style="margin-top:18px"></div><p class="hint">Datos guardados únicamente en este navegador.</p></section><aside class="settings" id="client-form-wrap"><div class="eyebrow">NUEVO CONTACTO</div><h3 id="form-title">Agregar persona.</h3><form id="client-form"><div class="field-label">TIPO</div><select id="c-type" class="edit" style="margin-bottom:18px"><option>Prospecto</option><option>Cliente</option></select><div class="field-label">NOMBRE *</div><input id="c-name" class="edit" required placeholder="Nombre del contacto" style="margin-bottom:18px"><div class="field-label">EMPRESA</div><input id="c-company" class="edit" placeholder="Nombre del negocio" style="margin-bottom:18px"><div class="field-label">CORREO</div><input id="c-email" type="email" class="edit" placeholder="correo@ejemplo.com" style="margin-bottom:18px"><div class="field-label">TELÉFONO</div><input id="c-phone" class="edit" placeholder="Número de contacto" style="margin-bottom:18px"><div class="field-label">NOTAS</div><textarea id="c-notes" class="edit" rows="3" placeholder="Detalles importantes"></textarea><button class="btn" type="submit">Guardar contacto ↗</button><button type="button" class="text-btn" onclick="newClient()" style="margin-top:15px">Limpiar formulario</button><button type="button" class="text-btn danger" id="client-delete" onclick="deleteClient()" style="margin-top:15px" hidden>Eliminar contacto ×</button></form><div id="client-history" class="client-history" hidden><div class="eyebrow">HISTORIAL DEL CLIENTE</div><div id="client-history-body"></div></div></aside></div></div><div id="placeholder" class="hidden"><div class="eyebrow">PRÓXIMA ETAPA</div><h1 id="placeholder-title"></h1><p>Esta sección aún está en desarrollo.</p><button class="btn" onclick="show('home')">Volver al panorama &nbsp; ↗</button></div></div></main></div><script>
+.doc-status{display:inline-block;margin-top:6px;padding:3px 7px;border-radius:3px;background:#eaf5f3;color:#2b6c62;font:9px 'Fira Mono',monospace;letter-spacing:.1em;text-transform:uppercase}.doc-status[data-status="enviada"]{background:#e5ecfb;color:#2e48a1}.doc-status[data-status="aceptada"]{background:#dcefeb;color:#176b58}.doc-status[data-status="rechazada"]{background:#f7e6e4;color:#9b3b30}.pill{display:inline-block;padding:3px 6px;border-radius:3px;background:#eef2f2;color:#5d737b;font:9px 'Fira Mono',monospace;letter-spacing:.06em;text-transform:uppercase}.pill[data-status="enviada"]{background:#e5ecfb;color:#2e48a1}.pill[data-status="aceptada"]{background:#dcefeb;color:#176b58}.pill[data-status="rechazada"]{background:#f7e6e4;color:#9b3b30}.quote-row{display:flex;gap:10px;justify-content:space-between;align-items:flex-start;border-bottom:1px solid #d9e1e4;padding:12px 0}.quote-row>div:first-child{min-width:0}.order-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;color:#9db7c3;font:10px 'Fira Mono',monospace;letter-spacing:.08em}.order-link,.feature .order-link{background:none;border:0;color:#6bd9ca;font:700 11px Inter,sans-serif;padding:0;margin-top:8px;cursor:pointer;text-align:left}.danger{color:#9b3b30!important}.client-history{margin-top:24px;border-top:1px solid var(--line);padding-top:18px}.history-row{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid #e6ecec;padding:11px 0;color:var(--ink)}.history-row strong{font-size:12px}.history-row small{display:block;color:#809097;margin-top:4px}[hidden]{display:none!important}
+
+/* Taller: mosaico operativo, jerarquía editorial y controles de formulario claros. */
+:root{--coral:#fa876f;--lilac:#e9e8fb;--soft-ink:#233c50;--dashboard-line:#dce5e5}
+button,a,input,select,textarea,[contenteditable="true"]{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[contenteditable="true"]:focus-visible{outline:3px solid #4cd8c0;outline-offset:3px}
+.btn,.text-btn,.module-link,.hero-link,.dispatch-action,.focus-action,.quote-reminder,.directory-link,.balance-row-action,.balance-more{transition:transform .18s ease,background-color .18s ease,border-color .18s ease,box-shadow .18s ease}
+.btn:hover,.hero-link:hover,.dispatch-action:hover,.directory-link:hover{transform:translateY(-1px);box-shadow:0 9px 24px #081c3024}
+
+/* Icon-only navigation: meaning stays available to screen readers and on hover. */
+.nav button{position:relative;flex:none;transition:color .18s ease,background-color .18s ease,transform .18s ease}
+.nav .nav-icon{display:block;width:21px;height:21px;overflow:visible;transition:transform .18s ease}
+.nav button:hover .nav-icon,.nav button:focus-visible .nav-icon{transform:translateY(-1px) scale(1.04)}
+.nav button.active .nav-icon{color:#75e5d2;filter:drop-shadow(0 0 7px #4cd8c055)}
+@media(min-width:901px){
+  .nav button::after{content:attr(aria-label);position:absolute;z-index:90;left:calc(100% + 13px);top:50%;transform:translate(-5px,-50%);padding:9px 12px;border:1px solid #ffffff1f;border-radius:9px;background:#102b40;color:#f3fbfa;font:600 11px Inter,sans-serif;letter-spacing:.01em;white-space:nowrap;opacity:0;visibility:hidden;pointer-events:none;box-shadow:0 12px 30px #06172550;transition:opacity .16s ease,transform .16s ease,visibility .16s ease}
+  .nav button:hover::after,.nav button:focus-visible::after{opacity:1;visibility:visible;transform:translate(0,-50%)}
+}
+@media(max-width:900px){
+  .nav button{display:grid;place-items:center}
+  .nav .nav-icon{width:20px;height:20px}
+  .nav button::after{display:none}
+}
+
+#home .home-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin:0 0 26px;padding-bottom:23px;border-bottom:1px solid #d7e2e3}
+#home .home-heading-copy{min-width:0}
+#home .home-heading .eyebrow{display:flex;align-items:center;gap:9px;color:#57737d}
+#home .heading-divider{color:#4cd8c0}
+#home .home-heading h1{font:600 clamp(34px,3.5vw,48px)/1.02 Lexend,sans-serif;letter-spacing:-.06em;margin:12px 0 8px;color:#081c30}
+#home .home-heading p{margin:0;color:#6e828b;font-size:13px;line-height:1.55}
+#home .home-actions{display:flex;align-items:center;gap:18px;flex:none}
+#home .backup-tools{display:flex;align-items:center;gap:12px;padding-right:17px;border-right:1px solid #d5e0e1}
+#home .backup-tools .text-btn{padding:8px 0;color:#526a76;font-size:11px}
+#home .backup-tools .text-btn:hover{color:#2e48a1}
+#home .home-actions>.btn{padding:13px 17px;border-radius:11px;background:#2e48a1;box-shadow:0 8px 22px #2e48a124}
+#home .home-foot{margin-top:22px;color:#97a8aa}
+
+.hoy-list.dashboard-mosaic{max-width:none;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;align-items:stretch}
+.home-module{min-width:0;position:relative;overflow:hidden;border-radius:20px;padding:24px;border:1px solid #ffffffd9;box-shadow:0 14px 34px #102e3d0b}
+.studio-hero{grid-column:span 7;min-width:0;min-height:304px;position:relative;isolation:isolate;overflow:hidden;border:1px solid #29475b;border-radius:22px;padding:25px 29px 17px;color:#f5f8f7;background:radial-gradient(circle at 82% 35%,#244e5a8a,transparent 39%),linear-gradient(135deg,#081c30 4%,#102c42 61%,#16394c 100%);box-shadow:0 18px 42px #081c3026}
+.studio-hero::before{content:"";position:absolute;inset:0;z-index:-1;opacity:.25;background-image:linear-gradient(#b8d4dc12 1px,transparent 1px),linear-gradient(90deg,#b8d4dc12 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(110deg,#000 0%,transparent 83%)}
+.hero-decoration{position:absolute;z-index:-1;width:330px;height:330px;right:-72px;top:-75px;border:1px solid #4cd8c030;border-radius:50%;box-shadow:0 0 0 23px #4cd8c00a,0 0 0 57px #4cd8c009,0 0 0 94px #4cd8c007;pointer-events:none}
+.hero-decoration span{position:absolute;inset:52px;border:1px dashed #91e5d239;border-radius:50%;transform:rotate(-18deg)}
+.hero-decoration i{position:absolute;width:10px;height:10px;top:42px;left:85px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 8px #4cd8c021,0 0 30px #4cd8c070}
+.hero-topline{display:flex;align-items:center;justify-content:space-between;gap:14px;color:#9fb9c2;font:9px 'Fira Mono',monospace;letter-spacing:.13em;text-transform:uppercase}
+.hero-topline>span:first-child{display:flex;align-items:center;gap:9px}
+.hero-live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 5px #4cd8c01a}
+.hero-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(150px,.57fr);gap:20px;align-items:center;margin:23px 0 20px;position:relative;z-index:1}
+.hero-copy h2{font:500 clamp(30px,3.2vw,43px)/1.04 Lexend,sans-serif;letter-spacing:-.06em;margin:0;max-width:390px}
+.hero-copy h2 span{color:var(--teal)}
+.hero-copy p{max-width:340px;margin:13px 0 17px;color:#b6c9cf;font-size:12px;line-height:1.65}
+.hero-link{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:10px;background:var(--teal);color:#11293c;padding:11px 14px;font-size:11px;font-weight:700}
+.hero-link svg,.module-link svg,.dispatch-action svg,.focus-action svg,.quote-reminder svg,.directory-link svg,.balance-row-action svg,.balance-more svg,.dispatch-footer svg,.attention-footer svg,.quotes-footer svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.hero-metric{position:relative;z-index:1;min-width:0;padding:17px 17px 14px;border:1px solid #ffffff24;border-radius:18px;background:linear-gradient(145deg,#ffffff12,#ffffff06);backdrop-filter:blur(8px);box-shadow:inset 0 1px #ffffff12}
+.hero-metric-label{display:block;color:#a9c1c7;font:8px 'Fira Mono',monospace;letter-spacing:.11em;line-height:1.55}
+.hero-metric-number{display:flex;align-items:flex-end;gap:9px;margin-top:8px}
+.hero-metric-number strong{font:500 clamp(52px,5vw,72px)/.9 Lexend,sans-serif;letter-spacing:-.09em;color:#fff}
+.hero-metric-number span{font:8px/1.55 'Fira Mono',monospace;letter-spacing:.1em;color:#8fb1b5;padding-bottom:4px}
+.hero-metric-rule{height:1px;background:#ffffff24;margin:15px 0 11px}
+.hero-metric-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#b8cbcf;font-size:10px}
+.hero-metric-foot strong{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--teal);color:#132c3c;font:700 11px 'Fira Mono',monospace}
+.hero-footer{display:flex;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid #ffffff1c;color:#91aab1;font:8px 'Fira Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+
+.dispatch-panel{grid-column:span 5;min-height:304px;padding:24px;background:linear-gradient(145deg,#fbf5e8 0%,#f1e7d2 100%);border:1px solid #fff;border-radius:22px;box-shadow:0 14px 34px #59421e0d;display:flex;flex-direction:column}
+.dispatch-head,.module-heading,.balance-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+.module-kicker{display:block;color:#71878c;font:8px 'Fira Mono',monospace;letter-spacing:.13em;text-transform:uppercase}
+.dispatch-head h2,.module-heading h2,.balance-top h2{font:500 18px/1.15 Lexend,sans-serif;letter-spacing:-.04em;margin:8px 0 0;color:#10293c}
+.dispatch-count{display:flex;align-items:center;gap:7px;color:#2e48a1}
+.dispatch-count strong{font:500 31px/.9 Lexend,sans-serif;letter-spacing:-.07em}
+.dispatch-count span{font:7px/1.45 'Fira Mono',monospace;letter-spacing:.07em}
+.dispatch-feature{display:grid;grid-template-columns:67px minmax(0,1fr);gap:14px;align-items:center;margin:24px 0 0;padding:16px 0 17px;border-top:1px solid #d7d3c7;border-bottom:1px solid #d7d3c7}
+.dispatch-date{height:76px;width:67px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:14px;background:#081c30;color:#fff;box-shadow:0 7px 14px #081c301c}
+.dispatch-date span{font:8px 'Fira Mono',monospace;letter-spacing:.12em;color:var(--teal)}
+.dispatch-date strong{font:500 34px/.95 Lexend,sans-serif;letter-spacing:-.07em;margin:2px 0}
+.dispatch-date small{font:7px 'Fira Mono',monospace;color:#b3c6cc}
+.dispatch-copy{min-width:0}
+.dispatch-state{display:inline-block;color:#73817b;font:8px 'Fira Mono',monospace;letter-spacing:.11em}
+.dispatch-feature.is-overdue .dispatch-state{color:#ac4538}
+.dispatch-feature.is-today .dispatch-state{color:#8a570b}
+.dispatch-feature.is-upcoming .dispatch-state{color:#2e48a1}
+.dispatch-copy h3{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:7px 0 4px;color:#10293c;font:500 16px Lexend,sans-serif;letter-spacing:-.03em}
+.dispatch-copy p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:0 0 5px;color:#61747c;font-size:11px}
+.dispatch-copy>small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#83928d;font-size:9px}
+.dispatch-meta{display:flex;justify-content:space-between;gap:8px;margin-top:12px;color:#718080;font:8px 'Fira Mono',monospace;letter-spacing:.04em}
+.dispatch-action{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:15px;padding:10px 12px;border:1px solid #d7d4c9;border-radius:10px;background:#ffffff80;color:#183449;font-size:10px;font-weight:700}
+.dispatch-empty{display:flex;flex:1;flex-direction:column;align-items:flex-start;justify-content:center;min-height:154px;padding:18px 0}
+.dispatch-empty-icon{display:grid;place-items:center;width:38px;height:38px;margin-bottom:12px;border:1px solid #d5cfbd;border-radius:12px;color:#2e48a1}
+.dispatch-empty-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.dispatch-empty strong{font:500 14px Lexend;color:#183449}
+.dispatch-empty p{margin:6px 0 0;color:#75847e;font-size:10px}
+.dispatch-footer{display:flex;justify-content:flex-end;margin-top:auto;padding-top:12px}
+.dispatch-footer button,.quotes-footer button{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;color:#2e48a1;font-size:10px;font-weight:700}
+
+.flow-panel{grid-column:span 7;min-height:228px;background:linear-gradient(155deg,#ffffff,#f8fbfa);padding:24px 26px}
+.module-heading{align-items:center}
+.module-link{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;color:#2e48a1;font-size:10px;font-weight:700;white-space:nowrap;padding:4px 0}
+.flow-map{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-top:31px}
+.flow-step{min-width:0}
+.flow-step-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.flow-step-head strong{font:500 30px/.9 Lexend,sans-serif;letter-spacing:-.07em;color:#10293c}
+.flow-step-head span{color:#a2b2b3;font:8px 'Fira Mono',monospace}
+.flow-track{height:5px;margin-bottom:10px;overflow:hidden;border-radius:99px;background:#e8eeee}
+.flow-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#4cd8c0,#2e48a1);transition:width .35s ease}
+.flow-step:nth-child(2) .flow-track i{background:linear-gradient(90deg,#80e3c4,#40a9bb)}
+.flow-step:nth-child(3) .flow-track i{background:linear-gradient(90deg,#8c9ce2,#534aa3)}
+.flow-step:nth-child(4) .flow-track i{background:linear-gradient(90deg,#f2b780,#ec896d)}
+.flow-step-label{display:block;overflow:hidden;color:#667c82;font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+.flow-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;padding-top:13px;border-top:1px solid #e6eceb;color:#899a9d;font:8px 'Fira Mono',monospace;letter-spacing:.04em}
+.flow-foot>span:first-child{display:flex;align-items:center;gap:7px}
+.flow-foot i{width:6px;height:6px;border-radius:50%;background:#4cd8c0}
+
+.balance-panel{grid-column:span 5;min-height:228px;padding:23px 25px;background:linear-gradient(145deg,#c8f4eb 0%,#4cd8c0 100%);border:1px solid #a6e8dc;border-radius:22px;box-shadow:0 14px 34px #176b5818;color:#122b3b}
+.balance-top h2{color:#142d3b}
+.balance-top .module-kicker{color:#285b58}
+.balance-glyph{display:grid;place-items:center;width:31px;height:31px;border:1px solid #205d5c40;border-radius:50%;font-size:15px;color:#205d5c}
+.balance-total{margin:17px 0 7px;font:500 clamp(30px,3vw,39px)/1 Lexend,sans-serif;letter-spacing:-.065em;overflow-wrap:anywhere}
+.balance-caption{display:flex;justify-content:space-between;gap:8px;color:#285c58;font:8px 'Fira Mono',monospace;letter-spacing:.05em}
+.balance-rows{margin-top:14px}
+.balance-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 0;border-top:1px solid #165a551f}
+.balance-row-copy{min-width:0}
+.balance-row-copy strong,.balance-row-copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.balance-row-copy strong{font:500 11px Lexend;color:#193143}
+.balance-row-copy small{margin-top:4px;color:#285c58;font-size:9px}
+.balance-row-action{display:inline-flex;align-items:center;gap:5px;flex:none;border:0;background:transparent;color:#205d5c;font-size:9px;font-weight:700;padding:5px 0}
+.balance-row-action svg{width:13px;height:13px}
+.balance-row-action:hover,.balance-more:hover{color:#2e48a1}
+.balance-empty{display:flex;align-items:center;gap:11px;margin-top:20px;padding-top:15px;border-top:1px solid #165a551f}
+.balance-empty>span{display:grid;place-items:center;width:27px;height:27px;border:1px solid #21655e45;border-radius:50%;font-size:14px}
+.balance-empty strong,.balance-empty small{display:block}
+.balance-empty strong{font:500 11px Lexend}
+.balance-empty small{margin-top:3px;color:#285c58;font-size:9px}
+.balance-more{display:flex;align-items:center;gap:6px;margin:3px 0 0 auto;border:0;background:none;color:#205d5c;font-size:9px;font-weight:700;padding:5px 0}
+
+.attention-panel{grid-column:span 8;min-height:266px;background:linear-gradient(145deg,#fff,#f8f9ff);padding:24px 26px}
+.attention-count{padding:7px 9px;border:1px solid #e2e6eb;border-radius:99px;color:#617582;font:8px 'Fira Mono',monospace;white-space:nowrap}
+.focus-list{margin-top:16px}
+.focus-row{display:grid;grid-template-columns:9px minmax(0,1fr) auto;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #e8ecee}
+.focus-marker{width:7px;height:31px;border-radius:99px;background:#8a9ce0}
+.focus-marker.urgent{background:#f17e6a}.focus-marker.today{background:#e7aa53}.focus-marker.work{background:#6e7cce}
+.focus-copy{min-width:0}
+.focus-meta{display:flex;align-items:center;gap:8px;color:#809197;font:7px 'Fira Mono',monospace;letter-spacing:.09em}
+.focus-copy>strong{display:block;overflow:hidden;margin:4px 0 2px;color:#1b3546;font:500 12px Lexend;text-overflow:ellipsis;white-space:nowrap}
+.focus-copy>small{display:block;overflow:hidden;color:#7a8c91;font-size:9px;text-overflow:ellipsis;white-space:nowrap}
+.focus-action{display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;color:#2e48a1;font-size:9px;font-weight:700;white-space:nowrap;padding:8px 0 8px 8px}
+.focus-action svg{width:13px;height:13px}
+.focus-empty{display:flex;align-items:center;gap:12px;padding:25px 0 21px;border-top:1px solid #e8ecee}
+.focus-check{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;background:#dcf2e9;color:#26775e;font-weight:700}
+.focus-empty strong,.focus-empty small{display:block}
+.focus-empty strong{font:500 12px Lexend;color:#284456}
+.focus-empty small{margin-top:4px;color:#7e9196;font-size:9px}
+.focus-empty button{margin-left:auto;border:0;background:transparent;color:#2e48a1;font-size:9px;font-weight:700}
+.attention-footer{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-top:12px;border-top:1px solid #e8ecee;color:#8a999d;font:8px 'Fira Mono',monospace}
+.attention-footer button{display:inline-flex;align-items:center;gap:5px;border:0;background:transparent;color:#2e48a1;font-size:9px;font-weight:700;white-space:nowrap}
+.attention-footer svg{width:13px;height:13px}
+
+.quotes-panel{grid-column:span 4;min-height:266px;padding:24px 22px;background:linear-gradient(150deg,#2b438f,#263777 70%,#1a5164);border:1px solid #ffffff22;color:#fff;box-shadow:0 16px 34px #192b6e1d}
+.quotes-panel .module-kicker{color:#aebce8}
+.quotes-panel .module-heading h2{color:#fff;font-size:17px}
+.quote-count{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--teal);color:#172e40;font:700 10px 'Fira Mono',monospace}
+.quote-follow-list{margin-top:16px}
+.quote-follow-row{display:grid;grid-template-columns:37px minmax(0,1fr);gap:9px;padding:12px 0;border-top:1px solid #ffffff26}
+.quote-age{display:flex;flex-direction:column;align-items:center;justify-content:center;width:35px;height:35px;border:1px solid #ffffff38;border-radius:11px;color:#c1d1e9}
+.quote-age strong{font:500 13px Lexend;line-height:1}
+.quote-age span{margin-top:3px;font:6px 'Fira Mono',monospace;letter-spacing:.08em}
+.quote-follow-copy{min-width:0;align-self:center}
+.quote-follow-copy strong,.quote-follow-copy small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quote-follow-copy strong{font:500 11px Lexend;color:#fff}
+.quote-follow-copy small{margin-top:4px;color:#b9c6df;font-size:8px}
+.quote-reminder{grid-column:2;display:flex;align-items:center;justify-content:space-between;gap:6px;width:100%;border:1px solid #ffffff35;border-radius:8px;background:#ffffff0b;color:var(--teal);padding:7px 8px;font-size:8px;font-weight:700;text-align:left}
+.quote-reminder svg{width:12px;height:12px;flex:none}
+.quote-reminder:hover{background:#ffffff18}
+.quote-empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:22px 0;color:#fff}
+.quote-empty-mark{display:grid;place-items:center;width:31px;height:31px;border:1px solid #ffffff45;border-radius:50%;color:var(--teal);font-size:16px}
+.quote-empty strong{font:500 11px Lexend}
+.quote-empty small{color:#bbc8df;font-size:9px;line-height:1.55}
+.quotes-footer{display:flex;justify-content:flex-end;margin-top:7px;padding-top:10px;border-top:1px solid #ffffff24}
+.quotes-footer button{color:var(--teal);font-size:9px}
+
+.directory-strip{grid-column:1/-1;display:flex;align-items:center;gap:14px;min-height:78px;padding:12px 17px;border-top:1px solid #d7e2e2;border-bottom:1px solid #d7e2e2}
+.directory-mark{display:grid;place-items:center;width:38px;height:38px;flex:none;border:1px solid #cad8d9;border-radius:13px;background:#ffffff80;color:#2e48a1}
+.directory-mark svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.directory-summary{display:grid;grid-template-columns:auto auto;align-items:baseline;column-gap:8px;min-width:130px}
+.directory-summary .module-kicker{grid-column:1/-1}
+.directory-summary strong{font:500 19px Lexend;letter-spacing:-.04em;color:#17364b}
+.directory-summary small{color:#7d8e91;font-size:9px}
+.directory-link{display:inline-flex;align-items:center;gap:7px;margin-left:auto;border:0;background:transparent;color:#2e48a1;font-size:10px;font-weight:700}
+.directory-note{margin-left:14px;padding-left:16px;border-left:1px solid #d7e2e2;color:#8a9a9d;font:8px 'Fira Mono',monospace}
+
+/* Formularios: etiquetas conectadas, campos sólidos, buen foco y grupos legibles. */
+.field-label{display:block;margin:0 0 8px;color:#607984;font:700 9px 'Fira Mono',monospace;letter-spacing:.1em;line-height:1.45}
+.edit{display:block;min-height:45px;padding:11px 13px;border:1px solid #d3dfe3;border-radius:10px;outline:0;background:#f9fbfb;color:#10293c;font-size:13px;line-height:1.4;transition:border-color .16s ease,box-shadow .16s ease,background-color .16s ease}
+.edit::placeholder{color:#8b9a9e;opacity:1}
+.edit:focus{border-color:#2e48a1;background:#fff;box-shadow:0 0 0 4px #2e48a116}
+textarea.edit{min-height:88px;padding:12px 13px;resize:vertical;line-height:1.55}
+select.edit{padding-right:38px;cursor:pointer}
+input[type="date"].edit{min-height:45px}
+.info .edit{border:1px solid #d3dfe3;border-radius:10px;background:#f9fbfb;padding:11px 13px}
+.info .edit:focus{border-color:#2e48a1;background:#fff}
+#quote .info{gap:16px;padding:18px;margin:17px 0 24px;border:1px solid #e0e8e8;border-radius:15px;background:linear-gradient(145deg,#f9fbfa,#f2f7f6)}
+#quote .info>div{min-width:0}
+#quote .info .field-label:not(:first-child){margin-top:14px}
+.doc-section{display:flex;align-items:center;gap:10px;margin:25px 0 13px;padding-top:17px;border-top:1px solid #e3e9e9;color:#2e48a1;font:700 9px 'Fira Mono',monospace;letter-spacing:.12em}
+.doc-section--first{margin-top:17px}
+.spec-grid{gap:15px 16px;margin:17px 0 19px}
+.spec-grid>div{min-width:0}
+.finish-group-label{margin-top:18px}
+.finish-check{min-height:36px;margin:0 7px 7px 0;padding:7px 10px;border:1px solid #e0e7e7;border-radius:9px;background:#f9fbfb;color:#405963;font-size:10px;transition:border-color .16s ease,background-color .16s ease}
+.finish-check:has(input:checked){border-color:#9ccfc0;background:#e9f5f1}
+.finish-check input{accent-color:#2e48a1}
+.option{grid-template-columns:21px minmax(130px,.8fr) minmax(280px,1.2fr);gap:12px;padding:15px;border:1px solid #dce5e6;border-radius:13px;background:#fff;transition:border-color .16s ease,background-color .16s ease,box-shadow .16s ease}
+.option:has(input[type="radio"]:checked){border-color:#9aa9df;background:#f7f8ff;box-shadow:0 4px 14px #2e48a10c}
+.option>input[type="radio"]{width:17px;height:17px;margin:0;accent-color:#2e48a1}
+.option strong,.option small{outline:0}
+.option strong[contenteditable="true"]{display:inline-block;min-width:75px;border-bottom:1px dashed #b9c7ca;padding-bottom:3px}
+.option small[contenteditable="true"]{min-height:18px;border-bottom:1px dashed #d0d9db;padding-bottom:3px}
+.option-price{display:grid;grid-template-columns:minmax(58px,.8fr) 13px minmax(85px,1.2fr) 13px minmax(85px,1.2fr);gap:6px;align-items:end;min-width:0}
+.option-field{display:grid;gap:5px;min-width:0}
+.option-field>span{overflow:hidden;color:#778a8e;font:700 7px 'Fira Mono',monospace;letter-spacing:.06em;text-overflow:ellipsis;white-space:nowrap}
+.option-field input[type="number"]{width:100%;min-width:0;height:39px;padding:0 8px;border:1px solid #d4dfe2;border-radius:8px;background:#fff;color:#10293c;font-size:11px;text-align:right;outline:0}
+.option-field input[type="number"]:focus{border-color:#2e48a1;box-shadow:0 0 0 3px #2e48a116}
+.option-field .opt-total{border-color:#99d6c4!important;background:#edf7f3!important;color:#17473f!important;font-weight:700}
+.price-operator{align-self:end;margin-bottom:11px;color:#789094;font:600 14px Lexend;text-align:center}
+.option-price input[type=number]{border-bottom:1px solid #d4dfe2;text-align:right}
+.conditions{min-height:96px;padding:13px 15px;border:1px solid #dce5e6;border-radius:11px;background:#fafcfc;color:#536a74;font-size:12px;line-height:1.7}
+.conditions:focus{border-color:#2e48a1;background:#fff;outline:0;box-shadow:0 0 0 4px #2e48a116}
+.quote-head .form-intro{max-width:450px;margin:8px 0 0;color:#71858b;font-size:11px;line-height:1.55}
+#quote .info .client-hint{margin-top:7px}
+.field-error{border:1px solid #f1c2ba}
+.draft-status{display:flex;align-items:center;gap:7px}
+.draft-status::before{content:"";width:6px;height:6px;border-radius:50%;background:#4cd8c0}
+.settings form>.edit{margin-bottom:15px}
+.settings form>.field-label{margin-top:2px}
+.settings form>.btn{min-height:45px;margin-top:17px;border-radius:10px}
+#client-form{padding-top:2px}
+#client-form .btn{width:100%}
+#client-form .text-btn{display:block;margin-left:0!important;padding:6px 0;text-align:left}
+#delivery-form .btn{width:100%}
+#prod-form .btn{border-radius:10px}
+#client-search{max-width:560px;background:#fff}
+.toggle-row input[type="checkbox"]{flex:none;width:20px;height:20px;accent-color:#2e48a1}
+
+@media(max-width:1100px){
+  .content{padding-left:30px;padding-right:30px}
+  .hoy-list.dashboard-mosaic{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .studio-hero,.flow-panel,.attention-panel{grid-column:span 4}
+  .dispatch-panel,.balance-panel,.quotes-panel{grid-column:span 2}
+  .directory-strip{grid-column:1/-1}
+  .studio-hero{padding:23px 22px 16px}
+  .hero-body{grid-template-columns:minmax(0,1fr) minmax(120px,.55fr);gap:12px}
+  .hero-metric{padding:14px}
+  .dispatch-panel,.balance-panel,.quotes-panel{padding:20px 17px}
+  .option{grid-template-columns:20px minmax(120px,.8fr) minmax(250px,1.2fr);gap:9px;padding:12px}
+}
+@media(max-width:900px){
+  #home .home-heading{align-items:flex-start}
+  #home .home-actions{gap:12px}
+  #home .backup-tools{gap:9px;padding-right:12px}
+  .directory-note{display:none}
+}
+@media(max-width:720px){
+  #home .home-heading{flex-direction:column;align-items:stretch;gap:16px;margin-bottom:20px;padding-bottom:18px}
+  #home .home-actions{justify-content:space-between;flex-wrap:wrap}
+  .hoy-list.dashboard-mosaic{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .studio-hero,.dispatch-panel,.flow-panel,.balance-panel,.attention-panel,.quotes-panel{grid-column:1/-1}
+  .studio-hero{min-height:282px}
+  .dispatch-panel{min-height:270px}
+  .flow-panel{min-height:215px}
+  .balance-panel{min-height:unset}
+  .attention-panel,.quotes-panel{min-height:unset}
+  .directory-strip{grid-column:1/-1}
+  .home-module{border-radius:17px}
+  .option{grid-template-columns:20px minmax(120px,.7fr) minmax(250px,1.3fr)}
+}
+@media(max-width:520px){
+  #home .home-heading h1{font-size:37px}
+  #home .home-actions{align-items:flex-start;flex-direction:column}
+  #home .home-actions>.btn{width:100%;min-height:47px}
+  #home .backup-tools{width:100%;justify-content:flex-start;border:0;padding:0}
+  .hoy-list.dashboard-mosaic{grid-template-columns:minmax(0,1fr);gap:11px}
+  .studio-hero,.dispatch-panel,.flow-panel,.balance-panel,.attention-panel,.quotes-panel,.directory-strip{grid-column:1}
+  .studio-hero{min-height:320px;padding:22px 19px 15px}
+  .hero-topline{font-size:7px}
+  .hero-body{grid-template-columns:minmax(0,1fr) 112px;gap:9px;margin:27px 0 20px}
+  .hero-copy h2{font-size:29px}
+  .hero-copy p{font-size:10px;line-height:1.55}
+  .hero-link{padding:9px 10px;font-size:9px}
+  .hero-metric{padding:12px 10px}
+  .hero-metric-number strong{font-size:48px}
+  .hero-metric-number span{font-size:7px}
+  .hero-metric-foot{font-size:8px}
+  .hero-footer{font-size:7px}
+  .flow-panel,.attention-panel{padding:21px 17px}
+  .flow-map{gap:8px;margin-top:25px}
+  .flow-step-head strong{font-size:25px}
+  .flow-step-label{font-size:8px}
+  .flow-foot{align-items:flex-start;flex-direction:column;gap:6px;font-size:7px}
+  .focus-row{grid-template-columns:7px minmax(0,1fr);gap:9px}
+  .focus-action{grid-column:2;justify-self:start;padding:0;font-size:9px}
+  .focus-copy>small{white-space:normal}
+  .attention-footer{align-items:flex-start;flex-direction:column;font-size:7px}
+  .quotes-panel{padding:21px 18px}
+  .directory-strip{flex-wrap:wrap;gap:10px;padding:13px 11px}
+  .directory-summary{min-width:0}
+  .directory-link{margin-left:auto}
+  .option{grid-template-columns:18px minmax(0,1fr);gap:9px}
+  .option>input[type="radio"]{grid-row:1}
+  .option>div:not(.option-price){grid-column:2}
+  .option-price{grid-column:1/-1;grid-template-columns:minmax(50px,.8fr) 10px minmax(72px,1.1fr) 10px minmax(76px,1.1fr);gap:4px}
+  .option-field>span{font-size:6px}
+  .option-field input[type="number"]{height:37px;padding:0 5px;font-size:10px}
+  .price-operator{margin-bottom:10px;font-size:12px}
+  .document{padding:20px 16px}
+  #quote .info{grid-template-columns:1fr;gap:13px;padding:15px}
+  .spec-grid{grid-template-columns:1fr}
+  .quote-head .form-intro{font-size:10px}
+  .quote-head h1{font-size:31px}
+  .document .option{margin:10px 0}
+}
+
+@media print{
+  .edit{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:4px 0!important}
+  .option-field input[type="number"]{border:0!important;background:transparent!important;box-shadow:none!important}
+  #quote .info{border:0!important;border-radius:0!important;background:transparent!important;padding:20px 0!important}
+  .conditions{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;padding:8px 0!important}
+  .option{border-radius:0!important;box-shadow:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
+
+/* Captura comercial por renglón: texto libre, unidades y precio unitario. */
+.item-entry-hint{margin:-4px 0 14px}
+.quote-items-table{border-top:1px solid var(--line)}
+.quote-items-header,.quote-item-row{display:grid;grid-template-columns:minmax(170px,1fr) 72px minmax(110px,132px) minmax(100px,125px) 32px;gap:12px;align-items:center}
+.quote-items-header{padding:10px 0 8px;font:9px 'Fira Mono',monospace;letter-spacing:.08em;color:#82949a}
+.quote-item-row{padding:12px 0;border-bottom:1px solid #e7edef}
+.quote-item-cell{min-width:0}
+.quote-item-cell .edit{font-size:12px}
+.q-item-quantity,.q-item-unit-price{text-align:right}
+.quote-item-amount-cell{text-align:right;font-size:12px;font-weight:600;white-space:nowrap}
+.quote-item-label{display:none}
+.item-remove{width:30px;height:30px;display:grid;place-items:center;border:1px solid #dce5e7;border-radius:50%;background:#fff;color:#82949a;font-size:18px;line-height:1}
+.item-remove:hover{background:#f8e9e7;border-color:#e7c4bf;color:#9b3b30}
+.add-quote-item{margin-top:14px;border:1px dashed #9bbdbb;border-radius:5px;background:#f4faf9;color:#176b68;padding:10px 14px;font-size:12px;font-weight:700}
+.add-quote-item:hover{background:#e9f6f3}
+.order-confirm-items{margin:8px 0;display:grid;gap:4px}
+.order-items-panel{margin:24px 0 0;padding:24px 28px;background:#ffffffc9;border:1px solid var(--line);border-radius:8px;box-shadow:0 12px 35px #102e3d0b}
+.order-items-heading{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:15px}
+.order-items-heading h2{font:500 21px Lexend;letter-spacing:-.025em;margin:7px 0 0}
+.order-items-table{border-top:1px solid var(--line)}
+.order-items-header,.order-item-row{display:grid;grid-template-columns:minmax(0,1fr) 80px minmax(110px,145px) minmax(100px,130px);gap:12px;align-items:center}
+.order-items-header{padding:10px 0 8px;font:9px 'Fira Mono',monospace;letter-spacing:.08em;color:#82949a}
+.order-item-row{padding:12px 0;border-bottom:1px solid #e7edef;font-size:12px}
+.order-item-description{overflow-wrap:anywhere}
+.order-item-number,.order-item-unit,.order-item-amount{text-align:right;white-space:nowrap}
+.order-item-amount{font-weight:700}
+.order-items-empty{padding:16px 0;color:#809097;font-size:12px}
+.order-items-totals{display:grid;gap:8px;justify-content:end;margin:14px 0 0 auto;max-width:260px;font-size:12px}
+.order-items-totals div{display:flex;justify-content:space-between;gap:26px;color:#778b93}
+.order-items-totals .order-items-grand{border-top:1px solid var(--line);padding-top:10px;margin-top:2px;color:var(--ink);font-size:14px;font-weight:700}
+@media(max-width:1120px){
+  .quote-layout{grid-template-columns:1fr}
+  .settings{position:static}
+}
+@media(max-width:720px){
+  .quote-items-header,.order-items-header{display:none}
+  .quote-item-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr) 34px;gap:8px 10px;align-items:end}
+  .quote-item-description-cell{grid-column:1/-1}
+  .quote-item-label{display:block;margin-bottom:5px;font:8px 'Fira Mono',monospace;letter-spacing:.06em;color:#82949a}
+  .quote-item-cell .edit{font-size:12px}
+  .quote-item-amount-cell{text-align:right}
+  .item-remove{align-self:end}
+  .order-items-panel{padding:20px 16px}
+  .order-item-row{grid-template-columns:minmax(0,1fr) 56px 90px 95px;gap:8px;font-size:11px}
+  .order-items-totals{max-width:100%;width:100%}
+}
+@media(max-width:420px){
+  .quote-item-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 34px}
+  .quote-item-amount-cell{grid-column:2/3}
+  .item-remove{grid-column:3/4;grid-row:3/4}
+  .order-item-row{grid-template-columns:minmax(0,1fr) 45px 76px 82px;gap:6px;font-size:10px}
+}
+@media print{
+  .quote-items-header{display:grid!important}
+  .quote-item-row{grid-template-columns:minmax(170px,1fr) 72px minmax(110px,132px) minmax(100px,125px) 32px}
+  .add-quote-item,.item-remove{display:none!important}
+  .quote-item-label{display:none!important}
+}
+</style></head><body><div class="shell"><aside class="side"><div class="brand"><img src="assets/brand/monogram-navy.png" alt="Mono Cromat & Co."><small>ESTUDIO CREATIVO / OS</small></div><div class="side-label">ESPACIO DE TRABAJO</div><nav class="nav" aria-label="Navegación principal">
+<button class="active" data-view="home" title="Hoy en el taller" aria-label="Hoy en el taller" aria-current="page"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1.7"/><rect x="13.5" y="3.5" width="7" height="4" rx="1.7"/><rect x="13.5" y="9.5" width="7" height="11" rx="1.7"/><rect x="3.5" y="13" width="7" height="7.5" rx="1.7"/></svg></button>
+<button data-view="clientes" title="Clientes" aria-label="Clientes"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 20v-1.6a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20"/><circle cx="9.5" cy="7.5" r="3.4"/><path d="M20.8 20v-1.6a4 4 0 0 0-3-3.8M16.5 4.4a3.4 3.4 0 0 1 0 6.4"/></svg></button>
+<button data-view="quote" title="Cotizaciones" aria-label="Cotizaciones"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h7l4.5 4.6v12.4h-12z"/><path d="M13.5 3.8V9H18M9.5 13h5m-5 3.5h5"/></svg></button>
+<button data-view="pedidos" title="Pedidos" aria-label="Pedidos"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3.5 8 4.4v8.2l-8 4.4-8-4.4V7.9z"/><path d="m4.4 8.1 7.6 4.3 7.6-4.3M12 12.4v8"/></svg></button>
+<button data-view="produccion" title="Producción" aria-label="Producción"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V3.5h10V8"/><path d="M6 17H4V9.5h16V17h-2"/><path d="M7 14h10v6.5H7z"/><path d="M16.5 11.8h.01"/></svg></button>
+<button data-view="calendario" title="Calendario" aria-label="Calendario"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M7.5 3v4m9-4v4M4 9.5h16M8 13.5h2m4 0h2m-8 3.5h2"/></svg></button>
+</nav><div class="side-bottom"><span class="dot"></span>ESTUDIO EN MARCHA<br><span style="font:10px 'Fira Mono';color:#6f8b98">MONO CROMAT & CO. ©</span></div></aside><main class="main"><header class="top"><div class="top-left">MONO CROMAT & CO. &nbsp; / &nbsp; ESPACIO DE TRABAJO</div><div class="top-right"><span id="net-status" class="net-pill" role="status" aria-live="polite">● Sin conexión</span><button id="install-app" class="install-btn" type="button" aria-label="Instalar Mono Cromat">⤓ <span class="label">Instalar app</span></button><span>Espacio de trabajo</span><div class="avatar">MC</div></div></header><div class="content"><div id="home" class="dashboard">
+<div class="home-heading">
+  <div class="home-heading-copy">
+    <div class="eyebrow">ESTUDIO / OPERACIÓN DIARIA <span class="heading-divider">·</span> <span id="home-date"></span></div>
+    <h1>Hoy en el taller<span style="color:#2e48a1">.</span></h1>
+    <p>Un vistazo claro a entregas, producción y dinero por resolver.</p>
+  </div>
+  <div class="home-actions">
+    <div class="backup-tools">
+      <button class="text-btn" onclick="exportBackup()">Respaldo ↓</button>
+      <label class="text-btn" for="backup-file">Importar ↑</label>
+      <input type="file" id="backup-file" accept="application/json,.json" hidden onchange="importBackupFile(this)">
+    </div>
+    <button class="btn" onclick="show('quote');newQuote()">+ Nueva cotización</button>
+  </div>
+</div>
+<div id="hoy-list" class="hoy-list dashboard-mosaic" aria-live="polite"></div>
+<div class="home-foot"><span>MONO CROMAT & CO.</span><span>OPERACIONES / CDMX</span></div>
+</div><div id="quote" class="hidden"><div class="quote-head"><div><button class="back" onclick="show('home')">← Volver al panorama</button><h1>Una idea, en papel<span style="color:#2e48a1">.</span></h1><p class="form-intro">Completa cliente, proyecto y al menos un producto con cantidad y precio para guardar.</p></div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="text-btn" onclick="newQuote()">+ Nueva cotización</button><button class="text-btn" onclick="saveQuote()">Guardar cotización ↓</button><button class="btn" onclick="createOrder()">Crear pedido ↗</button></div></div><div class="quote-layout"><article class="document"><div class="doc-top"><div class="doc-brand"><img src="logo.png" alt="Mono Cromat & Co."><div>«Lift Your Vision»</div></div><div class="doc-title"><div class="mono">PROPUESTA CREATIVA / 01</div><h2>COTIZACIÓN</h2><div class="mono"><span id="doc-folio">MCCO-C-…</span> &nbsp; · &nbsp; <span id="doc-date">—</span></div><div id="doc-status" class="doc-status" data-status="borrador">Borrador</div></div></div><div class="doc-section doc-section--first">00 / CLIENTE Y PROYECTO</div><div class="info"><div><label class="field-label" for="quote-client">CLIENTE *</label><input class="edit" id="quote-client" list="client-options" autocomplete="off" placeholder="Nombre del cliente" aria-label="Cliente" aria-describedby="quote-client-hint" required><datalist id="client-options"></datalist><div id="quote-client-hint" class="client-hint" role="status" aria-live="polite" hidden></div><label class="field-label" for="quote-email" style="margin-top:15px">CORREO (OPCIONAL)</label><input class="edit" id="quote-email" type="email" autocomplete="email" placeholder="correo@dominio.com" aria-label="Correo"></div><div><label class="field-label" for="quote-project">PROYECTO *</label><input class="edit" id="quote-project" placeholder="Nombre del proyecto" aria-label="Proyecto" required><label class="field-label" for="quote-technique" style="margin-top:15px">TÉCNICA / PROCESO (OPCIONAL)</label><input class="edit" id="quote-technique" placeholder="Ej. offset, serigrafía, DTF" aria-label="Técnica o proceso"></div></div><div class="doc-section">01 / PRODUCTOS Y SERVICIOS</div>
+<div class="hint item-entry-hint">Escribe cada producto o servicio como un renglón. No necesitas elegir de un catálogo.</div>
+<div class="quote-items-table">
+  <div class="quote-items-header" aria-hidden="true"><span>PRODUCTO / DESCRIPCIÓN</span><span>CANT.</span><span>PRECIO UNITARIO</span><span>IMPORTE</span><span></span></div>
+  <div id="quote-items" class="quote-items"></div>
+</div>
+<button type="button" class="add-quote-item" onclick="addQuoteItem()">＋ Agregar producto o servicio</button>
+<div class="doc-section">02 / DETALLES Y ENTREGA</div>
+<div class="spec-grid">
+  <div><label class="field-label" for="q-format">FORMATO / MEDIDAS</label><input id="q-format" class="edit" placeholder="Ej. 21 × 28 cm" aria-label="Formato o medidas"></div>
+  <div><label class="field-label" for="q-paper">PAPEL / MATERIAL</label><input id="q-paper" class="edit" placeholder="Ej. couché 300 g" aria-label="Papel o material"></div>
+  <div><label class="field-label" for="q-delivery">FECHA DE ENTREGA</label><input id="q-delivery" type="date" class="edit" aria-label="Fecha de entrega"></div>
+  <div><label class="field-label" for="q-deposit">ANTICIPO (MXN)</label><input id="q-deposit" type="number" min="0" step="0.01" class="edit" placeholder="0.00" aria-label="Anticipo"></div>
+  <div><label class="field-label" for="q-validity">VIGENCIA (DÍAS)</label><input id="q-validity" type="number" min="0" step="1" class="edit" placeholder="Ej. 15" aria-label="Vigencia en días"></div>
+</div>
+<div class="field-label finish-group-label" role="group" aria-label="Acabados opcionales">ACABADOS (OPCIONAL)</div>
+<label class="finish-check"><input type="checkbox" class="q-finish" value="Texturas en frío"> Texturas en frío</label>
+<label class="finish-check"><input type="checkbox" class="q-finish" value="Hot stamping"> Hot stamping</label>
+<label class="finish-check"><input type="checkbox" class="q-finish" value="Laminados térmicos"> Laminados térmicos</label>
+<div id="quote-errors" class="field-error" hidden></div>
+<div id="draft-status" class="draft-status">Borrador no guardado</div>
+<div class="total"><span>TOTAL DE LA COTIZACIÓN<br><small id="taxnote">SIN IVA · MXN</small></span><strong id="doc-total"></strong></div>
+<div class="doc-section">03 / INCLUYE Y CONDICIONES</div><div class="conditions" contenteditable="true" aria-label="Incluye y condiciones">Escribe aquí qué incluye y las condiciones de la cotización.</div><div class="doc-footer"><div>MONO CROMAT & CO.<br>WhatsApp 55 4929 1166<br>monocromatyco@gmail.com · CDMX, México</div><div class="wa-box"><button type="button" class="btn" onclick="sendQuoteWhatsApp()">Enviar por WhatsApp ↗</button><div class="mono" style="margin-top:8px">Se abre WhatsApp con el mensaje listo.</div></div></div></article><aside class="settings"><div class="eyebrow">PANEL DE EDICIÓN</div><h3>Ajusta tu propuesta.</h3><div class="toggle-row"><div><strong>Incluir IVA</strong><small>Aplicar 16% al precio base</small></div><input id="iva" type="checkbox" onchange="calc()" aria-label="Incluir IVA"></div><label class="field-label" for="quote-status" style="margin-top:18px">ESTADO DE LA COTIZACIÓN</label><select id="quote-status" class="edit" onchange="changeQuoteStatus()" style="margin-bottom:0" aria-label="Estado de la cotización"><option value="borrador">Borrador</option><option value="enviada">Enviada</option><option value="aceptada">Aceptada</option><option value="rechazada">Rechazada</option></select><p id="quote-status-hint" class="hint" style="margin-top:6px">Se guarda con la cotización.</p><div class="summary"><div><span>Productos / servicios</span><b id="items-count">0</b></div><div><span>Subtotal</span><b id="subtotal"></b></div><div><span>IVA</span><b id="tax"></b></div><div><span>Total MXN</span><b id="total"></b></div></div><button class="btn" onclick="printQuote()">Imprimir / guardar PDF &nbsp; ↗</button><p class="hint">Agrega productos o servicios en renglones libres. Al crear el pedido, se copiarán sus cantidades y precios; los abonos se registran después.</p><p class="hint">Las cotizaciones guardadas y el pedido se almacenan solo en este navegador. Envíalas por WhatsApp o imprímelas como PDF.</p><div id="order-confirm" class="order-confirm" hidden><strong>Confirmar pedido</strong><div id="order-confirm-text"></div><button class="btn" type="button" onclick="confirmCreateOrder()">Crear pedido ↗</button><button class="text-btn" type="button" onclick="cancelCreateOrder()">Cancelar</button></div><div class="summary" style="margin-top:20px"><div class="eyebrow">COTIZACIONES GUARDADAS</div><div id="quote-list" style="display:block"></div></div></aside></div></div><div id="pedidos" class="hidden"><div class="quote-head"><div><div class="eyebrow">OPERACIÓN / PEDIDOS</div><h1>Las ideas avanzan<span style="color:#2e48a1">.</span></h1><p class="hint">Un vistazo al proyecto, desde su aprobación hasta la entrega.</p></div><span class="tag">PEDIDO</span></div><div id="orders-list" style="display:grid;gap:8px;margin-bottom:20px"></div><div id="order-empty" class="document"><div class="eyebrow">PEDIDOS</div><h2 style="font:500 24px Lexend">Todavía no hay pedidos.</h2><p class="hint">Crea un pedido desde una cotización para consultar aquí su avance y sus abonos.</p><button class="btn" onclick="show('quote')">Ir a cotizaciones ↗</button></div><div id="order-content" class="hidden"><div class="overview" style="grid-template-columns:1.3fr 1fr"><div class="feature" style="min-height:220px"><div class="eyebrow" id="order-client">PEDIDO</div><h2 id="order-project"></h2><p id="order-detail"></p><div class="order-meta"><span id="order-folio"></span><span>·</span><span id="order-date"></span></div><button type="button" id="order-quote-link" class="order-link" onclick="openLinkedQuote()" hidden></button><div id="order-contact" class="mono" style="margin-top:10px;color:#9db7c3;line-height:1.7" hidden></div><div class="feature-number">01</div></div><div class="next"><div><div class="eyebrow">PRÓXIMO PASO</div><h3 id="order-stage-title">Por definir.</h3><p id="order-stage-hint">Consulta el siguiente paso del pedido.</p></div><div class="next-bottom"><div><span class="mono">ENTREGA ESTIMADA</span><br><strong id="order-delivery-date">Sin fecha asignada</strong></div></div></div></div><section class="order-items-panel" aria-labelledby="order-items-title">
+  <div class="order-items-heading"><div><div class="eyebrow">DETALLE COMERCIAL</div><h2 id="order-items-title">Productos y servicios</h2></div><span id="order-item-count" class="mono"></span></div>
+  <div id="order-items" class="order-items-table"></div>
+</section><div class="section-head"><div><div class="eyebrow">TRAYECTORIA DEL PEDIDO</div><h2>Cada paso cuenta.</h2></div></div><div class="flow"><div class="stage"><div class="stage-top">01 <i class="state"></i></div><h3>Confirmado</h3><p>Cotización aceptada</p></div><div class="stage"><div class="stage-top">02 <i class="state"></i></div><h3>Producción</h3><p>Orden interna para taller</p></div><div class="stage"><div class="stage-top">03 <i class="state"></i></div><h3>Calidad</h3><p>Revisión y empaque</p></div><div class="stage"><div class="stage-top">04 <i class="state"></i></div><h3>Entrega</h3><p>Guía y calendario</p></div></div><div class="section-head"><div><div class="eyebrow">PAGOS / MXN</div><h2>Abonos y saldo.</h2></div><span class="mono">RESUMEN DE PAGOS</span></div><div class="quote-layout"><section class="document"><div style="display:flex;justify-content:space-between;gap:20px;border-bottom:1px solid #d9e1e4;padding-bottom:22px;flex-wrap:wrap"><div><div class="field-label">TOTAL DEL PEDIDO</div><strong id="order-total" style="font:500 24px Lexend"></strong></div><div><div class="field-label">ABONADO</div><strong id="paid-total" style="font:500 24px Lexend"></strong></div><div><div class="field-label">SALDO PENDIENTE</div><strong id="balance" style="font:500 24px Lexend;color:#2e48a1"></strong></div></div><div class="doc-section">HISTORIAL DE ABONOS</div><div id="payment-list"></div><p class="hint">Los pedidos y sus abonos se guardan solo en este navegador.</p></section><aside class="settings"><div class="eyebrow">REGISTRAR MOVIMIENTO</div><h3>Agregar abono.</h3><form id="payment-form"><div class="field-label">FECHA *</div><input id="pay-date" type="date" class="edit" required style="margin-bottom:18px"><div class="field-label">MONTO EN MXN *</div><input id="pay-amount" type="number" min="0.01" step="0.01" class="edit" required placeholder="0.00" style="margin-bottom:18px"><div class="field-label">NOTA</div><input id="pay-note" class="edit" placeholder="Ej. transferencia"><button type="submit" class="btn">Registrar abono ↗</button></form><p class="hint">La información se guarda solo en este navegador.</p><button type="button" class="text-btn danger" onclick="deleteOrder()" style="margin-top:18px">Eliminar pedido ×</button></aside></div></div></div><div id="calendario" class="hidden"><div class="quote-head"><div><div class="eyebrow">AGENDA / ENTREGAS</div><h1>El último detalle<span style="color:#2e48a1">.</span></h1><p class="hint">Organiza las fechas y prepara la información de entrega.</p></div></div><div class="quote-layout"><section class="document"><div class="eyebrow">ENTREGAS PROGRAMADAS</div><h2 style="font:500 22px Lexend">En el calendario.</h2><div class="month-nav"><button type="button" onclick="moveMonth(-1)" aria-label="Mes anterior">←</button><strong id="month-title"></strong><button type="button" onclick="moveMonth(1)" aria-label="Mes siguiente">→</button></div><div class="month-week"><span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span></div><div id="month-grid" class="month-grid"></div><div class="doc-section" style="margin-top:27px">ENTREGAS PROGRAMADAS</div><div id="delivery-list"></div></section><aside class="settings"><div class="eyebrow">GUÍA DE ENTREGA</div><h3>Preparar entrega.</h3><p class="hint">La guía se puede guardar cuando el empaque esté autorizado en producción.</p><form id="delivery-form"><label class="field-label" for="d-order">PEDIDO *</label><select id="d-order" class="edit" required onchange="fillDelivery()" style="margin-bottom:18px"></select><label class="field-label" for="d-date">FECHA DE ENTREGA *</label><input id="d-date" class="edit" type="date" required style="margin-bottom:18px"><label class="field-label" for="d-method">FORMA DE ENTREGA</label><select id="d-method" class="edit" style="margin-bottom:18px"><option>Recogida en estudio</option><option>Entrega a domicilio</option><option>Paquetería</option></select><label class="field-label" for="d-address">DIRECCIÓN O PUNTO DE ENTREGA</label><textarea id="d-address" class="edit" rows="2" placeholder="Dirección o punto acordado" style="margin-bottom:18px"></textarea><label class="field-label" for="d-recipient">PERSONA QUE RECIBE</label><input id="d-recipient" class="edit" placeholder="Nombre" style="margin-bottom:18px"><label class="field-label" for="d-notes">NOTAS</label><textarea id="d-notes" class="edit" rows="2" placeholder="Indicaciones de entrega"></textarea><button id="d-save" class="btn" type="submit">Guardar guía ↗</button><button type="button" class="text-btn" onclick="printDelivery()" style="margin-top:15px">Imprimir / guardar guía como PDF ↗</button></form><p id="d-status" class="hint"></p><p class="hint">La información se guarda solo en este navegador. El envío de recordatorios aún no está conectado.</p></aside></div></div><div id="produccion" class="hidden"><div class="quote-head"><div><div class="eyebrow">TALLER / PRODUCCIÓN</div><h1>Del diseño a la realidad<span style="color:#2e48a1">.</span></h1><p class="hint">Una orden interna para organizar cada detalle del trabajo.</p></div></div><div id="prod-empty" class="document"><h2 style="font:500 22px Lexend">Aún no hay pedidos.</h2><p class="hint">Crea un pedido desde una cotización para comenzar una orden de producción.</p><button class="btn" onclick="show('quote')">Ir a cotizaciones ↗</button></div><div id="prod-content" class="hidden"><div class="quote-layout"><section class="document"><div class="doc-top"><div><div class="eyebrow">ORDEN INTERNA / TALLER</div><h2 id="prod-project" style="font:500 25px Lexend;margin:10px 0"></h2><span id="prod-client" class="mono"></span></div><select id="prod-order" class="edit" aria-label="Seleccionar pedido" style="width:auto;max-width:220px" onchange="selectProd(this.value)"></select></div><form id="prod-form"><div class="doc-section">01 / DETALLES DE PRODUCCIÓN</div><label class="field-label" for="p-description">QUÉ SE VA A PRODUCIR</label><textarea id="p-description" class="edit" rows="3" placeholder="Descripción, cantidades, medidas y acabados" style="margin-bottom:18px"></textarea><label class="field-label" for="p-materials">MATERIALES</label><textarea id="p-materials" class="edit" rows="3" placeholder="Materiales y cantidades previstas" style="margin-bottom:18px"></textarea><div class="info" style="padding-top:0"><div><label class="field-label" for="p-cost">COSTO ESTIMADO / MXN</label><input id="p-cost" class="edit" type="number" step="0.01" min="0" placeholder="0.00"></div><div><label class="field-label" for="p-time">TIEMPO ESTIMADO</label><input id="p-time" class="edit" placeholder="Ej. 3 días hábiles"></div></div><label class="field-label" for="p-notes" style="margin-top:20px">NOTAS PARA EL TALLER</label><textarea id="p-notes" class="edit" rows="3" placeholder="Instrucciones y observaciones"></textarea><button class="btn" type="submit" style="margin-top:20px">Guardar orden ↗</button><button type="button" class="text-btn" onclick="printProduction()" style="margin:20px 0 0 12px">Imprimir / guardar PDF ↗</button></form></section><aside class="settings"><div class="eyebrow">CONTROL / CALIDAD</div><h3>Revisión y empaque.</h3><p class="hint">Confirma cada punto antes de autorizar el empaque.</p><form id="quality-form"><label class="toggle-row"><span><strong>Especificaciones</strong><small>Medidas, cantidad y materiales</small></span><input id="q-spec" type="checkbox"></label><label class="toggle-row"><span><strong>Acabados</strong><small>Impresión y terminación revisadas</small></span><input id="q-finish" type="checkbox"></label><label class="toggle-row"><span><strong>Producto conforme</strong><small>Sin defectos visibles</small></span><input id="q-conform" type="checkbox"></label><label class="field-label" for="q-reviewer">PERSONA QUE VERIFICA</label><input id="q-reviewer" class="edit" placeholder="Nombre de quien revisa" style="margin-bottom:16px"><label class="field-label" for="q-date">FECHA DE REVISIÓN</label><input id="q-date" class="edit" type="date" style="margin-bottom:16px"><label class="field-label" for="q-notes">OBSERVACIONES</label><textarea id="q-notes" class="edit" rows="3" placeholder="Detalles de la revisión"></textarea><label class="toggle-row"><span><strong>Autorizar empaque</strong><small>Completa revisión, nombre y fecha</small></span><input id="q-approved" type="checkbox"></label><button class="btn" type="submit">Guardar verificación ↗</button></form><p id="quality-status" class="hint"></p><p class="hint">Información guardada únicamente en este navegador.</p></aside></div></div></div><div id="clientes" class="hidden"><div class="quote-head"><div><div class="eyebrow">DIRECTORIO / RELACIONES</div><h1>Personas e ideas<span style="color:#2e48a1">.</span></h1><p class="hint">Clientes y prospectos, en un solo lugar.</p></div><button class="btn" onclick="newClient()">+ Nueva persona</button></div><div class="quote-layout"><section class="document"><div class="section-head" style="margin:0 0 20px"><div><div class="eyebrow">DIRECTORIO</div><h2>Contactos</h2></div><span id="client-count" class="mono"></span></div><input class="edit" id="client-search" type="search" aria-label="Buscar contactos" placeholder="Buscar por nombre, correo o empresa..." oninput="renderClients()"><div id="client-list" style="margin-top:18px"></div><p class="hint">Datos guardados únicamente en este navegador.</p></section><aside class="settings" id="client-form-wrap"><div class="eyebrow">NUEVO CONTACTO</div><h3 id="form-title">Agregar persona.</h3><form id="client-form"><label class="field-label" for="c-type">TIPO</label><select id="c-type" class="edit" style="margin-bottom:18px"><option>Prospecto</option><option>Cliente</option></select><label class="field-label" for="c-name">NOMBRE *</label><input id="c-name" class="edit" autocomplete="name" required placeholder="Nombre del contacto" style="margin-bottom:18px"><label class="field-label" for="c-company">EMPRESA</label><input id="c-company" class="edit" autocomplete="organization" placeholder="Nombre del negocio" style="margin-bottom:18px"><label class="field-label" for="c-email">CORREO</label><input id="c-email" type="email" autocomplete="email" class="edit" placeholder="correo@ejemplo.com" style="margin-bottom:18px"><label class="field-label" for="c-phone">TELÉFONO</label><input id="c-phone" type="tel" autocomplete="tel" class="edit" placeholder="Número de contacto" style="margin-bottom:18px"><label class="field-label" for="c-notes">NOTAS</label><textarea id="c-notes" class="edit" rows="3" placeholder="Detalles importantes"></textarea><button class="btn" type="submit">Guardar contacto ↗</button><button type="button" class="text-btn" onclick="newClient()" style="margin-top:15px">Limpiar formulario</button><button type="button" class="text-btn danger" id="client-delete" onclick="deleteClient()" style="margin-top:15px" hidden>Eliminar contacto ×</button></form><div id="client-history" class="client-history" hidden><div class="eyebrow">HISTORIAL DEL CLIENTE</div><div id="client-history-body"></div></div></aside></div></div><div id="placeholder" class="hidden"><div class="eyebrow">PRÓXIMA ETAPA</div><h1 id="placeholder-title"></h1><p>Esta sección aún está en desarrollo.</p><button class="btn" onclick="show('home')">Volver al panorama &nbsp; ↗</button></div></div></main></div><script>
 const names={clientes:'Clientes y prospectos',pedidos:'Pedidos y abonos',produccion:'Producción y calidad',calendario:'Calendario de entregas'};
 const QUOTE_STATUS={borrador:'Borrador',enviada:'Enviada',aceptada:'Aceptada',rechazada:'Rechazada'};
 const FOLIO_PREFIX={quote:'MCCO-C-',order:'MCCO-P-'};
-const STUDIO_SERVICES=['Offset','Impresión láser','Gran formato','Acabados especiales','Encuadernación artesanal','Textil DTF','UV','Serigrafía','Ambientes','Promocionales','Servicios digitales'];
 const STAR_FINISHES=['Texturas en frío','Hot stamping','Laminados térmicos'];
 const STUDIO_WHATSAPP='525549291166';
 function daysSince(iso){const m=String(iso||'').match(/^(\d{4})-(\d{2})-(\d{2})/);if(!m)return 0;const d=new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));const now=new Date();const today=new Date(now.getFullYear(),now.getMonth(),now.getDate());return Math.max(0,Math.round((today-d)/86400000))}
 function orderStage(o){return o.delivery?.date?'Entrega':o.quality?.approved?'Calidad':o.production?'Producción':'Confirmado'}
 function orderPaid(o){return (Array.isArray(o.payments)?o.payments:[]).reduce((a,p)=>a+(Number(p?.cents)||0),0)/100}
 function orderBalance(o){return Math.max(0,(Number(o.total)||0)-orderPaid(o))}
+function roundMoney(value){return Math.round((Number(value)+Number.EPSILON)*100)/100}
+function quoteLineTotal(item){const quantity=Number(item?.quantity),unitPrice=Number(item?.unitPrice),amount=quantity*unitPrice;return Number.isFinite(quantity)&&quantity>0&&Number.isFinite(unitPrice)&&unitPrice>=0&&Number.isFinite(amount)?roundMoney(amount):0}
+function calculateQuoteTotals(items,iva){const subtotalCents=(Array.isArray(items)?items:[]).reduce((sum,item)=>{const quantity=Number(item?.quantity),unitPrice=Number(item?.unitPrice),amount=quantity*unitPrice,cents=Math.round((amount+Number.EPSILON)*100);return Number.isFinite(quantity)&&quantity>0&&Number.isFinite(unitPrice)&&unitPrice>=0&&Number.isFinite(cents)&&Number.isFinite(sum+cents)?sum+cents:sum},0);const taxCents=iva?Math.round(subtotalCents*0.16):0;return {subtotal:subtotalCents/100,tax:taxCents/100,total:(subtotalCents+taxCents)/100}}
+function normalizeLineItems(items){return (Array.isArray(items)?items:[]).map(item=>{const quantity=Number(item?.quantity??item?.qty),unitPrice=Number(item?.unitPrice??item?.unit);return {description:String(item?.description??item?.name??'').trim(),quantity:Number.isFinite(quantity)&&quantity>0?quantity:1,unitPrice:Number.isFinite(unitPrice)&&unitPrice>=0?unitPrice:0}}).filter(item=>item.description||item.unitPrice>0)}
 function phoneDigits(s){return String(s||'').replace(/\D/g,'')}
 function whatsappLink(number,message){const digits=phoneDigits(number);return digits?`https://wa.me/${digits}?text=${encodeURIComponent(message)}`:''}
 let appToastTimer=0;
@@ -107,15 +547,33 @@ function normalizeQuote(q,fallbackDate){
   q.id=q.id||newId();
   q.fields=Array.isArray(q.fields)?q.fields.slice(0,4).map(v=>String(v??'')):[];
   while(q.fields.length<4)q.fields.push('');
+  const hasLineItems=Array.isArray(q.items);
   q.options=Array.isArray(q.options)?q.options.slice(0,3):[];
-  while(q.options.length<3){const i=q.options.length;q.options.push({name:'OPCIÓN '+(i+1),description:'Describe esta opción',price:'',selected:i===0,hidden:i>0})}
-  q.options=q.options.map((o,i)=>({name:String(o?.name||'OPCIÓN '+(i+1)),description:String(o?.description||'Describe esta opción'),price:o?.price??'',qty:Math.max(1,Number(o?.qty)||1),unit:o?.unit??'',selected:!!o?.selected,hidden:!!o?.hidden}));
-  if(!q.options.some(o=>!o.hidden))q.options[0].hidden=false;
-  if(!q.options.some(o=>o.selected&&!o.hidden)){q.options.forEach(o=>o.selected=false);const i=q.options.findIndex(o=>!o.hidden);q.options[i<0?0:i].selected=true}
-  const selectedVisible=q.options.find(o=>o.selected&&!o.hidden);
-  if(selectedVisible)q.options.forEach(o=>{if(o!==selectedVisible)o.selected=false});
+  if(!hasLineItems){
+    while(q.options.length<3){const i=q.options.length;q.options.push({name:'OPCIÓN '+(i+1),description:'Describe esta opción',price:'',selected:i===0,hidden:i>0})}
+    q.options=q.options.map((o,i)=>({name:String(o?.name||'OPCIÓN '+(i+1)),description:String(o?.description||'Describe esta opción'),price:o?.price??'',qty:Math.max(1,Number(o?.qty)||1),unit:o?.unit??'',selected:!!o?.selected,hidden:!!o?.hidden}));
+    if(!q.options.some(o=>!o.hidden))q.options[0].hidden=false;
+    if(!q.options.some(o=>o.selected&&!o.hidden)){q.options.forEach(o=>o.selected=false);const i=q.options.findIndex(o=>!o.hidden);q.options[i<0?0:i].selected=true}
+    const selectedVisible=q.options.find(o=>o.selected&&!o.hidden);
+    if(selectedVisible)q.options.forEach(o=>{if(o!==selectedVisible)o.selected=false});
+  }
   q.iva=!!q.iva;
-  const sp=(q.spec&&typeof q.spec==='object')?q.spec:{};q.spec={service:String(sp.service||''),quantity:String(sp.quantity||''),format:String(sp.format||''),paper:String(sp.paper||''),finishes:Array.isArray(sp.finishes)?sp.finishes.filter(x=>typeof x==='string'):[],deliveryDate:String(sp.deliveryDate||''),deposit:String(sp.deposit||''),validity:String(sp.validity||'')};
+  const sp=(q.spec&&typeof q.spec==='object')?q.spec:{};
+  q.spec={service:String(sp.service||''),quantity:String(sp.quantity||''),format:String(sp.format||''),paper:String(sp.paper||''),finishes:Array.isArray(sp.finishes)?sp.finishes.filter(x=>typeof x==='string'):[],deliveryDate:String(sp.deliveryDate||''),deposit:String(sp.deposit||''),validity:String(sp.validity||'')};
+  if(hasLineItems){
+    q.items=normalizeLineItems(q.items);
+  }else{
+    const old=q.options.find(o=>o.selected&&!o.hidden)||q.options.find(o=>!o.hidden)||q.options[0];
+    const clean=value=>{const text=String(value||'').trim();return /^(OPCIÓN\s*\d+|Describe esta opción)$/i.test(text)?'':text};
+    const legacyDescription=[q.spec.service,clean(old?.name),clean(old?.description),q.spec.format,q.spec.paper,...q.spec.finishes].filter(Boolean).join(' · ');
+    const optionQuantity=Number(old?.qty)||0,specQuantity=Number(q.spec.quantity)||0;
+    const quantity=Math.max(1,optionQuantity>1?optionQuantity:(specQuantity>0?specQuantity:optionQuantity||1));
+    const oldTotal=Number(old?.price)||0,oldUnit=Number(old?.unit)||0;
+    const unitPrice=oldUnit>0?oldUnit:oldTotal>0?oldTotal/quantity:0;
+    q.items=legacyDescription||unitPrice>0?[{description:legacyDescription,quantity,unitPrice}]:[];
+  }
+  const totals=calculateQuoteTotals(q.items,q.iva);
+  q.subtotal=totals.subtotal;q.tax=totals.tax;q.total=totals.total;
   q.conditions=typeof q.conditions==='string'?q.conditions:'';
   q.status=QUOTE_STATUS[q.status]?q.status:'borrador';
   q.createdAt=q.createdAt||fallbackDate||todayISO();
@@ -132,7 +590,8 @@ function normalizeOrder(o,fallbackDate){
     const amount=typeof p==='object'?Number(p?.amount):Number(p);
     return {date:p?.date||p?.paidOn||'',cents:Number.isFinite(cents)?cents:(Number.isFinite(amount)?Math.round(amount*100):0),note:p?.note||p?.notes||''};
   }).filter(p=>p.cents>0||p.date||p.note);
-  o.total=Number(o.total);if(!Number.isFinite(o.total)||o.total<0)o.total=0;
+  const originalTotal=Number(o.total),hasTotal=Number.isFinite(originalTotal)&&originalTotal>=0;
+  o.total=hasTotal?roundMoney(originalTotal):0;
   o.option=Number(o.option)||1;
   o.createdAt=o.createdAt||fallbackDate||todayISO();
   o.folio=o.folio||'';
@@ -142,6 +601,24 @@ function normalizeOrder(o,fallbackDate){
   o.company=String(o.company||'');o.email=String(o.email||'');o.phone=String(o.phone||'');
   o.clientId=o.clientId||null;
   o.spec=(o.spec&&typeof o.spec==='object')?o.spec:{};
+  o.iva=!!o.iva;
+  const hasLineItems=Array.isArray(o.items);
+  Object.defineProperty(o,'_legacyItemMigration',{value:!hasLineItems,writable:true,configurable:true,enumerable:false});
+  if(hasLineItems){
+    o.items=normalizeLineItems(o.items);
+    const derived=calculateQuoteTotals(o.items,o.iva);
+    const subtotal=Number(o.subtotal),tax=Number(o.tax);
+    o.subtotal=Number.isFinite(subtotal)&&subtotal>=0?roundMoney(subtotal):derived.subtotal;
+    o.tax=Number.isFinite(tax)&&tax>=0?roundMoney(tax):derived.tax;
+    if(!hasTotal)o.total=roundMoney(o.subtotal+o.tax);
+  }else{
+    const clean=value=>{const text=String(value||'').trim();return /^(OPCIÓN\s*\d+|Describe esta opción)$/i.test(text)?'':text};
+    const description=[o.spec.service,clean(o.optionName),clean(o.optionDescription),o.spec.format,o.spec.paper,...(Array.isArray(o.spec.finishes)?o.spec.finishes:[])].filter(Boolean).join(' · ');
+    const quantity=Math.max(1,Number(o.spec.quantity)||1);
+    o.subtotal=o.iva?roundMoney(o.total/1.16):o.total;
+    o.tax=roundMoney(o.total-o.subtotal);
+    o.items=description?[{description,quantity,unitPrice:o.subtotal/quantity}]:[];
+  }
   return o;
 }
 function assignMissingFolios(){
@@ -160,7 +637,7 @@ function normalizeAll(){
   quotes=(Array.isArray(quotes)?quotes:[]).filter(q=>q&&typeof q==='object').map(q=>normalizeQuote(q,dateFromLegacyId(q.id))).filter(Boolean);
   orders=(Array.isArray(orders)?orders:[]).filter(o=>o&&typeof o==='object').map(o=>normalizeOrder(o,dateFromLegacyId(o.id))).filter(Boolean);
   assignMissingFolios();
-  for(const o of orders){if(!o.quoteId)continue;const q=quotes.find(q=>q.id===o.quoteId);if(q){o.quoteFolio=o.quoteFolio||q.folio;q.status='aceptada'}}
+  for(const o of orders){const q=o.quoteId?quotes.find(q=>q.id===o.quoteId):null;if(q){o.quoteFolio=o.quoteFolio||q.folio;q.status='aceptada';if(o._legacyItemMigration&&q.items?.length){o.items=q.items.map(item=>({...item}));o.iva=q.iva;o.subtotal=q.subtotal;o.total=o.total||q.total;o.tax=roundMoney(o.total-o.subtotal)}}delete o._legacyItemMigration}
   try{
     if(JSON.stringify(clients)!==beforeClients)saveClients();
     if(JSON.stringify(quotes)!==beforeQuotes)persistQuotes();
@@ -186,27 +663,90 @@ function changeQuoteStatus(){
   updateDocStatus(status);
   if(q)updateQuoteMeta(q);
 }
+function readQuoteItems(){
+  return [...document.querySelectorAll('#quote-items .quote-item-row')].map(row=>{
+    const description=row.querySelector('.q-item-description')?.value.trim()||'';
+    const quantityRaw=row.querySelector('.q-item-quantity')?.value??'';
+    const unitPriceRaw=row.querySelector('.q-item-unit-price')?.value??'';
+    const quantity=Number(quantityRaw),unitPrice=Number(unitPriceRaw);
+    const used=!!description||unitPriceRaw!==''||(quantityRaw!==''&&quantity!==1);
+    return used?{description,quantity:Number.isFinite(quantity)?quantity:0,unitPrice:Number.isFinite(unitPrice)?unitPrice:0}:null;
+  }).filter(Boolean);
+}
+function createQuoteItemRow(item={}){
+  const row=document.createElement('div');row.className='quote-item-row';
+  row.innerHTML='<div class="quote-item-cell quote-item-description-cell"><span class="quote-item-label">PRODUCTO / DESCRIPCIÓN</span><input class="edit q-item-description" type="text" aria-label="Descripción del producto o servicio" placeholder="Ej. Tarjetas de presentación"></div><div class="quote-item-cell"><span class="quote-item-label">CANT.</span><input class="edit q-item-quantity" type="number" min="0.01" step="0.01" inputmode="decimal" aria-label="Cantidad" placeholder="1"></div><div class="quote-item-cell"><span class="quote-item-label">PRECIO UNITARIO</span><input class="edit q-item-unit-price" type="number" min="0" step="0.01" inputmode="decimal" aria-label="Precio unitario en MXN" placeholder="0.00"></div><div class="quote-item-cell quote-item-amount-cell"><span class="quote-item-label">IMPORTE</span><output class="quote-item-amount">—</output></div><button type="button" class="item-remove" aria-label="Eliminar producto o servicio" title="Eliminar renglón">×</button>';
+  row.querySelector('.q-item-description').value=String(item.description||'');
+  row.querySelector('.q-item-quantity').value=item.quantity==null?'1':String(item.quantity);
+  row.querySelector('.q-item-unit-price').value=item.unitPrice==null?'':String(item.unitPrice);
+  row.querySelector('.item-remove').addEventListener('click',event=>removeQuoteItem(event.currentTarget));
+  row.querySelectorAll('input').forEach(input=>input.addEventListener('input',()=>{calc();scheduleDraftSave()}));
+  return row;
+}
+function renderQuoteItems(items){
+  const box=document.getElementById('quote-items');if(!box)return;
+  box.replaceChildren();
+  const rows=Array.isArray(items)&&items.length?items:[{}];
+  rows.forEach(item=>box.appendChild(createQuoteItemRow(item)));
+  calc();
+}
+function addQuoteItem(item={}){
+  const box=document.getElementById('quote-items');if(!box)return;
+  const row=createQuoteItemRow(item);box.appendChild(row);calc();
+  row.querySelector('.q-item-description').focus();
+}
+function removeQuoteItem(button){
+  const row=button?.closest('.quote-item-row');if(!row)return;
+  const box=document.getElementById('quote-items');
+  if(box.querySelectorAll('.quote-item-row').length<=1){row.querySelector('.q-item-description').value='';row.querySelector('.q-item-quantity').value='1';row.querySelector('.q-item-unit-price').value=''}else row.remove();
+  calc();scheduleDraftSave();
+}
 function buildQuote(){
   const fields=[...document.querySelectorAll('.info .edit')].map(x=>x.value.trim());
   if(!fields[0]||!fields[2])return null;
   const existing=currentQuoteId?quotes.find(x=>x.id===currentQuoteId):null;
   const directory=findDirectoryClient(fields[0],clients,true);
-  const conditionsEl=document.querySelector('.conditions');
-  return {id:existing?.id||newId(),folio:existing?.folio||allocateFolio('quote'),createdAt:existing?.createdAt||todayISO(),updatedAt:todayISO(),clientId:directory?.id||existing?.clientId||null,fields,options:[...document.querySelectorAll('.option')].map(el=>({name:el.querySelector('strong').textContent,description:el.querySelector('small').textContent,price:el.querySelector('.opt-price')?.value||'',qty:el.querySelector('.opt-qty')?.value||'1',unit:el.querySelector('.opt-unit')?.value||'',selected:el.querySelector('[type=radio]').checked,hidden:el.classList.contains('hidden')})),spec:readQuoteSpec(),iva:document.getElementById('iva').checked,conditions:conditionsEl?(conditionsEl.innerText??conditionsEl.textContent??''):'',status:document.getElementById('quote-status')?.value||existing?.status||'borrador'};
+  const conditionsEl=document.querySelector('.conditions'),items=readQuoteItems(),iva=document.getElementById('iva').checked,totals=calculateQuoteTotals(items,iva);
+  return {id:existing?.id||newId(),folio:existing?.folio||allocateFolio('quote'),createdAt:existing?.createdAt||todayISO(),updatedAt:todayISO(),clientId:directory?.id||existing?.clientId||null,fields,items,subtotal:totals.subtotal,tax:totals.tax,total:totals.total,spec:readQuoteSpec(),iva,conditions:conditionsEl?(conditionsEl.innerText??conditionsEl.textContent??''):'',status:document.getElementById('quote-status')?.value||existing?.status||'borrador'};
 }
-function readQuoteSpec(){const v=id=>document.getElementById(id)?.value?.trim()||'';return {service:v('q-service'),quantity:v('q-qty'),format:v('q-format'),paper:v('q-paper'),finishes:[...document.querySelectorAll('.q-finish:checked')].map(x=>x.value),deliveryDate:v('q-delivery'),deposit:v('q-deposit'),validity:v('q-validity')}}
-function writeQuoteSpec(spec){spec=spec||{};const set=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||''};set('q-service',spec.service);set('q-qty',spec.quantity);set('q-format',spec.format);set('q-paper',spec.paper);set('q-delivery',spec.deliveryDate);set('q-deposit',spec.deposit);set('q-validity',spec.validity);document.querySelectorAll('.q-finish').forEach(x=>{x.checked=(spec.finishes||[]).includes(x.value)})}
-function quoteFormErrors(){const errors=[];const fields=[...document.querySelectorAll('.info .edit')].map(x=>x.value.trim());if(!fields[0])errors.push('Falta el cliente.');if(!fields[2])errors.push('Falta el proyecto.');if(!fields[3])errors.push('Falta la técnica o proceso.');const email=fields[1];if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))errors.push('El correo no tiene un formato válido.');const qtyRaw=document.getElementById('q-qty')?.value;if(qtyRaw&&!(Number(qtyRaw)>0))errors.push('La cantidad debe ser mayor a cero.');const opts=[...document.querySelectorAll('.option')];const sel=opts.find(x=>!x.classList.contains('hidden')&&x.querySelector('[type=radio]').checked)||opts[0];const price=Number(sel?.querySelector('.opt-price')?.value);if(!(price>0))errors.push('La opción seleccionada necesita un precio mayor a cero.');return errors}
+function readQuoteSpec(){const v=id=>document.getElementById(id)?.value?.trim()||'';return {service:'',quantity:'',format:v('q-format'),paper:v('q-paper'),finishes:[...document.querySelectorAll('.q-finish:checked')].map(x=>x.value),deliveryDate:v('q-delivery'),deposit:v('q-deposit'),validity:v('q-validity')}}
+function writeQuoteSpec(spec){spec=spec||{};const set=(id,val)=>{const el=document.getElementById(id);if(el)el.value=val||''};set('q-format',spec.format);set('q-paper',spec.paper);set('q-delivery',spec.deliveryDate);set('q-deposit',spec.deposit);set('q-validity',spec.validity);document.querySelectorAll('.q-finish').forEach(x=>{x.checked=(spec.finishes||[]).includes(x.value)})}
+function quoteFormErrors(){
+  const errors=[],fields=[...document.querySelectorAll('.info .edit')].map(x=>x.value.trim());
+  if(!fields[0])errors.push('Falta el cliente.');if(!fields[2])errors.push('Falta el proyecto.');
+  const email=fields[1];if(email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))errors.push('El correo no tiene un formato válido.');
+  const rows=[...document.querySelectorAll('#quote-items .quote-item-row')].map((row,index)=>({index:index+1,description:row.querySelector('.q-item-description')?.value.trim()||'',quantityRaw:row.querySelector('.q-item-quantity')?.value??'',unitPriceRaw:row.querySelector('.q-item-unit-price')?.value??''}));
+  const used=rows.filter(row=>row.description||row.unitPriceRaw!==''||(row.quantityRaw!==''&&Number(row.quantityRaw)!==1));
+  if(!used.length)errors.push('Agrega al menos un producto o servicio.');
+  used.forEach(row=>{
+    const label=`Renglón ${row.index}: `,quantity=Number(row.quantityRaw),unitPrice=Number(row.unitPriceRaw);
+    if(!row.description)errors.push(label+'escribe la descripción del producto o servicio.');
+    if(!Number.isFinite(quantity)||quantity<=0)errors.push(label+'la cantidad debe ser mayor a cero.');
+    if(row.unitPriceRaw===''||!Number.isFinite(unitPrice)||unitPrice<=0)errors.push(label+'el precio unitario debe ser mayor a cero.');
+    if(Number.isFinite(quantity)&&Number.isFinite(unitPrice)&&quantity>0&&unitPrice>=0&&!Number.isFinite(quantity*unitPrice))errors.push(label+'el importe es demasiado grande.');
+  });
+  return errors;
+}
 function showQuoteErrors(errors){const box=document.getElementById('quote-errors');if(!box)return;if(!errors.length){box.hidden=true;box.innerHTML='';return}box.innerHTML=errors.map(e=>`<div>· ${safe(e)}</div>`).join('');box.hidden=false}
-function sendQuoteWhatsApp(){const q=saveQuoteData(true);if(!q){toast('Escribe al menos el cliente y el proyecto antes de enviar.');return}const fields=q.fields||[];const sel=(q.options||[]).find(o=>o.selected&&!o.hidden)||q.options[0];const total=document.getElementById('doc-total')?.textContent||'';const msg=`Hola ${fields[0]||''}, te comparto la cotización ${q.folio} de Mono Cromat & Co. — ${fields[2]||''}: ${sel?.name||''} por ${total}. Vigencia ${q.spec?.validity||'—'} días.`;const client=clients.find(c=>c.id===q.clientId)||findDirectoryClient(fields[0],clients,true);const link=client?.phone?whatsappLink(client.phone,msg):whatsappLink(STUDIO_WHATSAPP,msg);if(!link){toast('Agrega el teléfono del cliente en Clientes para enviar por WhatsApp.');return}window.open(link,'_blank')}
+function sendQuoteWhatsApp(){
+  const q=saveQuoteData(true);if(!q){toast('Completa cliente, proyecto y al menos un producto con cantidad y precio.');return}
+  const fields=q.fields||[],lineSummary=(q.items||[]).map((item,i)=>`${i+1}. ${item.description} — ${item.quantity} × ${money(item.unitPrice)} = ${money(quoteLineTotal(item))}`).join('\n');
+  const msg=`Hola ${fields[0]||''}, te comparto la cotización ${q.folio} de Mono Cromat & Co. — ${fields[2]||''}.\n${lineSummary}\nSubtotal: ${money(q.subtotal)} · IVA: ${money(q.tax)} · Total: ${money(q.total)}. Vigencia ${q.spec?.validity||'—'} días.`;
+  const client=clients.find(c=>c.id===q.clientId)||findDirectoryClient(fields[0],clients,true);const link=client?.phone?whatsappLink(client.phone,msg):whatsappLink(STUDIO_WHATSAPP,msg);if(!link){toast('Agrega el teléfono del cliente en Clientes para enviar por WhatsApp.');return}window.open(link,'_blank')
+}
 let pendingOrderData=null;
-function showOrderConfirm(q){const sel=(q.options||[]).find(o=>o.selected&&!o.hidden)||q.options[0];const total=document.getElementById('doc-total')?.textContent||'';const panel=document.getElementById('order-confirm'),text=document.getElementById('order-confirm-text');if(!panel||!text)return;text.innerHTML=`<div>${safe(q.folio||'')} · ${safe(q.fields?.[2]||'')}</div><div>Opción: ${safe(sel?.name||'')} — ${safe(total)}</div><div>Anticipo: ${safe(q.spec?.deposit?money(Number(q.spec.deposit)):'Sin anticipo')} · Vigencia: ${safe(q.spec?.validity||'—')} días</div>`;panel.hidden=false;panel.scrollIntoView({behavior:'smooth',block:'center'})}
+function showOrderConfirm(q){
+  const panel=document.getElementById('order-confirm'),text=document.getElementById('order-confirm-text');if(!panel||!text)return;
+  const rows=(q.items||[]).map(item=>`<div>· ${safe(item.description)} — ${safe(item.quantity)} × ${money(item.unitPrice)} = ${money(quoteLineTotal(item))}</div>`).join('');
+  text.innerHTML=`<div>${safe(q.folio||'')} · ${safe(q.fields?.[2]||'')}</div><div class="order-confirm-items">${rows}</div><div>Subtotal: ${money(q.subtotal)} · IVA: ${money(q.tax)}</div><strong>Total: ${money(q.total)}</strong><div>Anticipo: ${safe(q.spec?.deposit?money(Number(q.spec.deposit)):'Sin anticipo')} · Vigencia: ${safe(q.spec?.validity||'—')} días</div>`;
+  panel.hidden=false;panel.scrollIntoView({behavior:'smooth',block:'center'})
+}
 function cancelCreateOrder(){const panel=document.getElementById('order-confirm');if(panel)panel.hidden=true;pendingOrderData=null}
 function saveQuoteData(silent){
   const errors=quoteFormErrors();
   if(errors.length){if(!silent){showQuoteErrors(errors);toast('Revisa los campos de la cotización.')}return null}
   const q=buildQuote();
-  if(!q){if(!silent)toast('Escribe al menos el cliente y el proyecto antes de guardar.');return null}
+  if(!q){if(!silent)toast('Completa cliente, proyecto y al menos un producto con cantidad y precio.');return null}
   const previousQuotes=quotes,previousId=currentQuoteId;
   quotes=[q,...quotes.filter(x=>x.id!==q.id)];currentQuoteId=q.id;
   if(!persistQuotes()){quotes=previousQuotes;currentQuoteId=previousId;if(!silent)toast('No se pudo guardar la cotización.');return null}
@@ -269,7 +809,22 @@ function deleteClient(){
   clients=remaining;newClient();renderClients();
   });
 }
-function show(view){if(view==='home')renderHome();document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===view));document.getElementById('home').classList.toggle('hidden',view!=='home');document.getElementById('quote').classList.toggle('hidden',view!=='quote');document.getElementById('clientes').classList.toggle('hidden',view!=='clientes');document.getElementById('pedidos').classList.toggle('hidden',view!=='pedidos');document.getElementById('produccion').classList.toggle('hidden',view!=='produccion');document.getElementById('calendario').classList.toggle('hidden',view!=='calendario');if(view==='calendario')renderDelivery();if(view==='produccion')renderProduction();if(view==='pedidos')renderPayments();document.getElementById('placeholder').classList.toggle('hidden',view==='home'||view==='quote'||view==='clientes'||view==='pedidos'||view==='produccion'||view==='calendario');if(view==='clientes')renderClients();if(view==='quote')renderQuotes();if(names[view])document.getElementById('placeholder-title').textContent=names[view]+'.';window.scrollTo(0,0)}document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>show(b.dataset.view));function calc(){let opts=[...document.querySelectorAll('.option')],i=opts.findIndex(x=>!x.classList.contains('hidden')&&x.querySelector('[type=radio]').checked);if(i<0){i=0;opts[0].querySelector('[type=radio]').checked=true}let el=opts[i],qty=Math.max(0,Number(el.querySelector('.opt-qty')?.value)||0),unit=Math.max(0,Number(el.querySelector('.opt-unit')?.value)||0),priceEl=el.querySelector('.opt-price');let base=(qty>0&&unit>0)?qty*unit:Math.max(0,Number(priceEl?.value)||0);if(qty>0&&unit>0&&priceEl)priceEl.value=base.toFixed(2);let tax=document.getElementById('iva').checked?base*.16:0,fmt=x=>x.toLocaleString('es-MX',{style:'currency',currency:'MXN'});document.getElementById('selected').textContent='Opción 0'+(i+1);document.getElementById('subtotal').textContent=fmt(base);document.getElementById('tax').textContent=fmt(tax);document.getElementById('total').textContent=fmt(base+tax);document.getElementById('doc-total').textContent=fmt(base+tax);document.getElementById('taxnote').textContent=tax?'IVA INCLUIDO · MXN':'SIN IVA · MXN'}calc();
+function show(view){if(view==='home')renderHome();document.querySelectorAll('.nav button').forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});document.getElementById('home').classList.toggle('hidden',view!=='home');document.getElementById('quote').classList.toggle('hidden',view!=='quote');document.getElementById('clientes').classList.toggle('hidden',view!=='clientes');document.getElementById('pedidos').classList.toggle('hidden',view!=='pedidos');document.getElementById('produccion').classList.toggle('hidden',view!=='produccion');document.getElementById('calendario').classList.toggle('hidden',view!=='calendario');if(view==='calendario')renderDelivery();if(view==='produccion')renderProduction();if(view==='pedidos')renderPayments();document.getElementById('placeholder').classList.toggle('hidden',view==='home'||view==='quote'||view==='clientes'||view==='pedidos'||view==='produccion'||view==='calendario');if(view==='clientes')renderClients();if(view==='quote')renderQuotes();if(names[view])document.getElementById('placeholder-title').textContent=names[view]+'.';window.scrollTo(0,0)}document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>show(b.dataset.view));function calc(){
+  const rows=[...document.querySelectorAll('#quote-items .quote-item-row')];
+  rows.forEach(row=>{
+    const quantityRaw=row.querySelector('.q-item-quantity')?.value??'',unitPriceRaw=row.querySelector('.q-item-unit-price')?.value??'';
+    const quantity=Number(quantityRaw),unitPrice=Number(unitPriceRaw),amount=row.querySelector('.quote-item-amount');
+    if(amount)amount.textContent=quantityRaw!==''&&unitPriceRaw!==''&&Number.isFinite(quantity)&&quantity>0&&Number.isFinite(unitPrice)&&unitPrice>=0?money(quoteLineTotal({quantity,unitPrice})):'—';
+  });
+  const items=readQuoteItems(),iva=!!document.getElementById('iva')?.checked,totals=calculateQuoteTotals(items,iva);
+  const count=document.getElementById('items-count'),subtotal=document.getElementById('subtotal'),tax=document.getElementById('tax'),total=document.getElementById('total'),docTotal=document.getElementById('doc-total'),taxNote=document.getElementById('taxnote');
+  if(count)count.textContent=String(items.length);
+  if(subtotal)subtotal.textContent=money(totals.subtotal);
+  if(tax)tax.textContent=money(totals.tax);
+  if(total)total.textContent=money(totals.total);
+  if(docTotal)docTotal.textContent=money(totals.total);
+  if(taxNote)taxNote.textContent=iva?'IVA 16% INCLUIDO · MXN':'SIN IVA · MXN';
+}calc();
 
 let clients=[];try{clients=JSON.parse(localStorage.getItem('mono_clients')||'[]')}catch(e){clients=[]}let editing=null;const safe=s=>String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function saveClients(){localStorage.setItem('mono_clients',JSON.stringify(clients))}
 function normalizeClientName(value){return String(value||'').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ')}
@@ -294,11 +849,22 @@ const quoteClientField=document.getElementById('quote-client');
 if(quoteClientField){quoteClientField.addEventListener('input',()=>syncQuoteClient(false));quoteClientField.addEventListener('change',()=>syncQuoteClient(true))}
 refreshClientOptions();
 let orders=[];try{orders=JSON.parse(localStorage.getItem('mono_orders')||'[]')}catch(e){}let currentOrder=null;try{let old=JSON.parse(localStorage.getItem('mono_order')||'null');if(!orders.length&&old&&!/john herrera/i.test(old.client||'')){old.id='legacy-'+Date.now();old.payments=JSON.parse(localStorage.getItem('mono_example_payments')||'[]');orders=[old];localStorage.setItem('mono_orders',JSON.stringify(orders))}localStorage.removeItem('mono_order');localStorage.removeItem('mono_example_payments')}catch(e){}currentOrder=orders[0]||null;let payments=currentOrder?.payments||[];let orderTotal=currentOrder?.total??0;function persistOrders(){localStorage.setItem('mono_orders',JSON.stringify(orders))}function openOrder(id){currentOrder=orders.find(o=>o.id===id)||null;payments=Array.isArray(currentOrder?.payments)?currentOrder.payments:[];orderTotal=Number(currentOrder?.total)||0;renderPayments()}function renderOrderList(){document.getElementById('orders-list').innerHTML=orders.map(o=>`<button class="text-btn" style="text-align:left;background:${currentOrder?.id===o.id?'#dcefeb':'#fff'};padding:14px;border-radius:6px" onclick="openOrder('${o.id}')">${safe(o.folio||'MCCO-P-…')} &nbsp; · &nbsp; ${safe(o.project)} &nbsp; · &nbsp; ${safe(o.client)} &nbsp; ↗</button>`).join('')}
-function money(n){const value=Number(n);return (Number.isFinite(value)?value:0).toLocaleString('es-MX',{style:'currency',currency:'MXN'})}function renderPayments(){
+function money(n){const value=Number(n);return (Number.isFinite(value)?value:0).toLocaleString('es-MX',{style:'currency',currency:'MXN'})}
+function renderOrderItems(order){
+  const box=document.getElementById('order-items'),count=document.getElementById('order-item-count');if(!box)return;
+  const items=Array.isArray(order?.items)?order.items:[];
+  if(count)count.textContent=`${items.length} renglón${items.length===1?'':'es'}`;
+  const rows=items.map(item=>`<div class="order-item-row"><span class="order-item-description">${safe(item.description||'Producto o servicio')}</span><span class="order-item-number">${safe(Number(item.quantity)||1)}</span><span class="order-item-unit">${money(item.unitPrice)}</span><strong class="order-item-amount">${money(quoteLineTotal(item))}</strong></div>`).join('');
+  const subtotal=Number(order.subtotal)||0,tax=Number(order.tax)||0,total=Number(order.total)||0;
+  box.innerHTML=`<div class="order-items-header"><span>PRODUCTO / DESCRIPCIÓN</span><span class="order-item-number">CANT.</span><span class="order-item-unit">PRECIO UNITARIO</span><span class="order-item-amount">IMPORTE</span></div>${rows||'<div class="order-items-empty">No hay partidas detalladas en este pedido.</div>'}<div class="order-items-totals"><div><span>Subtotal</span><strong>${money(subtotal)}</strong></div><div><span>${order.iva?'IVA 16%':'IVA'}</span><strong>${money(tax)}</strong></div><div class="order-items-grand"><span>Total del pedido</span><strong>${money(total)}</strong></div></div>`;
+}
+function renderPayments(){
   renderOrderList();
   document.getElementById('order-empty').classList.toggle('hidden',!!currentOrder);
   document.getElementById('order-content').classList.toggle('hidden',!currentOrder);
   if(!currentOrder){
+    const itemCount=document.getElementById('order-item-count');if(itemCount)itemCount.textContent='';
+    const itemTable=document.getElementById('order-items');if(itemTable)itemTable.innerHTML='';
     const emptyLink=document.getElementById('order-quote-link');if(emptyLink)emptyLink.hidden=true;
     const emptyFolio=document.getElementById('order-folio');if(emptyFolio)emptyFolio.textContent='';
     const emptyDate=document.getElementById('order-date');if(emptyDate)emptyDate.textContent='';
@@ -306,7 +872,7 @@ function money(n){const value=Number(n);return (Number.isFinite(value)?value:0).
   }
   document.getElementById('order-client').textContent='PEDIDO / '+currentOrder.client;
   document.getElementById('order-project').textContent=currentOrder.project;
-  document.getElementById('order-detail').textContent='Opción '+(currentOrder.option||1)+' · '+(currentOrder.technique||'Sin técnica');
+  document.getElementById('order-detail').textContent=`${currentOrder.items?.length||0} producto${currentOrder.items?.length===1?'':'s'} · ${currentOrder.technique||'Proceso por definir'}`;renderOrderItems(currentOrder);
   document.getElementById('order-folio').textContent=currentOrder.folio||'MCCO-P-…';
   document.getElementById('order-date').textContent=formatDate(currentOrder.createdAt);
   let contact=document.getElementById('order-contact');
@@ -330,29 +896,24 @@ function money(n){const value=Number(n);return (Number.isFinite(value)?value:0).
 
 function newQuote(){
   document.querySelectorAll('.info .edit').forEach(i=>i.value='');
-  document.querySelectorAll('.option input[type=number]').forEach(i=>i.value='');
-  document.querySelectorAll('.opt-qty').forEach(i=>i.value='1');
-  document.querySelectorAll('.option').forEach((el,i)=>{
-    el.querySelector('strong').textContent='OPCIÓN '+(i+1);
-    el.querySelector('small').textContent='Describe esta opción';
-    el.querySelector('[type=radio]').checked=i===0;
-    el.classList.toggle('hidden',i>0);
-  });
+  renderQuoteItems([]);
   document.querySelector('.conditions').textContent='Escribe aquí qué incluye y las condiciones de la cotización.';
   writeQuoteSpec({});
   currentQuoteId=null;autoFilledEmail='';setQuoteClientHint('',false);
   document.getElementById('iva').checked=false;
   document.getElementById('quote-status').value='borrador';
   document.getElementById('quote-status').disabled=false;
+  const confirm=document.getElementById('order-confirm');if(confirm)confirm.hidden=true;
   showQuoteErrors([]);
   const ds=document.getElementById('draft-status');if(ds)ds.textContent='Borrador no guardado';
   updateQuoteMeta(null);calc();syncQuoteClient(false);
   document.querySelector('.info .edit').focus();
-}function createOrder(){
+}
+function createOrder(){
   const errors=quoteFormErrors();
   if(errors.length){showQuoteErrors(errors);toast('Revisa los campos de la cotización.');return}
   const q=buildQuote();
-  if(!q){toast('Escribe al menos el cliente y el proyecto antes de crear el pedido.');return}
+  if(!q){toast('Completa cliente, proyecto y al menos un producto con cantidad y precio.');return}
   const existing=currentQuoteId?quotes.find(x=>x.id===currentQuoteId):null;
   const previous=existing?linkedOrderFor(existing.id):null;
   if(previous){confirmToast(`Esta cotización ya tiene el pedido ${previous.folio}. ¿Abrirlo?`,'Abrir pedido',()=>{show('pedidos');openOrder(previous.id)});return}
@@ -366,10 +927,9 @@ function confirmCreateOrder(){
   const linked=linkedOrderFor(quote.id);
   if(linked){confirmToast(`Esta cotización ya tiene el pedido ${linked.folio}. ¿Abrirlo?`,'Abrir pedido',()=>{show('pedidos');openOrder(linked.id)});return}
   const fields=document.querySelectorAll('.info .edit');
-  const selOpt=(quote.options||[]).find(o=>o.selected&&!o.hidden)||quote.options[0];
-  const selIndex=Math.max(0,(quote.options||[]).findIndex(o=>o.selected&&!o.hidden));
-  const base=Math.max(0,Number(selOpt?.price)||0);
-  let client=fields[0].value.trim(),project=fields[2].value.trim(),technique=fields[3].value.trim();let directory=findDirectoryClient(client,clients,true);let order={id:newId(),folio:allocateFolio('order'),createdAt:todayISO(),quoteId:quote.id,quoteFolio:quote.folio,client,project,technique,clientId:directory?.id||null,company:directory?.company||'',email:fields[1].value.trim()||directory?.email||'',phone:directory?.phone||'',option:selIndex+1,optionName:selOpt?.name||'',optionDescription:selOpt?.description||'',spec:quote.spec||{},total:Math.round(base*(quote.iva?1.16:1)*100)/100,payments:[]};
+  const client=fields[0].value.trim(),project=fields[2].value.trim(),technique=fields[3].value.trim(),directory=findDirectoryClient(client,clients,true);
+  const totals=calculateQuoteTotals(quote.items,quote.iva);
+  const order={id:newId(),folio:allocateFolio('order'),createdAt:todayISO(),quoteId:quote.id,quoteFolio:quote.folio,client,project,technique,clientId:directory?.id||null,company:directory?.company||'',email:fields[1].value.trim()||directory?.email||'',phone:directory?.phone||'',items:quote.items.map(item=>({...item})),subtotal:totals.subtotal,tax:totals.tax,iva:quote.iva,total:totals.total,spec:quote.spec||{},payments:[]};
   const previousStatus=quote.status;
   try{
     orders.unshift(order);
@@ -377,7 +937,7 @@ function confirmCreateOrder(){
     persistOrders();
     if(!persistQuotes())throw new Error('quote');
     currentOrder=order;orderTotal=order.total;payments=order.payments;
-    updateQuoteMeta(quote);show('pedidos');toast(`Pedido ${order.folio} creado.`);
+    updateQuoteMeta(quote);show('pedidos');toast(`Pedido ${order.folio} creado con ${order.items.length} producto${order.items.length===1?'':'s'}.`);
   }catch(e){
     orders=orders.filter(o=>o.id!==order.id);quote.status=previousStatus;
     try{persistOrders();persistQuotes()}catch(err){}
@@ -395,25 +955,19 @@ function renderQuotes(){
   const box=document.getElementById('quote-list');if(!box)return;
   box.innerHTML=quotes.length?quotes.map(q=>{
     const linked=linkedOrderFor(q.id),status=QUOTE_STATUS[q.status]||QUOTE_STATUS.borrador;
-    return `<div class="quote-row"><div><div class="mono">${safe(q.folio||'MCCO-C-…')} · ${safe(formatDate(q.createdAt))}</div><strong style="font-size:12px">${safe(q.fields?.[2]||'Sin proyecto')}</strong><div class="hint">${safe(q.fields?.[0]||'Sin cliente')} · <span class="pill" data-status="${safe(q.status)}">${safe(status)}</span></div>${linked?`<button type="button" class="text-btn" style="padding:6px 0 0" onclick="show('pedidos');openOrder('${linked.id}')">Pedido ${safe(linked.folio)} ↗</button>`:''}</div><div style="text-align:right;flex:none"><button class="text-btn" onclick="loadQuote('${q.id}')">Abrir ↗</button><br><button class="text-btn" onclick="deleteQuote('${q.id}')">Eliminar ×</button></div></div>`;
+    return `<div class="quote-row"><div><div class="mono">${safe(q.folio||'MCCO-C-…')} · ${safe(formatDate(q.createdAt))}</div><strong style="font-size:12px">${safe(q.fields?.[2]||'Sin proyecto')}</strong><div class="hint">${safe(q.fields?.[0]||'Sin cliente')} · <span class="pill" data-status="${safe(q.status)}">${safe(status)}</span> · ${safe(q.items?.length||0)} renglón${q.items?.length===1?'':'es'} · ${money(q.total)}</div>${linked?`<button type="button" class="text-btn" style="padding:6px 0 0" onclick="show('pedidos');openOrder('${linked.id}')">Pedido ${safe(linked.folio)} ↗</button>`:''}</div><div style="text-align:right;flex:none"><button class="text-btn" onclick="loadQuote('${q.id}')">Abrir ↗</button><br><button class="text-btn" onclick="deleteQuote('${q.id}')">Eliminar ×</button></div></div>`;
   }).join(''):'<p class="hint">Aún no hay cotizaciones guardadas.</p>';
 }function saveQuote(){return saveQuoteData(false)}function loadQuote(id){
   let q=quotes.find(x=>x.id===id);if(!q)return;
   currentQuoteId=id;
   document.querySelectorAll('.info .edit').forEach((x,i)=>x.value=q.fields?.[i]||'');
-  document.querySelectorAll('.option').forEach((el,i)=>{
-    let o=q.options?.[i]||{name:'OPCIÓN '+(i+1),description:'Describe esta opción',price:'',selected:i===0,hidden:i>0};
-    el.querySelector('strong').textContent=o.name;
-    el.querySelector('small').textContent=o.description;
-    el.querySelector('.opt-price').value=o.price;el.querySelector('.opt-qty').value=o.qty??1;el.querySelector('.opt-unit').value=o.unit??'';
-    el.querySelector('[type=radio]').checked=!!o.selected;
-    el.classList.toggle('hidden',!!o.hidden);
-  });
+  renderQuoteItems(q.items||[]);
   document.getElementById('iva').checked=!!q.iva;
   writeQuoteSpec(q.spec||{});
   document.querySelector('.conditions').textContent=q.conditions||'';
   updateQuoteMeta(q);calc();autoFilledEmail='';syncQuoteClient(true);window.scrollTo(0,0);
-}function deleteQuote(id){
+}
+function deleteQuote(id){
   const linked=linkedOrderFor(id);
   if(linked){toast(`Esta cotización está vinculada al pedido ${linked.folio}. Elimina primero el pedido.`);return}
   askDelete('¿Eliminar esta cotización?','Eliminar cotización',()=>{
@@ -425,45 +979,114 @@ function renderQuotes(){
   });
 }
 
-function addOption(){let hidden=[...document.querySelectorAll('.option')].find(el=>el.classList.contains('hidden'));if(hidden)hidden.classList.remove('hidden');else toast('Ya tienes las tres opciones disponibles.')}function removeOption(){let visible=[...document.querySelectorAll('.option')].filter(el=>!el.classList.contains('hidden'));if(visible.length<=1){toast('La cotización necesita al menos una opción.');return}let last=visible[visible.length-1];last.classList.add('hidden');if(last.querySelector('[type=radio]').checked)visible[visible.length-2].querySelector('[type=radio]').checked=true;calc()}document.querySelectorAll('.option').forEach((el,i)=>el.classList.toggle('hidden',i>0));calc();
-
-function printQuote(){const q=saveQuoteData(true);if(!q){toast('Escribe al menos el cliente y el proyecto antes de imprimir.');return}window.print()}
+renderQuoteItems([]);
+function printQuote(){const q=saveQuoteData(true);if(!q){toast('Completa cliente, proyecto y al menos un producto con cantidad y precio antes de imprimir.');return}window.print()}
 function renderHome(){
   const box=document.getElementById('hoy-list');if(!box)return;
   const today=todayISO();
+  const dateLabel=new Intl.DateTimeFormat('es-MX',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date(`${today}T12:00:00`));
+  const dateNode=document.getElementById('home-date');if(dateNode)dateNode.textContent=dateLabel;
   const deliveries=orders.filter(o=>o.delivery?.date).slice().sort((a,b)=>a.delivery.date.localeCompare(b.delivery.date));
   const due=deliveries.filter(o=>o.delivery.date<=today);
-  const upcoming=deliveries.filter(o=>o.delivery.date>today).slice(0,2);
-  const stages=['Confirmado','Producción','Calidad','Entrega'];
+  const upcoming=deliveries.filter(o=>o.delivery.date>today);
+  const nextDelivery=due[0]||upcoming[0]||null;
+  const stages=[{name:'Confirmado',key:'Confirmado'},{name:'Producción',key:'Producción'},{name:'Calidad',key:'Calidad'},{name:'Entrega',key:'Entrega'}];
   const counts={Confirmado:0,'Producción':0,Calidad:0,Entrega:0};
-  orders.forEach(o=>{const st=orderStage(o);counts[st]=(counts[st]||0)+1});
-  const stuck=orders.filter(o=>{const st=orderStage(o);return (st==='Producción'||st==='Calidad')&&daysSince(o.createdAt)>=4}).slice(0,5);
-  const pending=orders.map(o=>({o,balance:orderBalance(o)})).filter(x=>x.balance>0).sort((a,b)=>b.balance-a.balance).slice(0,5);
-  const totalPending=pending.reduce((a,x)=>a+x.balance,0);
-  const waiting=quotes.filter(q=>q.status==='enviada').slice().sort((a,b)=>String(a.createdAt||'').localeCompare(String(b.createdAt||''))).slice(0,5);
-  const delRow=o=>{const overdue=o.delivery.date<today;return `<div class="hoy-row"><div><strong>${safe(o.project)}</strong><small>${safe(o.client)} · ${safe(o.delivery.method||'')} · ${safe(formatDate(o.delivery.date))}</small></div><span class="hoy-tag ${overdue?'red':o.delivery.date===today?'amber':'blue'}">${overdue?'VENCIDA':o.delivery.date===today?'HOY':'PRÓXIMA'}</span></div>`};
-  const prodRow=o=>{const st=orderStage(o);const action=st==='Producción'?'Marcar calidad':st==='Calidad'?'Autorizar empaque':'Ver pedido';return `<div class="hoy-row"><div><strong>${safe(o.project)}</strong><small>${safe(o.client)} · ${st} · ${daysSince(o.createdAt)} días en el taller — atorado</small></div><button class="text-btn" onclick="show('produccion');selectProd('${o.id}')">${action} ↗</button></div>`};
+  orders.forEach(o=>{const stage=orderStage(o);counts[stage]=(counts[stage]||0)+1});
+  const stuck=orders.filter(o=>{const stage=orderStage(o);return (stage==='Producción'||stage==='Calidad')&&daysSince(o.createdAt)>=4}).sort((a,b)=>daysSince(b.createdAt)-daysSince(a.createdAt));
+  const balances=orders.map(o=>({order:o,balance:orderBalance(o)})).filter(x=>x.balance>0).sort((a,b)=>b.balance-a.balance);
+  const totalPending=balances.reduce((sum,item)=>sum+item.balance,0);
+  const waiting=quotes.filter(q=>q.status==='enviada').slice().sort((a,b)=>String(a.createdAt||'').localeCompare(String(b.createdAt||'')));
+  const focusItems=[
+    ...due.map(o=>({order:o,kind:o.delivery.date<today?'ENTREGA VENCIDA':'ENTREGA HOY',tone:o.delivery.date<today?'urgent':'today',detail:`${o.delivery.method||'Forma de entrega pendiente'} · ${formatDate(o.delivery.date)}`,action:'delivery',actionLabel:'Ver entrega',priority:o.delivery.date<today?0:1})),
+    ...stuck.map(o=>{const stage=orderStage(o);return {order:o,kind:'PRODUCCIÓN / REVISAR',tone:'work',detail:`${stage} · pedido de hace ${daysSince(o.createdAt)} días`,action:'production',actionLabel:stage==='Calidad'?'Revisar calidad':'Abrir producción',priority:2}})
+  ].sort((a,b)=>a.priority-b.priority||String(a.order.createdAt||'').localeCompare(String(b.order.createdAt||'')));
+  const attentionCount=focusItems.length;
+  const orderWord=orders.length===1?'pedido':'pedidos';
+  const arrow='<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M10 4l6 6-6 6"/></svg>';
+  const calendarIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M7.5 3v4m9-4v4M4 9.5h16M8 13h2m4 0h2"/></svg>';
+  const nextDate=nextDelivery?.delivery?.date||'';
+  const nextDateParts=nextDate.split('-');
+  const deliveryDate=nextDateParts.length===3?new Date(Number(nextDateParts[0]),Number(nextDateParts[1])-1,Number(nextDateParts[2]),12):null;
+  const deliveryDay=deliveryDate?String(deliveryDate.getDate()).padStart(2,'0'):'—';
+  const deliveryMonth=deliveryDate?new Intl.DateTimeFormat('es-MX',{month:'short'}).format(deliveryDate).replace('.','').toUpperCase():'—';
+  const deliveryState=nextDelivery?(nextDate<today?'VENCIDA':nextDate===today?'HOY':'SIGUIENTE'):'SIN FECHA';
+  const deliveryTone=nextDelivery?(nextDate<today?'is-overdue':nextDate===today?'is-today':'is-upcoming'):'is-empty';
+  const flowMax=Math.max(1,...stages.map(stage=>counts[stage.key]||0));
+  const flowMarkup=stages.map((stage,index)=>{
+    const count=counts[stage.key]||0;
+    const width=count?Math.max(14,Math.round(count/flowMax*100)):0;
+    return `<div class="flow-step"><div class="flow-step-head"><strong>${count}</strong><span>0${index+1}</span></div><div class="flow-track"><i style="width:${width}%"></i></div><span class="flow-step-label">${safe(stage.name)}</span></div>`;
+  }).join('');
+  const deliveryMarkup=nextDelivery?`<div class="dispatch-feature ${deliveryTone}">
+    <div class="dispatch-date"><span>${safe(deliveryMonth)}</span><strong>${safe(deliveryDay)}</strong><small>${safe(nextDateParts[0]||'')}</small></div>
+    <div class="dispatch-copy"><span class="dispatch-state">${safe(deliveryState)}</span><h3>${safe(nextDelivery.project||'Proyecto sin nombre')}</h3><p>${safe(nextDelivery.client||'Cliente sin nombre')}</p><small>${safe(nextDelivery.delivery.method||'Forma de entrega por definir')}</small></div>
+  </div>
+  <div class="dispatch-meta"><span>${safe(formatDate(nextDate))}</span><span>${due.length?`${due.length} entrega${due.length===1?'':'s'} hoy o vencida${due.length===1?'':'s'}`:`${upcoming.length} próxima${upcoming.length===1?'':'s'}`}</span></div>
+  <button type="button" class="dispatch-action" data-home-action="delivery" data-target="${safe(nextDelivery.id)}">Abrir guía de entrega ${arrow}</button>`:`<div class="dispatch-empty"><span class="dispatch-empty-icon">${calendarIcon}</span><strong>Sin entregas programadas.</strong><p>Cuando un pedido tenga fecha, aparecerá aquí.</p></div>
+  <button type="button" class="dispatch-action" data-home-action="calendar">Programar una entrega ${arrow}</button>`;
+  const balanceRows=balances.length?balances.slice(0,2).map(({order,balance})=>`<div class="balance-row"><div class="balance-row-copy"><strong>${safe(order.project||'Proyecto sin nombre')}</strong><small>${safe(order.client||'Cliente sin nombre')} · ${money(balance)}</small></div><button type="button" class="balance-row-action" data-home-action="payment" data-target="${safe(order.id)}" aria-label="Registrar abono de ${safe(order.project||'este pedido')}">Registrar abono ${arrow}</button></div>`).join(''):'<div class="balance-empty"><span>✓</span><div><strong>Sin saldos pendientes.</strong><small>Los pedidos están al corriente.</small></div></div>';
+  const focusMarkup=focusItems.length?focusItems.slice(0,4).map(item=>`<div class="focus-row"><span class="focus-marker ${item.tone}"></span><div class="focus-copy"><div class="focus-meta"><span>${safe(item.kind)}</span><span>${safe(item.order.folio||'PEDIDO')}</span></div><strong>${safe(item.order.project||'Proyecto sin nombre')}</strong><small>${safe(item.order.client||'Cliente sin nombre')} · ${safe(item.detail)}</small></div><button type="button" class="focus-action" data-home-action="${item.action}" data-target="${safe(item.order.id)}">${safe(item.actionLabel)} ${arrow}</button></div>`).join(''):'<div class="focus-empty"><span class="focus-check">✓</span><div><strong>No hay pendientes críticos.</strong><small>Sin entregas vencidas ni trabajos detenidos.</small></div><button type="button" data-home-action="orders">Ver pedidos</button></div>';
+  const quoteRows=waiting.length?waiting.slice(0,3).map(q=>`<div class="quote-follow-row"><div class="quote-age"><strong>${String(daysSince(q.createdAt)).padStart(2,'0')}</strong><span>DÍAS</span></div><div class="quote-follow-copy"><strong>${safe(q.fields?.[2]||'Sin proyecto')}</strong><small>${safe(q.fields?.[0]||'Sin cliente')} · ${safe(q.folio||'')}</small></div><button type="button" class="quote-reminder" data-home-action="reminder" data-target="${safe(q.id)}" aria-label="Recordar por WhatsApp la cotización de ${safe(q.fields?.[0]||'este cliente')}"><span>Recordar por WhatsApp</span>${arrow}</button></div>`).join(''):'<div class="quote-empty"><span class="quote-empty-mark">↗</span><strong>Ninguna cotización esperando respuesta.</strong><small>Las cotizaciones enviadas aparecerán aquí para darles seguimiento.</small></div>';
   box.innerHTML=`
-  <section class="hoy-section"><h2>Hoy — entregas <span class="hoy-count">${due.length}</span></h2>
-  ${due.length?due.map(delRow).join(''):'<p class="hoy-empty">Nada que entregar hoy.</p>'}
-  ${upcoming.map(delRow).join('')}
-  <button class="text-btn" onclick="show('calendario')">Abrir calendario ↗</button></section>
-  <section class="hoy-section"><h2>En producción ahora</h2>
-  <div class="hoy-pipe">${stages.map(s=>`<div class="hoy-stage"><b>${counts[s]||0}</b><span>${s}</span></div>`).join('')}</div>
-  ${stuck.length?stuck.map(prodRow).join(''):'<p class="hoy-empty">Nada atorado en producción.</p>'}
-  <button class="text-btn" onclick="show('pedidos')">Ver pedidos ↗</button></section>
-  <section class="hoy-section"><h2>Dinero que falta <span class="hoy-count">${money(totalPending)}</span></h2>
-  ${pending.length?pending.map(x=>`<div class="hoy-row"><div><strong>${safe(x.o.project)}</strong><small>${safe(x.o.client)} · saldo ${money(x.balance)}</small></div><button class="text-btn" onclick="registerAbono('${x.o.id}')">Registrar abono ↗</button></div>`).join(''):'<p class="hoy-empty">Sin saldos pendientes.</p>'}</section>
-  <section class="hoy-section"><h2>Cotizaciones esperando <span class="hoy-count">${waiting.length}</span></h2>
-  ${waiting.length?waiting.map(q=>`<div class="hoy-row"><div><strong>${safe(q.fields?.[2]||'Sin proyecto')}</strong><small>${safe(q.fields?.[0]||'Sin cliente')} · enviada hace ${daysSince(q.createdAt)} días · ${safe(q.folio||'')}</small></div><button class="text-btn" onclick="whatsappReminder('${q.id}')">Recordar por WhatsApp ↗</button></div>`).join(''):'<p class="hoy-empty">Ninguna cotización esperando respuesta.</p>'}</section>
-  <button class="hoy-cta" onclick="show('quote')">+ Nueva cotización</button>`;
+  <section class="studio-hero" aria-label="Resumen de operación">
+    <div class="hero-decoration" aria-hidden="true"><span></span><i></i></div>
+    <div class="hero-topline"><span><i class="hero-live-dot"></i>OPERACIÓN DEL ESTUDIO</span><span>01 / MONO CROMAT & CO.</span></div>
+    <div class="hero-body"><div class="hero-copy"><h2>El estado real<br>del estudio<span>.</span></h2><p>Pedidos, entregas y cobros que requieren movimiento.</p><button type="button" class="hero-link" data-home-action="orders">Explorar pedidos ${arrow}</button></div>
+      <div class="hero-metric"><span class="hero-metric-label">PEDIDOS REGISTRADOS</span><div class="hero-metric-number"><strong>${String(orders.length).padStart(2,'0')}</strong><span>EN<br>EL FLUJO</span></div><div class="hero-metric-rule"></div><div class="hero-metric-foot"><span>Atención inmediata</span><strong>${String(attentionCount).padStart(2,'0')}</strong></div></div>
+    </div>
+    <div class="hero-footer"><span>${orders.length} ${orderWord} registrados</span><span>${clients.length} contactos en el directorio</span></div>
+  </section>
+  <section class="dispatch-panel home-module" aria-labelledby="dispatch-title">
+    <div class="dispatch-head"><div><span class="module-kicker">AGENDA / ENTREGAS</span><h2 id="dispatch-title">Hoy — entregas</h2></div><div class="dispatch-count"><strong>${String(due.length).padStart(2,'0')}</strong><span>HOY /<br>VENCIDAS</span></div></div>
+    ${deliveryMarkup}<div class="dispatch-footer"><button type="button" data-home-action="calendar">Ver calendario ${arrow}</button></div>
+  </section>
+  <section class="flow-panel home-module" aria-labelledby="flow-title">
+    <div class="module-heading"><div><span class="module-kicker">RECORRIDO / PEDIDOS</span><h2 id="flow-title">En producción ahora</h2></div><button type="button" class="module-link" data-home-action="orders">Ver pedidos ${arrow}</button></div>
+    <div class="flow-map" role="list">${flowMarkup}</div>
+    <div class="flow-foot"><span><i></i>${orders.length?`${orders.length} ${orderWord} registrados en el flujo`:'Aún no hay pedidos en el flujo'}</span><span>${orders.length?'Estados derivados de cada pedido':'Crea una cotización para iniciar'}</span></div>
+  </section>
+  <section class="balance-panel home-module" aria-labelledby="balance-title">
+    <div class="balance-top"><div><span class="module-kicker">CUENTAS / SEGUIMIENTO</span><h2 id="balance-title">Dinero que falta</h2></div><span class="balance-glyph" aria-hidden="true">↗</span></div>
+    <div class="balance-total">${money(totalPending)}</div><div class="balance-caption"><span>${balances.length} pedido${balances.length===1?'':'s'} con saldo</span><span>MXN / POR COBRAR</span></div>
+    <div class="balance-rows">${balanceRows}</div>
+    ${balances.length>2?`<button type="button" class="balance-more" data-home-action="orders">Ver ${balances.length-2} saldos más ${arrow}</button>`:''}
+  </section>
+  <section class="attention-panel home-module" aria-labelledby="attention-title">
+    <div class="module-heading"><div><span class="module-kicker">PRIORIZAR / ACCIÓN</span><h2 id="attention-title">Puntos que piden atención</h2></div><span class="attention-count">${String(attentionCount).padStart(2,'0')} abiertos</span></div>
+    <div class="focus-list">${focusMarkup}</div>
+    <div class="attention-footer"><span>Ordenado por urgencia: entregas y trabajos detenidos.</span><button type="button" data-home-action="calendar">Agenda completa ${arrow}</button></div>
+  </section>
+  <section class="quotes-panel home-module" aria-labelledby="quotes-title">
+    <div class="module-heading"><div><span class="module-kicker">SEGUIMIENTO / PROPUESTAS</span><h2 id="quotes-title">Cotizaciones esperando</h2></div><span class="quote-count">${String(waiting.length).padStart(2,'0')}</span></div>
+    <div class="quote-follow-list">${quoteRows}</div>
+    <div class="quotes-footer"><button type="button" data-home-action="quotes">Todas las cotizaciones ${arrow}</button></div>
+  </section>
+  <section class="directory-strip" aria-label="Directorio de contactos">
+    <div class="directory-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 20v-1.6a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20"/><circle cx="9.5" cy="7.5" r="3.4"/><path d="M20.8 20v-1.6a4 4 0 0 0-3-3.8"/></svg></div>
+    <div class="directory-summary"><span class="module-kicker">DIRECTORIO</span><strong>${clients.length}</strong><small>contacto${clients.length===1?'':'s'} guardado${clients.length===1?'':'s'}</small></div>
+    <button type="button" class="directory-link" data-home-action="clients">Abrir clientes ${arrow}</button>
+    <span class="directory-note">Los datos se guardan en este dispositivo.</span>
+  </section>`;
+  box.querySelectorAll('[data-home-action]').forEach(button=>button.addEventListener('click',()=>{
+    const action=button.dataset.homeAction,target=button.dataset.target;
+    if(action==='orders')show('pedidos');
+    else if(action==='calendar')show('calendario');
+    else if(action==='clients')show('clientes');
+    else if(action==='quotes')show('quote');
+    else if(action==='newQuote'){show('quote');newQuote()}
+    else if(action==='delivery'){show('calendario');openDelivery(target)}
+    else if(action==='production'){show('produccion');selectProd(target)}
+    else if(action==='payment')registerAbono(target);
+    else if(action==='reminder')whatsappReminder(target);
+  }));
 }
 renderHome();
 
 let draftTimer=0;
 function scheduleDraftSave(){window.clearTimeout(draftTimer);draftTimer=window.setTimeout(()=>{const fields=[...document.querySelectorAll('.info .edit')].map(x=>x.value.trim());if(fields[0]&&fields[2])saveQuoteData(true)},900)}
 document.querySelectorAll('#quote input,#quote select,#quote textarea,.conditions').forEach(el=>{el.addEventListener('input',()=>{calc();scheduleDraftSave()})});
-function renderProduction(){document.getElementById('prod-empty').classList.toggle('hidden',orders.length>0);document.getElementById('prod-content').classList.toggle('hidden',orders.length===0);if(!orders.length)return;if(!currentOrder||!orders.some(o=>o.id===currentOrder.id)){currentOrder=orders[0];payments=Array.isArray(currentOrder.payments)?currentOrder.payments:[];orderTotal=Number(currentOrder.total)||0}let sel=document.getElementById('prod-order');sel.innerHTML=orders.map(o=>`<option value="${safe(o.id)}">${safe(o.project)} · ${safe(o.client)}</option>`).join('');sel.value=currentOrder.id;document.getElementById('prod-project').textContent=currentOrder.project;document.getElementById('prod-client').textContent=currentOrder.client+' / OPCIÓN '+currentOrder.option;let p=currentOrder.production||{};let specDesc='';const sp=currentOrder.spec||{};if(sp.service||sp.quantity||sp.format||sp.paper||(sp.finishes||[]).length)specDesc=[sp.service,sp.quantity?sp.quantity+' piezas':'',sp.format,sp.paper,(sp.finishes||[]).join(', ')].filter(Boolean).join(' · ');let specMat='';if(sp.paper||(sp.finishes||[]).length)specMat=[sp.paper,(sp.finishes||[]).join(', ')].filter(Boolean).join(' · ');for(let k of ['description','materials','cost','time','notes'])document.getElementById('p-'+k).value=p[k]??(k==='description'?(specDesc||[currentOrder.optionName,currentOrder.optionDescription].filter(Boolean).join(' · ')):k==='materials'?specMat:'');let q=currentOrder.quality||{};for(let k of ['spec','finish','conform','approved'])document.getElementById('q-'+k).checked=!!q[k];document.getElementById('q-notes').value=q.notes||'';document.getElementById('q-reviewer').value=q.reviewer||'';document.getElementById('q-date').value=q.date||'';document.getElementById('quality-status').textContent=q.approved?'✓ Empaque autorizado':'Pendiente de autorización de empaque.'}function selectProd(id){currentOrder=orders.find(o=>o.id===id)||null;payments=Array.isArray(currentOrder?.payments)?currentOrder.payments:[];orderTotal=Number(currentOrder?.total)||0;renderProduction()}document.getElementById('prod-form').addEventListener('submit',e=>{e.preventDefault();if(!currentOrder)return;let p={};for(let k of ['description','materials','cost','time','notes'])p[k]=document.getElementById('p-'+k).value.trim();currentOrder.production=p;try{persistOrders();renderPayments();toast('Orden de producción guardada en este navegador.')}catch(e){toast('No se pudo guardar la orden.')}});document.getElementById('quality-form').addEventListener('submit',e=>{e.preventDefault();if(!currentOrder)return;let q={};for(let k of ['spec','finish','conform','approved'])q[k]=document.getElementById('q-'+k).checked;q.notes=document.getElementById('q-notes').value.trim();q.reviewer=document.getElementById('q-reviewer').value.trim();q.date=document.getElementById('q-date').value;if(q.approved&&!(q.spec&&q.finish&&q.conform&&q.reviewer&&q.date)){toast('Completa los tres puntos de revisión, el nombre y la fecha antes de autorizar el empaque.');return}  if(currentOrder.delivery&&!q.approved){toast('La entrega ya está registrada; no puedes revocar la autorización de empaque.');renderProduction();return}
+function renderProduction(){document.getElementById('prod-empty').classList.toggle('hidden',orders.length>0);document.getElementById('prod-content').classList.toggle('hidden',orders.length===0);if(!orders.length)return;if(!currentOrder||!orders.some(o=>o.id===currentOrder.id)){currentOrder=orders[0];payments=Array.isArray(currentOrder.payments)?currentOrder.payments:[];orderTotal=Number(currentOrder.total)||0}let sel=document.getElementById('prod-order');sel.innerHTML=orders.map(o=>`<option value="${safe(o.id)}">${safe(o.project)} · ${safe(o.client)}</option>`).join('');sel.value=currentOrder.id;document.getElementById('prod-project').textContent=currentOrder.project;document.getElementById('prod-client').textContent=`${currentOrder.client} / ${currentOrder.items?.length||0} ${currentOrder.items?.length===1?'RENGLÓN':'RENGLONES'}`;let p=currentOrder.production||{};let specDesc='';const sp=currentOrder.spec||{};if(sp.service||sp.quantity||sp.format||sp.paper||(sp.finishes||[]).length)specDesc=[sp.service,sp.quantity?sp.quantity+' piezas':'',sp.format,sp.paper,(sp.finishes||[]).join(', ')].filter(Boolean).join(' · ');const itemDesc=(currentOrder.items||[]).map(item=>`${item.quantity} × ${item.description}`).join('\n');let specMat='';if(sp.paper||(sp.finishes||[]).length)specMat=[sp.paper,(sp.finishes||[]).join(', ')].filter(Boolean).join(' · ');for(let k of ['description','materials','cost','time','notes'])document.getElementById('p-'+k).value=p[k]??(k==='description'?(itemDesc||specDesc||[currentOrder.optionName,currentOrder.optionDescription].filter(Boolean).join(' · ')):k==='materials'?specMat:'');let q=currentOrder.quality||{};for(let k of ['spec','finish','conform','approved'])document.getElementById('q-'+k).checked=!!q[k];document.getElementById('q-notes').value=q.notes||'';document.getElementById('q-reviewer').value=q.reviewer||'';document.getElementById('q-date').value=q.date||'';document.getElementById('quality-status').textContent=q.approved?'✓ Empaque autorizado':'Pendiente de autorización de empaque.'}function selectProd(id){currentOrder=orders.find(o=>o.id===id)||null;payments=Array.isArray(currentOrder?.payments)?currentOrder.payments:[];orderTotal=Number(currentOrder?.total)||0;renderProduction()}document.getElementById('prod-form').addEventListener('submit',e=>{e.preventDefault();if(!currentOrder)return;let p={};for(let k of ['description','materials','cost','time','notes'])p[k]=document.getElementById('p-'+k).value.trim();currentOrder.production=p;try{persistOrders();renderPayments();toast('Orden de producción guardada en este navegador.')}catch(e){toast('No se pudo guardar la orden.')}});document.getElementById('quality-form').addEventListener('submit',e=>{e.preventDefault();if(!currentOrder)return;let q={};for(let k of ['spec','finish','conform','approved'])q[k]=document.getElementById('q-'+k).checked;q.notes=document.getElementById('q-notes').value.trim();q.reviewer=document.getElementById('q-reviewer').value.trim();q.date=document.getElementById('q-date').value;if(q.approved&&!(q.spec&&q.finish&&q.conform&&q.reviewer&&q.date)){toast('Completa los tres puntos de revisión, el nombre y la fecha antes de autorizar el empaque.');return}  if(currentOrder.delivery&&!q.approved){toast('La entrega ya está registrada; no puedes revocar la autorización de empaque.');renderProduction();return}
   currentOrder.quality=q;try{persistOrders();renderProduction();renderPayments();toast('Verificación guardada en este navegador.')}catch(e){toast('No se pudo guardar la verificación.')}});
 
 function renderDelivery(){renderMonth();let sel=document.getElementById('d-order');sel.innerHTML=orders.length?orders.map(o=>`<option value="${safe(o.id)}">${safe(o.project)} · ${safe(o.client)}</option>`).join(''):'<option value="">Sin pedidos disponibles</option>';if(currentOrder&&orders.some(o=>o.id===currentOrder.id))sel.value=currentOrder.id;fillDelivery();let deliveries=orders.filter(o=>o.delivery?.date).sort((a,b)=>a.delivery.date.localeCompare(b.delivery.date));document.getElementById('delivery-list').innerHTML=deliveries.length?deliveries.map(o=>`<button class="project-row" onclick="openDelivery('${o.id}')"><span><strong>${safe(o.project)}</strong><small>${safe(o.client)} · ${safe(o.delivery.method)}</small></span><span class="mono">${safe(formatDate(o.delivery.date))} &nbsp; ↗</span></button>`).join(''):'<p class="hint" style="padding:20px 0">No hay entregas programadas todavía.</p>'}function fillDelivery(){let o=orders.find(x=>x.id===document.getElementById('d-order').value),d=o?.delivery||{};for(let k of ['date','method','address','recipient','notes'])document.getElementById('d-'+k).value=d[k]||(k==='method'?'Recogida en estudio':'');document.getElementById('d-save').disabled=!o;document.getElementById('d-status').textContent=!o?'Crea un pedido para preparar una entrega.':o.quality?.approved?'✓ Empaque autorizado. Puedes guardar la guía.':'Pendiente: autoriza el empaque en producción.'}function openDelivery(id){document.getElementById('d-order').value=id;fillDelivery();document.getElementById('d-order').scrollIntoView({behavior:'smooth',block:'center'})}document.getElementById('delivery-form').addEventListener('submit',e=>{e.preventDefault();let o=orders.find(x=>x.id===document.getElementById('d-order').value);if(!o)return;if(!o.quality?.approved){toast('Primero completa la verificación de calidad y autoriza el empaque en producción.');return}let d={};for(let k of ['date','method','address','recipient','notes'])d[k]=document.getElementById('d-'+k).value.trim();o.delivery=d;try{persistOrders();renderDelivery();renderPayments();toast('Guía guardada en este navegador.')}catch(e){toast('No se pudo guardar la guía.')}});

@@ -86,7 +86,9 @@ test('búsqueda: prefijo solo al confirmar y solo si es único', () => {
 });
 
 test('pedido: hereda los datos del cliente y los muestra en la ficha', () => {
-  assert.match(html, /let directory=findDirectoryClient\(client,clients,true\);let order=\{/);
+  assert.match(html, /directory=findDirectoryClient\(client,clients,true\)/);
+  assert.match(html, /items:quote\.items\.map\(item=>\(\{\.\.\.item\}\)\)/);
+  assert.match(html, /total:totals\.total/);
   assert.match(html, /clientId:directory\?\.id\|\|null/);
   assert.match(html, /company:directory\?\.company\|\|''/);
   assert.match(html, /email:fields\[1\]\.value\.trim\(\)\|\|directory\?\.email\|\|''/);

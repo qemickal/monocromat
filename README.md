@@ -12,7 +12,7 @@ Esto es lo que se agregó:
 | --- | --- |
 | `manifest.webmanifest` | Nombre, colores, `start_url`, modo `standalone`, íconos y atajos. |
 | `sw.js` | Service worker: precachea la app, responde sin conexión, no cachea `/api/*`. |
-| `icons/` | Íconos 192, 512, maskable y Apple Touch Icon (mascota del mono). |
+| `icons/` | Íconos 192, 512, maskable y Apple Touch Icon basados en el monograma M azul. |
 | `favicon.ico`, `icons/favicon-32.png` | Ícono de la pestaña. |
 | `vercel.json` | Cabeceras correctas (`manifest`, `sw.js` sin caché, seguridad). |
 | `.vercelignore` | Evita publicar `backend/`, `database/` y `tools/`. |
@@ -20,41 +20,41 @@ Esto es lo que se agregó:
 | `tools/pwa.test.mjs` | Pruebas del manifest, íconos, service worker, offline y servidor. |
 | `tools/quote-autofill.test.mjs` | Pruebas del autocompletado de clientes. |
 | `tools/local-flow.test.mjs` | Pruebas de folios, fechas, estados, vínculo e historial. |
-| `tools/polish.test.mjs` | Pruebas de la pulida 2026-11-25 (ver abajo). |
+| `tools/polish.test.mjs` | Pruebas del rediseño 2026-11-27 (ver abajo). |
 
-También se optimizó `logo.png` (1.6 MB → 255 KB) y se añadió en la app el botón **Instalar app**, el aviso **Sin conexión**, la actualización automática del service worker y los atajos del manifest (`/?view=quote&new=1`, etc.).
+La marca actualizada queda en `logo.png` (logotipo completo) y `assets/brand/monogram-{navy,blue}.png` (monogramas transparentes); la app usa la M azul para sus íconos y la M navy en la navegación. También conserva el botón **Instalar app**, el aviso **Sin conexión**, la actualización automática del service worker y los atajos del manifest (`/?view=quote&new=1`, etc.).
 
-## Pulida 2026-11-25 — «Hoy en el taller» (rama `polish/hoy-en-el-taller`)
+## Rediseño 2026-11-27 — «Hoy en el taller»
 
-El panorama ya no es una rejilla de tarjetas: es una cola de trabajo en una sola columna, ordenada por urgencia:
+El panorama ahora es un mosaico operativo asimétrico —sin frase motivacional ni columna interminable— que combina resumen, próximas entregas, flujo, saldos y seguimiento en una sola mirada:
 
 1. **Hoy — entregas**: las entregas de hoy y las vencidas primero, con cliente, proyecto y forma de entrega.
-2. **En producción ahora**: pipeline Confirmado → Producción → Calidad → Entrega con su conteo, y los trabajos trabados (4 días o más en la misma etapa) marcados con los días que llevan ahí.
+2. **En producción ahora**: pipeline Confirmado → Producción → Calidad → Entrega con su conteo, y los trabajos en producción/calidad con 4 días o más desde la fecha del pedido, marcados para revisión.
 3. **Dinero que falta**: pedidos con saldo pendiente, ordenados por monto, con «Registrar abono» en la misma fila.
 4. **Cotizaciones esperando**: cotizaciones enviadas con sus días sin respuesta y «Recordar por WhatsApp».
-5. Un botón grande **+ Nueva cotización** al final.
+5. El acceso rápido a cotizaciones, respaldo e importación permanece a mano en el encabezado.
 
-El resto de la pulida:
+El resto de la mejora:
 
 - **Respaldo**: en el panorama, **Exportar respaldo** descarga un JSON con clientes, cotizaciones, pedidos y contadores de folios; **Importar respaldo** lo restaura (pide confirmación y valida que el archivo sea un respaldo de Mono Cromat antes de tocar nada).
-- **Cotización usable**: nueva sección **00 / Especificación del trabajo** — servicio (de la lista real del estudio), cantidad, formato/medidas, papel, fecha de entrega, anticipo, vigencia y acabados estrella como casillas (texturas en frío, hot stamping, laminados térmicos). Las opciones ya no son texto libre con un solo total: son partidas **cantidad × precio unitario = total**, con subtotal, IVA 16 % y anticipo. La validación es en línea (cliente, proyecto, técnica, cantidad y precio > 0) y hay **autoguardado del borrador** («Borrador guardado HH:MM»). Guardar y crear pedido están separados: crear pedido abre un panel de confirmación con el resumen antes de crear nada. La producción hereda la especificación en vez de reescribirla a mano.
+- **Cotización por renglones libres**: en **01 / Productos y servicios** escribe cada producto o servicio, cantidad y precio unitario; no hay catálogo que elegir. Cada importe, el subtotal y el IVA del 16 % se calculan al vuelo. Formato, material, entrega, anticipo, vigencia y acabados quedan como detalles opcionales. La validación pide cliente, proyecto y al menos una partida completa; la técnica/proceso es opcional. Hay **autoguardado del borrador** («Borrador guardado HH:MM»). Guardar y crear pedido están separados: la confirmación resume todas las partidas y el pedido conserva sus descripciones, cantidades y precios, visibles también en su ficha y en el detalle para producción. Las cotizaciones antiguas con opciones se migran a partidas al abrirse; se conserva la alternativa que estaba seleccionada, sus datos y su precio.
 - **Enviar por WhatsApp**: el botón abre WhatsApp con el mensaje de la cotización ya escrito (al número del estudio, 55 4929 1166, o al teléfono del cliente si está en el directorio). El QR falso ya no existe.
 - **Sin diálogos del navegador**: ningún `alert()` ni `confirm()` en la app; los avisos usan el toast de la PWA y las eliminaciones piden confirmación en el mismo toast.
-- **Marca**: papel `#FAF7F4` y Blanco Hielo `#F5F8FA` (fondo del manifest y lavado de página); `CACHE_VERSION` subió a `v5`. La versión de caché vive solo en `sw.js`: es la única fuente.
-- **Ícono M (candidato, NO final)**: `icons/m-192.png`, `icons/m-512.png`, `icons/m-maskable-512.png` y `icons/m-apple-touch-icon.png` son un trazo raster de la M sólida de Mick (blanca sobre negro, plana, sin textura), trazada a partir de su propia imagen y reproducida en royal #2E48A1 sobre papel #FAF7F4 y en blanco sobre oxford #081C30. El manifest **sigue apuntando a los íconos del mono**; el cambio a la M es una decisión pendiente de Mick. Para activarlo: cambiar los íconos del manifest a `icons/m-*.png`, el favicon, y subir `CACHE_VERSION`. La versión vectorial final (formas cerradas, para bordado/sello/suajado) sigue pendiente.
+- **Marca**: papel `#FAF7F4` y Blanco Hielo `#F5F8FA` (fondo del manifest y lavado de página); `CACHE_VERSION` subió a `v9` para distribuir la marca y sus nuevos íconos junto al formulario de partidas libres (además del shell mint teal). La versión de caché vive solo en `sw.js`: es la única fuente.
+- **Identidad actualizada**: el wordmark y las dos variantes de la M ya están activos. Los archivos recibidos son PNG rasterizados; el original vectorial editable para bordado, sello o suajado aún no está en el repositorio.
 
 ### Ícono de la app
 
-El ícono es la mascota del mono (2048×2048 original). Se generan estos tamaños:
+El ícono instalado usa el monograma M azul sobre Blanco Hielo (`#F5F8FA`); la versión maskable conserva una zona segura para recortes de Android. Se generan estos tamaños:
 
 | Archivo | Uso |
 | --- | --- |
 | `icons/icon-192.png` y `icons/icon-512.png` | Ícono estándar (Android, escritorio, manifest). |
-| `icons/maskable-512.png` | Zona segura para recortes circulares de Android (mascota al 70 % del lienzo). |
+| `icons/maskable-512.png` | Zona segura para recortes circulares de Android (monograma centrado). |
 | `icons/apple-touch-icon.png` (180×180) | Pantalla de inicio en iOS. |
-| `icons/favicon-32.png` y `favicon.ico` | Pestaña del navegador, con recorte más cerrado para que la cara se lea a 32 px. |
+| `icons/favicon-32.png` y `favicon.ico` | Pestaña del navegador, con el monograma M. |
 
-Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos. La M candidata (`icons/m-*.png`) aún no está activa: ver «Pulida 2026-11-25» arriba.
+Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos.
 
 ## Autocompletado de clientes
 
@@ -76,7 +76,7 @@ La comparación ignora mayúsculas y acentos (`JOSE ALVAREZ` encuentra a `José 
 - Crear un pedido guarda la cotización, la marca como **Aceptada** y la vincula con `quoteId`. Si esa cotización ya tiene pedido, la app ofrece abrirlo en vez de duplicarlo.
 - Una cotización vinculada no se puede borrar hasta eliminar su pedido. Al borrar el pedido, la cotización vuelve a **Enviada**.
 - En **Clientes**, al editar un contacto aparece su historial de cotizaciones y pedidos. Borrar el contacto conserva esos documentos.
-- Los datos anteriores se normalizan al abrir la app: abonos con `amount` pasan a centavos, pedidos sin `total` muestran «Sin definir» en vez de romper la vista y cotizaciones con menos de tres opciones se completan.
+- Los datos anteriores se normalizan al abrir la app: abonos con `amount` pasan a centavos, pedidos sin `total` muestran «Sin definir» en vez de romper la vista y cotizaciones guardadas con opciones se convierten en renglones libres al cargarse; los pedidos antiguos reciben un detalle compatible sin alterar sus totales ni abonos.
 - Las condiciones de la cotización conservan sus saltos de línea al imprimir.
 - El botón **Imprimir / guardar PDF** guarda primero la cotización, para que el folio y la fecha reales salgan en el documento.
 
@@ -115,7 +115,7 @@ Las pruebas revisan:
 - que el pedido herede los datos del cliente y el correo manual nunca se sobrescriba;
 - folios consecutivos por tipo, formato de fechas y normalización de datos viejos;
 - que la interfaz conserve folio, fecha, estado, vínculo, borrado e historial;
-- el dashboard «Hoy en el taller», el respaldo JSON, la especificación y las partidas de la cotización, el envío por WhatsApp, la marca (papel y Blanco Hielo), los íconos M y que no quede ningún `alert()`/`confirm()`.
+- el mosaico del dashboard, la navegación con seis SVG accesibles, el cálculo dinámico de saldos, las etiquetas de formularios, el respaldo JSON, la cotización, WhatsApp, el precache real de recursos y que no quede ningún `alert()`/`confirm()`.
 
 ## Publicar en Vercel
 
@@ -133,7 +133,7 @@ O desde el panel: **Add New → Project → monocromat → Deploy**. Framework: 
 
 Cuando cambies `index.html` u otro archivo del shell:
 
-1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v5`; el siguiente cambio sería `v5` → `v6`).
+1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v9`; el siguiente cambio será `v9` → `v10`).
 2. Publica de nuevo.
 
 La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva del estudio»** con el botón **Actualizar**; al aceptarlo se activa el service worker nuevo y se recarga.
