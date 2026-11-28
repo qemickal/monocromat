@@ -56,6 +56,50 @@ El ícono instalado usa el monograma M azul sobre Blanco Hielo (`#F5F8FA`); la v
 
 Si cambias cualquier ícono, sube también `CACHE_VERSION` en `sw.js` para que los dispositivos que ya instalaron la app descarguen los nuevos.
 
+## Rediseño 2026-11-28 — «Balance»
+
+La app dejó de ser una columna de bienvenida + tarjetas + listas. Ahora la estructura es la del manual de marca (*Creatividad con criterio. Producción con intención.*): el espacio se reparte según lo que hay y la información operativa manda.
+
+### Navegación: riel a la derecha, barra abajo
+
+- **Escritorio (>900 px):** los seis iconos viven en un riel oscuro **a la derecha** del contenido (`--rail-w: 84px`). El wordmark queda arriba a la izquierda, en la barra superior. Cada icono sigue siendo solo icono, con `aria-label`, tooltip al pasar el cursor y un **badge** con el número de pedidos abiertos.
+- **Móvil (≤900 px):** el mismo riel se convierte en **barra inferior fija**, con área segura de iOS (`env(safe-area-inset-bottom)`) y sin etiquetas; el contenido reserva ese espacio.
+- Se elimina el `side-label`, el «ESTUDIO EN MARCHA» y el avatar duplicado de la barra superior.
+
+### Panel: gráfica de pedidos abiertos
+
+El saludo ocupa una línea (`Buenos días/tardes/noches` + «Esto es lo que sigue») y desaparece el título gigante. El primer módulo es **«Abonado y por cobrar»**, una gráfica de barras donde:
+
+- **cada barra es un pedido abierto** (máximo nueve, el resto se cuenta en el eje);
+- la barra se apila en **abonado (mint `#49C7BE`)** abajo y **por cobrar (Dark Royal `#24479D`)** arriba, así que **abonado + por cobrar = total del pedido**;
+- al entregarse un pedido **y** quedar liquidado, sale de la gráfica y la suma se cierra sola (`openOrderStats()`);
+- tocar una barra abre el pedido en **Registrar abono**;
+- arriba se lee el total de pedidos abiertos, el abonado y el por cobrar, con la leyenda «Abonado + por cobrar = total».
+
+Debajo, en mosaico y con alturas según su contenido: **Hoy — entregas**, **En producción ahora**, **Dinero que falta**, **Puntos que piden atención**, **Cotizaciones esperando** y la tira de **directorio**. No hay hero de 300 px ni tarjetas de relleno.
+
+### Documentos imprimibles A4
+
+Los formatos viejos (Arial suelto, imagen de 130 px, 780 px de ancho) se reemplazaron por un **solo motor** (`docStyles`, `docHeader`, `docSigns`, `docFooter`, `docItemsTable`, `docTotals`, `docCoverage`, `docOpen`). Los cinco comparten retícula, tipografía de marca, pie y firmas:
+
+| Documento | Botón | Qué incluye |
+| --- | --- | --- |
+| **Cotización** | `Cotización en PDF` (panel de edición) | Partidas con importe, subtotal/IVA/total, formato, papel, acabados, anticipo, vigencia, condiciones, cliente y proyecto. |
+| **Pedido** | `Documento del pedido` (Pedidos) y `Pedido en PDF` (cotización) | Partidas, totales, **abonado y saldo**, estado de cuenta, barra de cobertura y tabla de abonos. |
+| **Orden de producción** | `Orden de producción` (Producción) | Especificaciones, piezas sin precios, materiales, notas y checklist de taller. |
+| **Control de calidad** | `Control de calidad` (Producción) | Puntos de revisión marcados, verificador, fecha, observaciones y resultado. |
+| **Guía de entrega** | `Guía de entrega` (Calendario) | Punto de entrega, quien recibe, contenido, estado de cuenta y **saldo a la entrega**. |
+
+Cada documento abre una pestaña con barra de **Imprimir / guardar PDF** (oculta al imprimir) y `@page A4` con márgenes de 14 mm. Si el navegador bloquea la pestaña, la app avisa con el toast en lugar de fallar en silencio.
+
+### Marca
+
+- **Tipografía del manual:** Bricolage Grotesque (display), Sora (lectura) y Fira Mono (datos). Ya no se usan Lexend ni Inter.
+- **Paleta:** Oxford `#071E33`, Dark Royal `#24479D`, Bright `#138FD0`, Sky `#4CBFE0`, Mint `#49C7BE` y Papel `#F5F3ED`.
+- **Logos actualizados:** `assets/brand/wordmark-{navy,light,white}.png` y `assets/brand/monogram-{navy,blue,light}.png`, todos con transparencia real (antes el logo se invertía con `filter`). `logo.png` es el wordmark navy.
+- **Íconos de la app** regenerados con el monograma en Dark Royal sobre Blanco Hielo `#F5F8FA`.
+- `CACHE_VERSION` subió a `v10` para distribuir marca, íconos y formatos nuevos.
+
 ## Autocompletado de clientes
 
 En la cotización, el campo **CLIENTE** sugiere los contactos guardados en **Clientes**:
@@ -101,7 +145,7 @@ En iPhone / iPad (Safari): **Compartir → Añadir a pantalla de inicio**. La ap
 ## Pruebas
 
 ```bash
-node --test tools/pwa.test.mjs tools/quote-autofill.test.mjs tools/local-flow.test.mjs tools/polish.test.mjs
+node --test tools/pwa.test.mjs tools/quote-autofill.test.mjs tools/local-flow.test.mjs tools/polish.test.mjs tools/documents.test.mjs
 ```
 
 Las pruebas revisan:
@@ -115,7 +159,8 @@ Las pruebas revisan:
 - que el pedido herede los datos del cliente y el correo manual nunca se sobrescriba;
 - folios consecutivos por tipo, formato de fechas y normalización de datos viejos;
 - que la interfaz conserve folio, fecha, estado, vínculo, borrado e historial;
-- el mosaico del dashboard, la navegación con seis SVG accesibles, el cálculo dinámico de saldos, las etiquetas de formularios, el respaldo JSON, la cotización, WhatsApp, el precache real de recursos y que no quede ningún `alert()`/`confirm()`.
+- el mosaico del dashboard, la navegación con seis SVG accesibles, el cálculo dinámico de saldos, las etiquetas de formularios, el respaldo JSON, la cotización, WhatsApp, el precache real de recursos y que no quede ningún `alert()`/`confirm()`;
+- `tools/documents.test.mjs`: riel derecho / barra inferior, saludo compacto sin hero, **abonado + por cobrar = total** de pedidos abiertos (y que el pedido entregado y cobrado salga de la gráfica), motor único A4 y los cinco formatos con sus botones.
 
 ## Publicar en Vercel
 
@@ -133,7 +178,7 @@ O desde el panel: **Add New → Project → monocromat → Deploy**. Framework: 
 
 Cuando cambies `index.html` u otro archivo del shell:
 
-1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v9`; el siguiente cambio será `v9` → `v10`).
+1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v10`; el siguiente cambio será `v10` → `v11`).
 2. Publica de nuevo.
 
 La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva del estudio»** con el botón **Actualizar**; al aceptarlo se activa el service worker nuevo y se recarga.

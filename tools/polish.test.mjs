@@ -4,7 +4,7 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import vm from 'node:vm';
 import { ROOT } from './serve.mjs';
@@ -74,38 +74,58 @@ function runQuoteErrors(fields, lineValues) {
   return JSON.parse(JSON.stringify(context.validate()));
 }
 
-test('marca: papel #FAF7F4 y Blanco Hielo #F5F8FA, sin el gris anterior', () => {
-  assert.match(html, /--paper:#FAF7F4/);
+test('marca: paleta del manual 2026 (Oxford, Dark Royal, Mint, Papel)', () => {
+  assert.match(html, /--oxford:#071E33/);
+  assert.match(html, /--royal:#24479D/);
+  assert.match(html, /--mint:#49C7BE/);
+  assert.match(html, /--paper:#F5F3ED/);
   assert.ok(html.includes('#F5F8FA'), 'falta Blanco Hielo #F5F8FA');
-  assert.doesNotMatch(html, /#f5f6f2/);
-  assert.equal(manifest.background_color, '#F5F8FA');
+  assert.doesNotMatch(html, /#f5f6f2|#081c30|#fa876f/i);
+  assert.equal(manifest.background_color, '#F5F3ED');
+  assert.equal(manifest.theme_color, '#071E33');
 });
 
-test('versión: CACHE_VERSION v9 y el precache incluye solo recursos existentes', () => {
-  assert.match(swSource, /const CACHE_VERSION = 'v9'/);
+test('tipografía: Bricolage Grotesque, Sora y Fira Mono del manual de marca', () => {
+  assert.match(html, /family=Bricolage\+Grotesque/);
+  assert.match(html, /family=Sora:wght@/);
+  assert.match(html, /family=Fira\+Mono/);
+  assert.doesNotMatch(html, /Lexend|Inter:wght@/);
+});
+
+test('versión: CACHE_VERSION v10 y el precache incluye solo recursos existentes', () => {
+  assert.match(swSource, /const CACHE_VERSION = 'v10'/);
   for (const icon of ['/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png', '/icons/apple-touch-icon.png']) {
     assert.ok(swSource.includes(`'${icon}'`), `falta ${icon} en el precache`);
   }
   assert.doesNotMatch(swSource, /\/icons\/m-(?:192|512|maskable-512|apple-touch-icon)\.png/);
 });
 
-test('paleta: el acento lima se reemplazó por mint teal', () => {
-  assert.doesNotMatch(html, /#d9f27b|#e2f187|#d3e878|#d7e98e/i);
-  assert.match(html, /\.hero-link\{[^}]*background:var\(--teal\)/);
-  assert.match(html, /\.balance-panel\{[^}]*#4cd8c0/);
+test('paleta: sin acentos fuera del manual y saldo con mint teal', () => {
+  assert.doesNotMatch(html, /#d9f27b|#e2f187|#d3e878|#d7e98e|#4cd8c0/i);
+  assert.match(html, /\.balance-panel\{[^}]*#49C7BE/);
+  assert.match(html, /\.open-bar-paid\{[^}]*#49C7BE/);
 });
 
-test('marca: el monograma nuevo está activo en navegación, manifest y precache', () => {
-  assert.match(html, /src="assets\/brand\/monogram-navy\.png"/);
+test('marca: wordmark y monograma activos en barra, riel, manifest y precache', () => {
+  assert.match(html, /src="assets\/brand\/wordmark-navy\.png"/);
+  assert.match(html, /src="assets\/brand\/monogram-light\.png"/);
+  for (const asset of ['wordmark-navy.png', 'wordmark-light.png', 'wordmark-white.png', 'monogram-navy.png', 'monogram-blue.png', 'monogram-light.png']) {
+    assert.ok(existsSync(path.join(ROOT, 'assets/brand', asset)), `falta assets/brand/${asset}`);
+  }
   assert.ok(manifest.icons.some((icon) => icon.src === 'icons/icon-512.png'));
-  assert.ok(swSource.includes("'/assets/brand/monogram-navy.png'"));
-  assert.doesNotMatch(readFileSync(path.join(ROOT, 'README.md'), 'utf8'), /Ícono M \(pendiente\)/);
+  assert.ok(swSource.includes("'/assets/brand/wordmark-navy.png'"));
+  assert.ok(swSource.includes("'/assets/brand/monogram-light.png'"));
 });
 
-test('dashboard: "Hoy en el taller" es un mosaico asimétrico, no una columna ni una rejilla genérica', () => {
-  assert.match(html, /Hoy en el taller/);
+test('dashboard: panel compacto con gráfica de pedidos abiertos, sin saludo gigante', () => {
+  assert.match(html, /id="home-greeting"/);
+  assert.doesNotMatch(html, /Hoy en el taller/);
+  assert.doesNotMatch(html, /Un vistazo claro a entregas/);
   assert.match(html, /id="hoy-list"/);
-  assert.match(html, /class="studio-hero"/);
+  assert.match(html, /class="open-orders home-module"/);
+  assert.match(html, /class="open-bars"/);
+  assert.match(html, /Abonado y por cobrar/);
+  assert.match(html, /function openOrderStats\(/);
   assert.match(html, /class="flow-map"/);
   assert.match(html, /class="balance-panel home-module"/);
   assert.match(html, /Hoy — entregas/);
@@ -113,6 +133,7 @@ test('dashboard: "Hoy en el taller" es un mosaico asimétrico, no una columna ni
   assert.match(html, /Dinero que falta/);
   assert.match(html, /Cotizaciones esperando/);
   assert.match(html, /Registrar abono/);
+  assert.doesNotMatch(html, /class="studio-hero"|El estado real/);
   assert.match(html, /Recordar por WhatsApp/);
   assert.doesNotMatch(html, /id="home-projects"/);
   assert.doesNotMatch(html, /PROYECTOS RECIENTES/);
@@ -125,7 +146,8 @@ test('navegación: iconos SVG sin etiquetas visibles, con nombres accesibles', (
   const nav = html.match(/<nav class="nav"[\s\S]*?<\/nav>/)?.[0] || '';
   assert.equal((nav.match(/<button\b/g) || []).length, 6);
   assert.equal((nav.match(/<svg class="nav-icon"/g) || []).length, 6);
-  assert.match(nav, /aria-label="Hoy en el taller"/);
+  assert.match(nav, /aria-label="Panel"/);
+  assert.match(html, /\.nav-badge\{/);
   assert.match(nav, /aria-label="Producción"/);
   assert.doesNotMatch(nav, /nav-text|<span>/);
 });
@@ -154,10 +176,12 @@ test('dashboard: renderiza el mosaico con saldos completos y acciones reales', (
     todayISO: () => '2026-11-27', formatDate: (date) => date,
     daysSince: () => 7, orderStage: (order) => order.delivery?.date ? 'Entrega' : order.production ? 'Producción' : 'Confirmado',
     orderBalance: (order) => Math.max(0, order.total - (order.payments || []).reduce((sum, payment) => sum + payment.cents / 100, 0)),
+    orderPaid: (order) => (order.payments || []).reduce((sum, payment) => sum + payment.cents / 100, 0),
     money: (amount) => `MXN ${amount.toFixed(2)}`, safe: (value) => String(value ?? '').replace(/[&<>"']/g, '')
   });
-  vm.runInContext(`${extractFunction(html, 'renderHome')}\nrenderHome();`, context);
-  assert.match(box.innerHTML, /class="studio-hero"/);
+  vm.runInContext(`${extractFunction(html, 'openOrderStats')}\n${extractFunction(html, 'renderOpenChart')}\n${extractFunction(html, 'renderHome')}\nrenderHome();`, context);
+  assert.match(box.innerHTML, /class="open-orders home-module"/);
+  assert.match(box.innerHTML, /class="open-bar/);
   assert.match(box.innerHTML, /Campaña otoño/);
   assert.match(box.innerHTML, /MXN 2300\.00/);
   assert.match(box.innerHTML, /data-home-action="payment" data-target="o1"/);

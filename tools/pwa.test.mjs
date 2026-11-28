@@ -75,7 +75,7 @@ test('íconos: existen, son cuadrados y del tamaño declarado', async () => {
 
 test('index.html: enlaza manifest, íconos y metadatos de instalación', () => {
   assert.match(head, /<link rel="manifest" href="manifest\.webmanifest">/);
-  assert.match(head, /<meta name="theme-color" content="#081c30">/);
+  assert.match(head, /<meta name="theme-color" content="#071E33">/);
   assert.match(head, /<link rel="apple-touch-icon" href="icons\/apple-touch-icon\.png">/);
   assert.match(head, /name="apple-mobile-web-app-capable" content="yes"/);
   assert.match(head, /name="apple-mobile-web-app-title" content="Mono Cromat"/);
