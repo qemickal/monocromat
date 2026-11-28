@@ -78,6 +78,24 @@ El saludo ocupa una línea (`Buenos días/tardes/noches` + «Esto es lo que sigu
 
 Debajo, en mosaico y con alturas según su contenido: **Hoy — entregas**, **En producción ahora**, **Dinero que falta**, **Puntos que piden atención**, **Cotizaciones esperando** y la tira de **directorio**. No hay hero de 300 px ni tarjetas de relleno.
 
+### Móvil: barra vertical y entregas en la misma fila
+
+En pantallas de hasta 900 px el mosaico pasa a **dos columnas**: a la izquierda el medidor de **abonado / por cobrar** girado 90° —se llena de abajo hacia arriba, mint lo abonado y Dark Royal lo que falta— y a su derecha, en la misma fila, **Hoy — entregas** con la próxima entrega y su acción. Debajo, a todo lo ancho: **Alertas**, **En producción ahora**, **Cotizaciones esperando**, **Dinero que falta**, **Puntos que piden atención** y el directorio. En 520 px la proporción se ajusta a `1fr / 1.05fr` para que la barra no se coma el texto.
+
+El medidor vertical usa las variables `--paid` / `--due` que emite `renderOpenChart()`, así el mismo markup funciona horizontal en escritorio y vertical en móvil.
+
+### Alertas del taller
+
+Nueva **bitácora** en Producción (visible incluso sin pedidos): se registra **qué pasa** —faltan materiales, máquina, archivo, calidad, tiempo u otro—, **a qué pedido** pertenece (o general del taller), **quién lo reporta** y **cuándo**. Las abiertas se ordenan de la más nueva a la más vieja; al resolverlas se guardan en un historial tachado y el contador `N ABIERTAS` baja. Las últimas abiertas aparecen también en el panel como módulo **Alertas**, con acceso directo a la bitácora. Todo se guarda en `localStorage` (`mono_alerts`).
+
+### Clientes: marca centrada, búsqueda y alta
+
+La cabecera es el **wordmark navy centrado** y debajo, en una fila, **buscador** (nombre, empresa, correo o teléfono) y **+ Agregar contacto**, que lleva al formulario y enfoca el nombre. La lista usa tarjetas (`avatar`, nombre, tipo, empresa y contacto) y cada una abre su ficha con historial y borrado.
+
+### Formularios ordenados
+
+Un solo sistema (`form-stack`, `form-row`, `form-row--3`, `form-field`, `form-actions`, `form-section`) sustituye los márgenes sueltos de campo por campo: dos o tres campos por renglón, etiquetas alineadas, acciones al pie y secciones numeradas. Se aplicó a contacto, cotización (cliente / proyecto / correo y entrega / anticipo / vigencia), producción, calidad, abonos, alertas y guía de entrega; bajo 560 px todo se apila en una columna.
+
 ### Documentos imprimibles A4
 
 Los formatos viejos (Arial suelto, imagen de 130 px, 780 px de ancho) se reemplazaron por un **solo motor** (`docStyles`, `docHeader`, `docSigns`, `docFooter`, `docItemsTable`, `docTotals`, `docCoverage`, `docOpen`). Los cinco comparten retícula, tipografía de marca, pie y firmas:
@@ -102,7 +120,7 @@ Para no repetir datos que ya viven en la descripción de cada partida, la cotiza
 - **Paleta:** Oxford `#071E33`, Dark Royal `#24479D`, Bright `#138FD0`, Sky `#4CBFE0`, Mint `#49C7BE` y Papel `#F5F3ED`.
 - **Logos actualizados:** `assets/brand/wordmark-{navy,light,white}.png` y `assets/brand/monogram-{navy,blue,light}.png`, todos con transparencia real (antes el logo se invertía con `filter`). `logo.png` es el wordmark navy.
 - **Íconos de la app** regenerados con el monograma en Dark Royal sobre Blanco Hielo `#F5F8FA`.
-- `CACHE_VERSION` subió a `v10` para distribuir marca, íconos y formatos nuevos.
+- `CACHE_VERSION` subió a `v11` para distribuir marca, íconos y formatos nuevos.
 
 ## Autocompletado de clientes
 
@@ -163,8 +181,9 @@ Las pruebas revisan:
 - que el pedido herede los datos del cliente y el correo manual nunca se sobrescriba;
 - folios consecutivos por tipo, formato de fechas y normalización de datos viejos;
 - que la interfaz conserve folio, fecha, estado, vínculo, borrado e historial;
-- el mosaico del dashboard, la navegación con seis SVG accesibles, el cálculo dinámico de saldos, las etiquetas de formularios, el respaldo JSON, la cotización, WhatsApp, el precache real de recursos y que no quede ningún `alert()`/`confirm()`;
-- `tools/documents.test.mjs`: riel derecho / barra inferior, saludo compacto sin hero, **abonado + por cobrar = total** de pedidos abiertos (y que el pedido entregado y cobrado salga de la gráfica), motor único A4 y los cinco formatos con sus botones.
+- el mosaico del panel, la navegación con seis SVG accesibles, el cálculo dinámico de saldos, las etiquetas de formularios, el respaldo JSON, la cotización, WhatsApp, el precache real de recursos y que no quede ningún `alert()`/`confirm()`;
+- `tools/documents.test.mjs`: riel derecho / barra inferior, saludo compacto sin hero, **abonado + por cobrar = total** de pedidos abiertos (y que el pedido entregado y cobrado salga de la gráfica), motor único A4 y los cinco formatos con sus botones;
+- el **panel móvil de dos columnas** (barra vertical + entregas en la misma fila y su orden), la **bitácora de alertas** (alta, liga a pedido, resolución y persistencia), la **cabecera de clientes** con búsqueda y alta, y el **sistema de retícula de formularios**.
 
 ## Publicar en Vercel
 
@@ -182,7 +201,7 @@ O desde el panel: **Add New → Project → monocromat → Deploy**. Framework: 
 
 Cuando cambies `index.html` u otro archivo del shell:
 
-1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v10`; el siguiente cambio será `v10` → `v11`).
+1. Sube `CACHE_VERSION` en `sw.js` (la versión actual es `v11`; el siguiente cambio será `v11` → `v12`).
 2. Publica de nuevo.
 
 La app detecta la versión nueva y muestra el aviso **«Hay una versión nueva del estudio»** con el botón **Actualizar**; al aceptarlo se activa el service worker nuevo y se recarga.

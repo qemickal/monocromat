@@ -62,14 +62,13 @@ function runQuoteErrors(fields, lineValues) {
       return null;
     }
   }));
-  const document = {
+  const domDoc = {
     querySelectorAll(selector) {
-      if (selector === '.info .edit') return fields.map((value) => ({ value }));
       if (selector === '#quote-items .quote-item-row') return rows;
       return [];
     }
   };
-  const context = vm.createContext({ document });
+  const context = vm.createContext({ document: domDoc, readQuoteFields: () => fields });
   vm.runInContext(`${extractFunction(html, 'quoteFormErrors')}\nglobalThis.validate=quoteFormErrors;`, context, { filename: 'quote-validation.js' });
   return JSON.parse(JSON.stringify(context.validate()));
 }
@@ -93,7 +92,7 @@ test('tipografía: Bricolage Grotesque, Sora y Fira Mono del manual de marca', (
 });
 
 test('versión: CACHE_VERSION v10 y el precache incluye solo recursos existentes', () => {
-  assert.match(swSource, /const CACHE_VERSION = 'v10'/);
+  assert.match(swSource, /const CACHE_VERSION = 'v11'/);
   for (const icon of ['/icons/icon-192.png', '/icons/icon-512.png', '/icons/maskable-512.png', '/icons/apple-touch-icon.png']) {
     assert.ok(swSource.includes(`'${icon}'`), `falta ${icon} en el precache`);
   }
@@ -177,7 +176,8 @@ test('dashboard: renderiza el mosaico con saldos completos y acciones reales', (
     daysSince: () => 7, orderStage: (order) => order.delivery?.date ? 'Entrega' : order.production ? 'Producción' : 'Confirmado',
     orderBalance: (order) => Math.max(0, order.total - (order.payments || []).reduce((sum, payment) => sum + payment.cents / 100, 0)),
     orderPaid: (order) => (order.payments || []).reduce((sum, payment) => sum + payment.cents / 100, 0),
-    money: (amount) => `MXN ${amount.toFixed(2)}`, safe: (value) => String(value ?? '').replace(/[&<>"']/g, '')
+    money: (amount) => `MXN ${amount.toFixed(2)}`, safe: (value) => String(value ?? '').replace(/[&<>"']/g, ''),
+    openAlerts: () => [], ALERT_TYPES: {}, alertOrderLabel: () => 'Taller'
   });
   vm.runInContext(`${extractFunction(html, 'openOrderStats')}\n${extractFunction(html, 'renderOpenChart')}\n${extractFunction(html, 'renderHome')}\nrenderHome();`, context);
   assert.match(box.innerHTML, /class="open-orders home-module"/);

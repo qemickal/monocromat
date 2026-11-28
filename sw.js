@@ -8,7 +8,7 @@
    Al publicar cambios en index.html hay que subir CACHE_VERSION.
    CACHE_VERSION vive solo aquí: es la única fuente de la versión de caché. */
 
-const CACHE_VERSION = 'v10';
+const CACHE_VERSION = 'v11';
 const SHELL_CACHE = `mono-shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `mono-runtime-${CACHE_VERSION}`;
 const RUNTIME_LIMIT = 80;

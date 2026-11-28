@@ -91,7 +91,7 @@ test('pedido: hereda los datos del cliente y los muestra en la ficha', () => {
   assert.match(html, /total:totals\.total/);
   assert.match(html, /clientId:directory\?\.id\|\|null/);
   assert.match(html, /company:directory\?\.company\|\|''/);
-  assert.match(html, /email:fields\[1\]\.value\.trim\(\)\|\|directory\?\.email\|\|''/);
+  assert.match(html, /email:fields\[1\]\|\|directory\?\.email\|\|''/);
   assert.match(html, /phone:directory\?\.phone\|\|''/);
   assert.match(html, /<div id="order-contact"[^>]*hidden><\/div>/);
   assert.match(html, /contact\.textContent=details\.join\(' · '\);contact\.hidden=!details\.length/);

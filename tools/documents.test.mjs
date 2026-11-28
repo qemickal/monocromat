@@ -197,3 +197,82 @@ test('marca: wordmark y monograma nuevos en todos sus formatos', () => {
   assert.match(html, /class="brand-mono" src="assets\/brand\/monogram-light\.png"/);
   assert.match(html, /new URL\('assets\/brand\/wordmark-navy\.png',location\.href\)/);
 });
+
+test('panel móvil: barra vertical a la izquierda y entregas en la misma fila', () => {
+  // Dos columnas en móvil, con la gráfica primero y la agenda al lado.
+  assert.match(html, /@media\(max-width:900px\)\{\s*\n\s*\.hoy-list\.dashboard-mosaic\{grid-template-columns:minmax\(0,\.82fr\) minmax\(0,1\.18fr\)/);
+  assert.match(html, /\.open-orders\{grid-column:1;order:1;/);
+  assert.match(html, /\.dispatch-panel\{grid-column:2;order:2;/);
+  // La barra gira 90° (columna) y muestra los tramos de arriba hacia abajo.
+  assert.match(html, /\.open-meter\{flex-direction:column-reverse;height:132px;min-height:132px/);
+  assert.match(html, /\.open-meter-paid\{flex:0 0 var\(--paid,0%\)/);
+  assert.match(html, /\.open-meter-due\{flex:0 0 var\(--due,0%\)/);
+  // Orden vertical restante: alertas, producción, cotizaciones.
+  assert.match(html, /\.dashboard-alerts\{grid-column:1\/-1;order:3;padding:14px 16px\}/);
+  assert.match(html, /\.flow-panel\{grid-column:1\/-1;order:4\}/);
+  assert.match(html, /\.quotes-panel\{grid-column:1\/-1;order:5\}/);
+});
+
+test('alertas: bitácora del taller con alta, resolución y persistencia local', () => {
+  assert.match(html, /id="alert-form"/);
+  for (const id of ['alert-type', 'alert-order', 'alert-note', 'alert-person', 'alert-date']) {
+    assert.ok(html.includes(`id="${id}"`), `falta ${id}`);
+  }
+  assert.match(html, /id="alert-list"/);
+  assert.match(html, /Faltan materiales/);
+  assert.match(html, /function addAlert\(/);
+  assert.match(html, /function resolveAlert\(/);
+  assert.match(html, /function renderAlerts\(/);
+  assert.match(html, /localStorage\.setItem\('mono_alerts'/);
+  assert.match(html, /id="alert-log-count"/);
+  // Y aparece también en el panel como módulo propio.
+  assert.match(html, /class="dashboard-alerts home-module/);
+  assert.match(html, /data-home-action="alerts"/);
+});
+
+test('alertas: se pueden ligar a un pedido y quedan abiertas hasta resolverlas', () => {
+  const context = vm.createContext({ localStorage: { getItem: () => null, setItem: () => {} } });
+  vm.runInContext(`
+    ${extractFunction(html, 'persistAlerts')}
+    let alerts=[];
+    const newId=()=>'a1';
+    const todayISO=()=>'2026-11-28';
+    ${extractFunction(html, 'openAlerts')}
+    ${extractFunction(html, 'addAlert')}
+    ${extractFunction(html, 'alertsForOrder')}
+    globalThis.api={addAlert,openAlerts,alertsForOrder,getAll:()=>alerts};
+  `, context);
+  const created = context.api.addAlert({ type: 'material', orderId: 'o1', note: '  Falta papel  ', person: 'Marco', date: '2026-11-28' });
+  assert.equal(created.note, 'Falta papel');
+  assert.equal(context.api.openAlerts().length, 1);
+  assert.equal(context.api.alertsForOrder('o1').length, 1);
+  assert.equal(context.api.alertsForOrder('o2').length, 0);
+});
+
+test('clientes: marca centrada, buscador y botón de alta arriba', () => {
+  const section = html.match(/<div id="clientes"[\s\S]*?<div id="placeholder"/)?.[0] || '';
+  assert.match(section, /class="clients-head"[\s\S]*?assets\/brand\/wordmark-navy\.png/);
+  const tools = section.match(/class="clients-tools"[\s\S]*?<\/div>/)?.[0] || '';
+  assert.match(tools, /id="client-search"/);
+  assert.match(tools, /\+ Agregar contacto/);
+  assert.match(html, /\.clients-head\{display:grid;justify-items:center/);
+  // El botón lleva al formulario y enfoca el nombre.
+  assert.match(html, /onclick="newClient\(true\)"/);
+  assert.match(html, /function newClient\(focus\)/);
+});
+
+test('formularios: retícula uniforme de filas y campos', () => {
+  for (const cls of ['form-stack', 'form-row', 'form-row--3', 'form-field', 'form-actions', 'form-section']) {
+    assert.match(html, new RegExp(`\\.${cls}\\{`), `falta ${cls}`);
+  }
+  for (const form of ['client-form', 'pay-amount', 'd-order', 'p-description', 'q-reviewer', 'alert-note']) {
+    assert.ok(html.includes(`id="${form}"`), `falta ${form}`);
+  }
+  // Los formularios usan la retícula en vez de márgenes sueltos.
+  assert.match(html, /<form id="client-form" class="form-stack">/);
+  assert.match(html, /<form id="delivery-form" class="form-stack">/);
+  assert.match(html, /<form id="payment-form" class="form-stack">/);
+  assert.match(html, /<form id="prod-form" class="form-stack">/);
+  assert.match(html, /<form id="quality-form" class="form-stack">/);
+  assert.match(html, /@media\(max-width:560px\)\{\.form-row,\.form-row--3\{grid-template-columns:1fr\}\}/);
+});
