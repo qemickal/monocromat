@@ -103,7 +103,7 @@ test('versión: CACHE_VERSION v10 y el precache incluye solo recursos existentes
 test('paleta: sin acentos fuera del manual y saldo con mint teal', () => {
   assert.doesNotMatch(html, /#d9f27b|#e2f187|#d3e878|#d7e98e|#4cd8c0/i);
   assert.match(html, /\.balance-panel\{[^}]*#49C7BE/);
-  assert.match(html, /\.open-bar-paid\{[^}]*#49C7BE/);
+  assert.match(html, /\.open-meter-paid\{[^}]*#49C7BE/);
 });
 
 test('marca: wordmark y monograma activos en barra, riel, manifest y precache', () => {
@@ -123,7 +123,7 @@ test('dashboard: panel compacto con gráfica de pedidos abiertos, sin saludo gig
   assert.doesNotMatch(html, /Un vistazo claro a entregas/);
   assert.match(html, /id="hoy-list"/);
   assert.match(html, /class="open-orders home-module"/);
-  assert.match(html, /class="open-bars"/);
+  assert.match(html, /class="open-meter"/);
   assert.match(html, /Abonado y por cobrar/);
   assert.match(html, /function openOrderStats\(/);
   assert.match(html, /class="flow-map"/);
@@ -153,7 +153,7 @@ test('navegación: iconos SVG sin etiquetas visibles, con nombres accesibles', (
 });
 
 test('formularios: campos principales tienen etiquetas y precios explicados', () => {
-  for (const [label, id] of [['CLIENTE *', 'quote-client'], ['PROYECTO *', 'quote-project'], ['TÉCNICA / PROCESO (OPCIONAL)', 'quote-technique'], ['NOMBRE *', 'c-name'], ['FECHA DE ENTREGA *', 'd-date']]) {
+  for (const [label, id] of [['CLIENTE *', 'quote-client'], ['PROYECTO *', 'quote-project'], ['NOMBRE *', 'c-name'], ['FECHA DE ENTREGA *', 'd-date'], ['VIGENCIA (DÍAS)', 'q-validity']]) {
     const start = html.indexOf(`<label class="field-label" for="${id}"`);
     const end = start < 0 ? -1 : html.indexOf('</label>', start);
     assert.ok(start >= 0 && end > start && html.slice(start, end).includes(label), `falta etiqueta para ${id}`);
@@ -181,7 +181,7 @@ test('dashboard: renderiza el mosaico con saldos completos y acciones reales', (
   });
   vm.runInContext(`${extractFunction(html, 'openOrderStats')}\n${extractFunction(html, 'renderOpenChart')}\n${extractFunction(html, 'renderHome')}\nrenderHome();`, context);
   assert.match(box.innerHTML, /class="open-orders home-module"/);
-  assert.match(box.innerHTML, /class="open-bar/);
+  assert.match(box.innerHTML, /class="open-meter-paid"/);
   assert.match(box.innerHTML, /Campaña otoño/);
   assert.match(box.innerHTML, /MXN 2300\.00/);
   assert.match(box.innerHTML, /data-home-action="payment" data-target="o1"/);
@@ -218,8 +218,12 @@ test('respaldo: exportar e importar JSON están en el panorama y validan el arch
 });
 
 test('cotización: productos y servicios se capturan en renglones libres, no en un catálogo', () => {
-  for (const id of ['quote-items', 'q-format', 'q-paper', 'q-delivery', 'q-deposit', 'q-validity']) {
+  for (const id of ['quote-items', 'q-delivery', 'q-deposit', 'q-validity']) {
     assert.ok(html.includes(`id="${id}"`), `falta el campo ${id}`);
+  }
+  // Papel, medidas, técnica y acabados ya no se capturan.
+  for (const gone of ['q-format', 'q-paper', 'quote-technique', 'class="q-finish"']) {
+    assert.ok(!html.includes(`id="${gone}"`), `sobra el campo ${gone}`);
   }
   assert.match(html, /PRODUCTO \/ DESCRIPCIÓN/);
   assert.match(html, /PRECIO UNITARIO/);
@@ -230,9 +234,7 @@ test('cotización: productos y servicios se capturan en renglones libres, no en 
   assert.match(html, /id="quote-errors"/);
   assert.match(html, /id="draft-status"/);
   assert.match(html, /Borrador guardado/);
-  for (const finish of ['Texturas en frío', 'Hot stamping', 'Laminados térmicos']) {
-    assert.ok(html.includes(`value="${finish}"`), `falta el acabado ${finish}`);
-  }
+  assert.doesNotMatch(html, /ACABADOS|Hot stamping/);
 });
 
 test('validación de cotización: permite técnica vacía y exige partidas completas', () => {

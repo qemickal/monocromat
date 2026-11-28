@@ -91,15 +91,33 @@ test('gráfica: abonado + por cobrar suma el total de los pedidos abiertos', () 
   assert.equal(stats.rows[0].order.id, 'a');
 });
 
-test('gráfica: cada barra se apila en abonado y por cobrar, y lo liquidado se marca', () => {
-  assert.match(html, /class="open-bar-plot"/);
-  assert.match(html, /class="open-bar-due"/);
-  assert.match(html, /class="open-bar-paid"/);
-  assert.match(html, /\.open-bar-paid\{width:100%;background:linear-gradient\(180deg,#5FD7CE,#49C7BE\)/);
-  assert.match(html, /\.open-bar\.done/);
-  assert.match(html, /data-home-action="payment"/);
-  assert.match(html, /ABONADO \+ POR COBRAR = TOTAL/);
+test('gráfica: una sola barra dividida en abonado y por cobrar', () => {
+  assert.match(html, /class="open-meter"/);
+  assert.match(html, /class="open-meter-paid"/);
+  assert.match(html, /class="open-meter-due"/);
+  assert.match(html, /\.open-meter\{display:flex;height:70px/);
+  assert.match(html, /\.open-meter-paid\{[^}]*#49C7BE/);
+  assert.match(html, /\.open-meter-due\{[^}]*#24479D/);
+  assert.doesNotMatch(html, /open-bar-plot|open-bar-due|open-bar-paid/);
+  assert.match(html, /ABONADO · \$\{paidPct\}%/);
+  assert.match(html, /POR COBRAR · \$\{duePct\}%/);
   assert.match(html, /function renderOpenChart\(stats\)/);
+  assert.match(html, /data-home-action="payments"/);
+});
+
+test('gráfica: la barra reparte el total entre abonado y por cobrar sin perder tramos', () => {
+  const context = vm.createContext({
+    money: (amount) => `$${Number(amount).toFixed(2)}`
+  });
+  vm.runInContext(`${extractFunction(html, 'renderOpenChart')}\nglobalThis.chart=renderOpenChart;`, context, { filename: 'open-chart.js' });
+  const markup = context.chart({ rows: [{}, {}, {}], total: 1800, paid: 900, due: 900 });
+  assert.match(markup, /width:50%/g);
+  assert.match(markup, /50% liquidado/);
+  // Un extremo en cero no desaparece la barra: mide 100 %.
+  const allPaid = context.chart({ rows: [{}], total: 1000, paid: 1000, due: 0 });
+  assert.match(allPaid, /open-meter-paid" style="width:100%/);
+  // Sin pedidos abiertos hay explicación, no barra vacía.
+  assert.match(context.chart({ rows: [], total: 0, paid: 0, due: 0 }), /open-empty/);
 });
 
 test('documentos: un solo motor A4 con la misma retícula y pie para los cinco formatos', () => {

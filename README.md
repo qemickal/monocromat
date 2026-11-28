@@ -68,13 +68,13 @@ La app dejó de ser una columna de bienvenida + tarjetas + listas. Ahora la estr
 
 ### Panel: gráfica de pedidos abiertos
 
-El saludo ocupa una línea (`Buenos días/tardes/noches` + «Esto es lo que sigue») y desaparece el título gigante. El primer módulo es **«Abonado y por cobrar»**, una gráfica de barras donde:
+El saludo ocupa una línea (`Buenos días/tardes/noches` + «Esto es lo que sigue») y desaparece el título gigante. El primer módulo es **«Abonado y por cobrar»**, una **sola barra dividida en dos tramos**:
 
-- **cada barra es un pedido abierto** (máximo nueve, el resto se cuenta en el eje);
-- la barra se apila en **abonado (mint `#49C7BE`)** abajo y **por cobrar (Dark Royal `#24479D`)** arriba, así que **abonado + por cobrar = total del pedido**;
-- al entregarse un pedido **y** quedar liquidado, sale de la gráfica y la suma se cierra sola (`openOrderStats()`);
-- tocar una barra abre el pedido en **Registrar abono**;
-- arriba se lee el total de pedidos abiertos, el abonado y el por cobrar, con la leyenda «Abonado + por cobrar = total».
+- **un único medidor horizontal**: la parte izquierda en **mint `#49C7BE`** es todo lo abonado y la derecha en **Dark Royal `#24479D`** es todo lo que falta por cobrar;
+- los dos tramos suman el **total de pedidos abiertos**, que se lee grande arriba junto a los dos importes y sus porcentajes;
+- cada tramo muestra su monto y su porcentaje, y se conserva un mínimo visible cuando un extremo está en cero;
+- al pie, la leyenda y `% liquidado`, con dos accesos: **Ver los N pedidos** y **Registrar abono** (abre el pedido con mayor saldo);
+- los pedidos entregados **y** liquidados salen del cálculo solos (`openOrderStats()`); los entregados con saldo siguen contando como por cobrar.
 
 Debajo, en mosaico y con alturas según su contenido: **Hoy — entregas**, **En producción ahora**, **Dinero que falta**, **Puntos que piden atención**, **Cotizaciones esperando** y la tira de **directorio**. No hay hero de 300 px ni tarjetas de relleno.
 
@@ -84,13 +84,17 @@ Los formatos viejos (Arial suelto, imagen de 130 px, 780 px de ancho) se reempla
 
 | Documento | Botón | Qué incluye |
 | --- | --- | --- |
-| **Cotización** | `Cotización en PDF` (panel de edición) | Partidas con importe, subtotal/IVA/total, formato, papel, acabados, anticipo, vigencia, condiciones, cliente y proyecto. |
+| **Cotización** | `Cotización en PDF` (panel de edición) | Partidas con importe, subtotal/IVA/total, anticipo, vigencia, condiciones, cliente y proyecto. |
 | **Pedido** | `Documento del pedido` (Pedidos) y `Pedido en PDF` (cotización) | Partidas, totales, **abonado y saldo**, estado de cuenta, barra de cobertura y tabla de abonos. |
-| **Orden de producción** | `Orden de producción` (Producción) | Especificaciones, piezas sin precios, materiales, notas y checklist de taller. |
+| **Orden de producción** | `Orden de producción` (Producción) | Datos de taller (costo y tiempo), piezas sin precios, qué se va a producir, notas y checklist. |
 | **Control de calidad** | `Control de calidad` (Producción) | Puntos de revisión marcados, verificador, fecha, observaciones y resultado. |
 | **Guía de entrega** | `Guía de entrega` (Calendario) | Punto de entrega, quien recibe, contenido, estado de cuenta y **saldo a la entrega**. |
 
 Cada documento abre una pestaña con barra de **Imprimir / guardar PDF** (oculta al imprimir) y `@page A4` con márgenes de 14 mm. Si el navegador bloquea la pestaña, la app avisa con el toast en lugar de fallar en silencio.
+
+### Captura más corta
+
+Para no repetir datos que ya viven en la descripción de cada partida, la cotización **ya no pide papel, medidas, técnica ni acabados**. Quedan tres campos de contexto —fecha de entrega, anticipo y vigencia— y las condiciones libres. La orden de producción tampoco tiene campo de materiales; el taller trabaja con «qué se va a producir» y las piezas del pedido. Los documentos heredados que ya tenían esos datos los siguen mostrando en su descripción, sin romper nada.
 
 ### Marca
 
